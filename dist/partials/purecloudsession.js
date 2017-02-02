@@ -106,15 +106,24 @@ PureCloudSession.prototype._loginWithImplicitGrant = function(clientId, redirect
         redirect_uri: encodeURI(redirectUrl),
         state: state
     };
-
-    function qs(url, key) {
-        var val = query[key];
-        if(!val) return url;
-        return url + '&' + key + '=' + val;
-    }
-
-    var url = Object.keys(query).reduce(qs, this.authUrl + '/authorize?');
+    
+    var url = this._buildAuthUrl('authorize', query);
     window.location.replace(url);
+};
+
+PureCloudSession.prototype._buildAuthUrl = function(path, query) {
+  function qs(url, key) {
+      var val = query[key];
+      if(!val) return url;
+      return url + '&' + key + '=' + val;
+  }
+  
+  if (!query) {
+    query = {};
+  }
+  
+  var baseUrl = this.authUrl + '/' + path + '?';
+  return Object.keys(query).reduce(qs, baseUrl);
 };
 
 PureCloudSession.prototype._setValuesFromUrlHash = function setValuesFromUrlHash() {
@@ -155,7 +164,11 @@ PureCloudSession.prototype._getToken = function _getToken() {
 PureCloudSession.prototype._setToken = function _setToken(token) {
     this.options.token = token;
     if(this.options.storageKey && PureCloudSession.hasLocalStorage) {
+      if (token) {
         localStorage.setItem(this.options.storageKey, token);
+      } else {
+        localStorage.removeItem(this.options.storageKey);
+      }
     }
 };
 
@@ -176,7 +189,14 @@ PureCloudSession.prototype.logout = function logout() {
     if(PureCloudSession.hasLocalStorage) {
         this._setToken(null);
     }
-	window.location.replace(this.authUrl + "/logout");
+    
+    var query = {
+        client_id: encodeURIComponent(this.options.clientId),
+        redirect_uri: encodeURI(this.options.redirectUrl)
+    };
+    
+    var url = this._buildAuthUrl('logout', query);
+    window.location.replace(url);
 };
 
 /**
