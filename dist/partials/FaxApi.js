@@ -15,31 +15,6 @@ function FaxApi(session) {
 }
 
 /**
-  * @summary Download a fax document.
-  * @memberOf FaxApi
-  * @instance
-  * @param {string} documentId - Document ID
-  * @example
-  * 200 Response Example:
-  * {
-   "contentLocationUri": "",
-   "imageUri": "",
-   "thumbnails": []
-}
-  */
-FaxApi.prototype.getDocumentsDocumentIdContent = function getDocumentsDocumentIdContent(documentId){
-    var requestPath = '/api/v2/fax/documents/{documentId}/content';
-    var requestQuery = {};
-    var requestBody;
-
-    if(documentId === undefined || documentId === null){
-      throw new Error('Missing required  parameter: documentId');
-    }
-    requestPath = requestPath.replace('{documentId}', documentId);
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get a document.
   * @memberOf FaxApi
   * @instance
@@ -223,9 +198,9 @@ FaxApi.prototype.getSummary = function getSummary(){
    "total": 0,
    "selfUri": "",
    "firstUri": "",
+   "lastUri": "",
    "previousUri": "",
    "nextUri": "",
-   "lastUri": "",
    "pageCount": 0
 }
   */
@@ -236,6 +211,31 @@ FaxApi.prototype.getDocuments = function getDocuments(pageSize, pageNumber){
 
     requestQuery["pageSize"] = pageSize;
     requestQuery["pageNumber"] = pageNumber;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Download a fax document.
+  * @memberOf FaxApi
+  * @instance
+  * @param {string} documentId - Document ID
+  * @example
+  * 200 Response Example:
+  * {
+   "contentLocationUri": "",
+   "imageUri": "",
+   "thumbnails": []
+}
+  */
+FaxApi.prototype.getDocumentsDocumentIdContent = function getDocumentsDocumentIdContent(documentId){
+    var requestPath = '/api/v2/fax/documents/{documentId}/content';
+    var requestQuery = {};
+    var requestBody;
+
+    if(documentId === undefined || documentId === null){
+      throw new Error('Missing required  parameter: documentId');
+    }
+    requestPath = requestPath.replace('{documentId}', documentId);
     return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 

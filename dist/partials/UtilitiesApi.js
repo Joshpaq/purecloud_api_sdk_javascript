@@ -77,9 +77,9 @@ UtilitiesApi.prototype.postDetails = function postDetails(body){
    "total": 0,
    "selfUri": "",
    "firstUri": "",
+   "lastUri": "",
    "previousUri": "",
    "nextUri": "",
-   "lastUri": "",
    "pageCount": 0
 }
   */

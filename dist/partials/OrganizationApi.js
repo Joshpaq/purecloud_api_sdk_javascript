@@ -15,26 +15,32 @@ function OrganizationApi(session) {
 }
 
 /**
-  * @summary Update organization
+  * @summary Get organization.
   * @memberOf OrganizationApi
   * @instance
-  * @param {} body - Feature to update.
   * @example
-  * Body Example:
+  * 200 Response Example:
   * {
-   "value": true,
-   "key": ""
+   "id": "",
+   "name": "",
+   "thirdPartyOrgId": "",
+   "thirdPartyOrgName": "",
+   "thirdPartyURI": "",
+   "domain": "",
+   "version": 0,
+   "state": "",
+   "defaultSiteId": "",
+   "deletable": true,
+   "selfUri": "",
+   "features": {}
 }
   */
-OrganizationApi.prototype.patchFeatures = function patchFeatures(body){
-    var requestPath = '/api/v2/organizations/features';
+OrganizationApi.prototype.getMe = function getMe(){
+    var requestPath = '/api/v2/organizations/me';
     var requestQuery = {};
     var requestBody;
 
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('PATCH', requestPath, requestQuery, requestBody);
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
@@ -72,32 +78,26 @@ OrganizationApi.prototype.getFieldconfig = function getFieldconfig(type){
 };
 
 /**
-  * @summary Get organization.
+  * @summary Update organization
   * @memberOf OrganizationApi
   * @instance
+  * @param {} body - Feature to update.
   * @example
-  * 200 Response Example:
+  * Body Example:
   * {
-   "id": "",
-   "name": "",
-   "thirdPartyOrgId": "",
-   "thirdPartyOrgName": "",
-   "thirdPartyURI": "",
-   "domain": "",
-   "version": 0,
-   "state": "",
-   "defaultSiteId": "",
-   "deletable": true,
-   "selfUri": "",
-   "features": {}
+   "value": true,
+   "key": ""
 }
   */
-OrganizationApi.prototype.getMe = function getMe(){
-    var requestPath = '/api/v2/organizations/me';
+OrganizationApi.prototype.patchFeatures = function patchFeatures(body){
+    var requestPath = '/api/v2/organizations/features';
     var requestQuery = {};
     var requestBody;
 
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('PATCH', requestPath, requestQuery, requestBody);
 };
 
 

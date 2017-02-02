@@ -239,125 +239,25 @@ PresenceApi.prototype.deletePresenceId = function deletePresenceId(presenceId){
 };
 
 /**
-  * @summary Get a user's Presence
+  * @summary Get the list of SystemPresences
   * @memberOf PresenceApi
   * @instance
-  * @param {string} userId - user Id
-  * @param {string} sourceId - Source
   * @example
   * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "source": "",
-   "primary": true,
-   "presenceDefinition": {
-      "id": "",
-      "name": "",
-      "languageLabels": {},
-      "systemPresence": "",
-      "deactivated": true,
-      "primary": true,
-      "createdBy": {},
-      "createdDate": "",
-      "modifiedBy": {},
-      "modifiedDate": "",
-      "selfUri": ""
-   },
-   "message": "",
-   "modifiedDate": "",
-   "selfUri": ""
-}
+  * [
+ {
+  "id": "",
+  "name": "",
+  "selfUri": ""
+ }
+]
   */
-PresenceApi.prototype.getUserIdPresencesSourceId = function getUserIdPresencesSourceId(userId, sourceId){
-    var requestPath = '/api/v2/users/{userId}/presences/{sourceId}';
+PresenceApi.prototype.getSystempresences = function getSystempresences(){
+    var requestPath = '/api/v2/systempresences';
     var requestQuery = {};
     var requestBody;
 
-    if(userId === undefined || userId === null){
-      throw new Error('Missing required  parameter: userId');
-    }
-    requestPath = requestPath.replace('{userId}', userId);
-    if(sourceId === undefined || sourceId === null){
-      throw new Error('Missing required  parameter: sourceId');
-    }
-    requestPath = requestPath.replace('{sourceId}', sourceId);
     return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Patch a user's Presence
-  * @description The presence object can be patched one of three ways. Option 1: Set the 'primary' property to true. This will set the 'source' defined in the path as the user's primary presence source. Option 2: Provide the presenceDefinition value. The 'id' is the only value required within the presenceDefinition. Option 3: Provide the message value. Option 1 can be combined with Option 2 and/or Option 3.
-  * @memberOf PresenceApi
-  * @instance
-  * @param {string} userId - user Id
-  * @param {string} sourceId - Source
-  * @param {} body - User presence
-  * @example
-  * Body Example:
-  * {
-   "name": "",
-   "source": "",
-   "primary": true,
-   "presenceDefinition": {
-      "name": "",
-      "languageLabels": {},
-      "systemPresence": "",
-      "deactivated": true,
-      "primary": true,
-      "createdBy": {},
-      "createdDate": "",
-      "modifiedBy": {},
-      "modifiedDate": ""
-   },
-   "message": "",
-   "modifiedDate": ""
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "source": "",
-   "primary": true,
-   "presenceDefinition": {
-      "id": "",
-      "name": "",
-      "languageLabels": {},
-      "systemPresence": "",
-      "deactivated": true,
-      "primary": true,
-      "createdBy": {},
-      "createdDate": "",
-      "modifiedBy": {},
-      "modifiedDate": "",
-      "selfUri": ""
-   },
-   "message": "",
-   "modifiedDate": "",
-   "selfUri": ""
-}
-  */
-PresenceApi.prototype.patchUserIdPresencesSourceId = function patchUserIdPresencesSourceId(userId, sourceId, body){
-    var requestPath = '/api/v2/users/{userId}/presences/{sourceId}';
-    var requestQuery = {};
-    var requestBody;
-
-    if(userId === undefined || userId === null){
-      throw new Error('Missing required  parameter: userId');
-    }
-    requestPath = requestPath.replace('{userId}', userId);
-    if(sourceId === undefined || sourceId === null){
-      throw new Error('Missing required  parameter: sourceId');
-    }
-    requestPath = requestPath.replace('{sourceId}', sourceId);
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('PATCH', requestPath, requestQuery, requestBody);
 };
 
 /**
@@ -377,9 +277,9 @@ PresenceApi.prototype.patchUserIdPresencesSourceId = function patchUserIdPresenc
    "total": 0,
    "selfUri": "",
    "firstUri": "",
+   "lastUri": "",
    "previousUri": "",
    "nextUri": "",
-   "lastUri": "",
    "pageCount": 0
 }
   */
@@ -514,25 +414,125 @@ PresenceApi.prototype.postPresencedefinitions = function postPresencedefinitions
 };
 
 /**
-  * @summary Get the list of SystemPresences
+  * @summary Get a user's Presence
   * @memberOf PresenceApi
   * @instance
+  * @param {string} userId - user Id
+  * @param {string} sourceId - Source
   * @example
   * 200 Response Example:
-  * [
- {
-  "id": "",
-  "name": "",
-  "selfUri": ""
- }
-]
+  * {
+   "id": "",
+   "name": "",
+   "source": "",
+   "primary": true,
+   "presenceDefinition": {
+      "id": "",
+      "name": "",
+      "languageLabels": {},
+      "systemPresence": "",
+      "deactivated": true,
+      "primary": true,
+      "createdBy": {},
+      "createdDate": "",
+      "modifiedBy": {},
+      "modifiedDate": "",
+      "selfUri": ""
+   },
+   "message": "",
+   "modifiedDate": "",
+   "selfUri": ""
+}
   */
-PresenceApi.prototype.getSystempresences = function getSystempresences(){
-    var requestPath = '/api/v2/systempresences';
+PresenceApi.prototype.getUserIdPresencesSourceId = function getUserIdPresencesSourceId(userId, sourceId){
+    var requestPath = '/api/v2/users/{userId}/presences/{sourceId}';
     var requestQuery = {};
     var requestBody;
 
+    if(userId === undefined || userId === null){
+      throw new Error('Missing required  parameter: userId');
+    }
+    requestPath = requestPath.replace('{userId}', userId);
+    if(sourceId === undefined || sourceId === null){
+      throw new Error('Missing required  parameter: sourceId');
+    }
+    requestPath = requestPath.replace('{sourceId}', sourceId);
     return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Patch a user's Presence
+  * @description The presence object can be patched one of three ways. Option 1: Set the 'primary' property to true. This will set the 'source' defined in the path as the user's primary presence source. Option 2: Provide the presenceDefinition value. The 'id' is the only value required within the presenceDefinition. Option 3: Provide the message value. Option 1 can be combined with Option 2 and/or Option 3.
+  * @memberOf PresenceApi
+  * @instance
+  * @param {string} userId - user Id
+  * @param {string} sourceId - Source
+  * @param {} body - User presence
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "source": "",
+   "primary": true,
+   "presenceDefinition": {
+      "name": "",
+      "languageLabels": {},
+      "systemPresence": "",
+      "deactivated": true,
+      "primary": true,
+      "createdBy": {},
+      "createdDate": "",
+      "modifiedBy": {},
+      "modifiedDate": ""
+   },
+   "message": "",
+   "modifiedDate": ""
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "source": "",
+   "primary": true,
+   "presenceDefinition": {
+      "id": "",
+      "name": "",
+      "languageLabels": {},
+      "systemPresence": "",
+      "deactivated": true,
+      "primary": true,
+      "createdBy": {},
+      "createdDate": "",
+      "modifiedBy": {},
+      "modifiedDate": "",
+      "selfUri": ""
+   },
+   "message": "",
+   "modifiedDate": "",
+   "selfUri": ""
+}
+  */
+PresenceApi.prototype.patchUserIdPresencesSourceId = function patchUserIdPresencesSourceId(userId, sourceId, body){
+    var requestPath = '/api/v2/users/{userId}/presences/{sourceId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(userId === undefined || userId === null){
+      throw new Error('Missing required  parameter: userId');
+    }
+    requestPath = requestPath.replace('{userId}', userId);
+    if(sourceId === undefined || sourceId === null){
+      throw new Error('Missing required  parameter: sourceId');
+    }
+    requestPath = requestPath.replace('{sourceId}', sourceId);
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('PATCH', requestPath, requestQuery, requestBody);
 };
 
 
