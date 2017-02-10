@@ -94,8 +94,7 @@ describe('Use Case: Update user status', () => {
         .then((presence) => {
           assert.deepEqual(presence.presenceDefinition.id, PRESENCE_OFFLINE);
         })
-        .then((users) => {
-          userId = users.entities[0].id;
+        .then(() => {
           return Presence.patchUserIdPresencesSourceId(userId, tag, PRESENCE_AVAILABLE_BODY);
         })
         .then((presence) => {
