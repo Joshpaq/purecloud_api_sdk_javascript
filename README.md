@@ -24,7 +24,7 @@ npm install purecloud_api_sdk_javascript
 Reference from the CDN:
 
 ~~~html
-<!-- Replace `0.46.0` with the version you want to use. -->
+<!-- Replace `0.51.1` with the version you want to use. -->
 <script src="https://sdk-cdn.mypurecloud.com/javascript/0.51.1/purecloud-api.min.js"></script>
 ~~~
 
@@ -37,17 +37,39 @@ View the source code on [Github](https://github.com/MyPureCloud/purecloud_api_sd
 
 For convenience, all modules are bundled together.
 
-~~~html
+~~~ html
 <!-- Include the full library -->
 <script type="text/javascript" src="purecloud-api.js"></script>
 
+~~~
+
+## NodeJS usage
+
+Start by requireing the purecloud package
+
+~~~ js
+var purecloud = require('purecloud_api_sdk_javascript');
+~~~
+
+When using the sdk in the browser, the classes are all in the purecloud.platform namespace, but when using in Node, everything is just on that new purecloud object that was created from the require. Subsequent calls would look similar to this usage.
+
+~~~ js
+let session = purecloud.PureCloudSession({...});
+let authApi = purecloud.AuthorizationApi(session);
+
+session.login().then(function(){
+    authApi.getRoles()
+      .then((roles) => {
+        ...
+      });
+});
 ~~~
 
 ## Authentication
 
 Every module uses a ~PureCloudSession~ to make authenticated requests to the PureCloud API.
 
-**¡Auth Type Restrictions!**
+**Auth Type Restrictions!**
 
 The **client-credentials** strategy only works when used in node.js. This is restricted intentionally because it is impossible for client credentials to be handled securely in a browser application.
 
