@@ -193,6 +193,10 @@
       "class": "UserRoutingStatusNotification"
     },
     {
+      "topic": "v2.users.{id}.station",
+      "class": "UserStationsNotification"
+    },
+    {
       "topic": "v2.users.{id}.userrecordings",
       "class": "RecordingDataV2Notification"
     },

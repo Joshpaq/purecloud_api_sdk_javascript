@@ -27,9 +27,9 @@ function OAuthApi(session) {
    "total": 0,
    "selfUri": "",
    "firstUri": "",
-   "lastUri": "",
    "previousUri": "",
    "nextUri": "",
+   "lastUri": "",
    "pageCount": 0
 }
   */
@@ -87,6 +87,38 @@ OAuthApi.prototype.postClients = function postClients(body){
     if(body !== undefined && body !== null){
       requestBody = body;
     }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Regenerate Client Secret
+  * @description This operation will set the client secret to a randomly generated cryptographically random value. All clients must be updated with the new secret. This operation should be used with caution.
+  * @memberOf OAuthApi
+  * @instance
+  * @param {string} clientId - Client ID
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "accessTokenValiditySeconds": 0,
+   "description": "",
+   "registeredRedirectUri": [],
+   "secret": "",
+   "roleIds": [],
+   "authorizedGrantType": "",
+   "selfUri": ""
+}
+  */
+OAuthApi.prototype.postClientsClientIdSecret = function postClientsClientIdSecret(clientId){
+    var requestPath = '/api/v2/oauth/clients/{clientId}/secret';
+    var requestQuery = {};
+    var requestBody;
+
+    if(clientId === undefined || clientId === null){
+      throw new Error('Missing required  parameter: clientId');
+    }
+    requestPath = requestPath.replace('{clientId}', clientId);
     return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
 };
 
@@ -186,25 +218,6 @@ OAuthApi.prototype.deleteClientsClientId = function deleteClientsClientId(client
     }
     requestPath = requestPath.replace('{clientId}', clientId);
     return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Regenerate Client Secret
-  * @description This operation will set the client secret to a randomly generated cryptographically random value. All clients must be updated with the new secret. This operation should be used with caution.
-  * @memberOf OAuthApi
-  * @instance
-  * @param {string} clientId - Client ID
-  */
-OAuthApi.prototype.postClientsClientIdSecret = function postClientsClientIdSecret(clientId){
-    var requestPath = '/api/v2/oauth/clients/{clientId}/secret';
-    var requestQuery = {};
-    var requestBody;
-
-    if(clientId === undefined || clientId === null){
-      throw new Error('Missing required  parameter: clientId');
-    }
-    requestPath = requestPath.replace('{clientId}', clientId);
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
 };
 
 

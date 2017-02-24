@@ -15,76 +15,16 @@ function ResponseManagementApi(session) {
 }
 
 /**
-  * @summary Gets a list of existing responses.
+  * @summary Get details about an existing response library.
   * @memberOf ResponseManagementApi
   * @instance
   * @param {string} libraryId - Library ID
-  * @param {integer} pageNumber - Page number
-  * @param {integer} pageSize - Page size
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "lastUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "pageCount": 0
-}
-  */
-ResponseManagementApi.prototype.getResponses = function getResponses(libraryId, pageNumber, pageSize){
-    var requestPath = '/api/v2/responsemanagement/responses';
-    var requestQuery = {};
-    var requestBody;
-
-    if(libraryId === undefined || libraryId === null){
-      throw new Error('Missing required  parameter: libraryId');
-    }
-    requestQuery["libraryId"] = libraryId;
-    requestQuery["pageNumber"] = pageNumber;
-    requestQuery["pageSize"] = pageSize;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Create a response.
-  * @memberOf ResponseManagementApi
-  * @instance
-  * @param {} body - Response
-  * @example
-  * Body Example:
-  * {
-   "name": "",
-   "version": 0,
-   "libraries": [],
-   "texts": [],
-   "createdBy": {
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "addresses": [],
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0
-   },
-   "dateCreated": "",
-   "interactionType": ""
-}
   * @example
   * 200 Response Example:
   * {
    "id": "",
    "name": "",
    "version": 0,
-   "libraries": [],
-   "texts": [],
    "createdBy": {
       "id": "",
       "name": "",
@@ -111,102 +51,27 @@ ResponseManagementApi.prototype.getResponses = function getResponses(libraryId, 
       "selfUri": ""
    },
    "dateCreated": "",
-   "interactionType": "",
    "selfUri": ""
 }
   */
-ResponseManagementApi.prototype.postResponses = function postResponses(body){
-    var requestPath = '/api/v2/responsemanagement/responses';
+ResponseManagementApi.prototype.getLibrariesLibraryId = function getLibrariesLibraryId(libraryId){
+    var requestPath = '/api/v2/responsemanagement/libraries/{libraryId}';
     var requestQuery = {};
     var requestBody;
 
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
+    if(libraryId === undefined || libraryId === null){
+      throw new Error('Missing required  parameter: libraryId');
     }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Query responses
-  * @memberOf ResponseManagementApi
-  * @instance
-  * @param {} body - Response
-  * @example
-  * Body Example:
-  * {
-   "queryPhrase": "",
-   "pageSize": 0,
-   "filters": []
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "results": {
-      "entities": [],
-      "pageSize": 0,
-      "pageNumber": 0,
-      "total": 0,
-      "selfUri": "",
-      "firstUri": "",
-      "lastUri": "",
-      "previousUri": "",
-      "nextUri": "",
-      "pageCount": 0
-   }
-}
-  */
-ResponseManagementApi.prototype.postResponsesQuery = function postResponsesQuery(body){
-    var requestPath = '/api/v2/responsemanagement/responses/query';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Gets a list of existing response libraries.
-  * @memberOf ResponseManagementApi
-  * @instance
-  * @param {integer} pageNumber - Page number
-  * @param {integer} pageSize - Page size
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "lastUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "pageCount": 0
-}
-  */
-ResponseManagementApi.prototype.getLibraries = function getLibraries(pageNumber, pageSize){
-    var requestPath = '/api/v2/responsemanagement/libraries';
-    var requestQuery = {};
-    var requestBody;
-
-    requestQuery["pageNumber"] = pageNumber;
-    requestQuery["pageSize"] = pageSize;
+    requestPath = requestPath.replace('{libraryId}', libraryId);
     return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
-  * @summary Create a response library.
+  * @summary Update an existing response library.
+  * @description Fields that can be updated: name. The most recent version is required for updates.
   * @memberOf ResponseManagementApi
   * @instance
+  * @param {string} libraryId - Library ID
   * @param {} body - Library
   * @example
   * Body Example:
@@ -262,8 +127,74 @@ ResponseManagementApi.prototype.getLibraries = function getLibraries(pageNumber,
    "selfUri": ""
 }
   */
-ResponseManagementApi.prototype.postLibraries = function postLibraries(body){
-    var requestPath = '/api/v2/responsemanagement/libraries';
+ResponseManagementApi.prototype.putLibrariesLibraryId = function putLibrariesLibraryId(libraryId, body){
+    var requestPath = '/api/v2/responsemanagement/libraries/{libraryId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(libraryId === undefined || libraryId === null){
+      throw new Error('Missing required  parameter: libraryId');
+    }
+    requestPath = requestPath.replace('{libraryId}', libraryId);
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Delete an existing response library.
+  * @description This will remove any responses associated with the library.
+  * @memberOf ResponseManagementApi
+  * @instance
+  * @param {string} libraryId - Library ID
+  */
+ResponseManagementApi.prototype.deleteLibrariesLibraryId = function deleteLibrariesLibraryId(libraryId){
+    var requestPath = '/api/v2/responsemanagement/libraries/{libraryId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(libraryId === undefined || libraryId === null){
+      throw new Error('Missing required  parameter: libraryId');
+    }
+    requestPath = requestPath.replace('{libraryId}', libraryId);
+    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Query responses
+  * @memberOf ResponseManagementApi
+  * @instance
+  * @param {} body - Response
+  * @example
+  * Body Example:
+  * {
+   "queryPhrase": "",
+   "pageSize": 0,
+   "filters": []
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "results": {
+      "entities": [],
+      "pageSize": 0,
+      "pageNumber": 0,
+      "total": 0,
+      "selfUri": "",
+      "firstUri": "",
+      "previousUri": "",
+      "nextUri": "",
+      "lastUri": "",
+      "pageCount": 0
+   }
+}
+  */
+ResponseManagementApi.prototype.postResponsesQuery = function postResponsesQuery(body){
+    var requestPath = '/api/v2/responsemanagement/responses/query';
     var requestQuery = {};
     var requestBody;
 
@@ -436,63 +367,40 @@ ResponseManagementApi.prototype.deleteResponsesResponseId = function deleteRespo
 };
 
 /**
-  * @summary Get details about an existing response library.
+  * @summary Gets a list of existing response libraries.
   * @memberOf ResponseManagementApi
   * @instance
-  * @param {string} libraryId - Library ID
+  * @param {integer} pageNumber - Page number
+  * @param {integer} pageSize - Page size
   * @example
   * 200 Response Example:
   * {
-   "id": "",
-   "name": "",
-   "version": 0,
-   "createdBy": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "dateCreated": "",
-   "selfUri": ""
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "selfUri": "",
+   "firstUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
 }
   */
-ResponseManagementApi.prototype.getLibrariesLibraryId = function getLibrariesLibraryId(libraryId){
-    var requestPath = '/api/v2/responsemanagement/libraries/{libraryId}';
+ResponseManagementApi.prototype.getLibraries = function getLibraries(pageNumber, pageSize){
+    var requestPath = '/api/v2/responsemanagement/libraries';
     var requestQuery = {};
     var requestBody;
 
-    if(libraryId === undefined || libraryId === null){
-      throw new Error('Missing required  parameter: libraryId');
-    }
-    requestPath = requestPath.replace('{libraryId}', libraryId);
+    requestQuery["pageNumber"] = pageNumber;
+    requestQuery["pageSize"] = pageSize;
     return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
-  * @summary Update an existing response library.
-  * @description Fields that can be updated: name. The most recent version is required for updates.
+  * @summary Create a response library.
   * @memberOf ResponseManagementApi
   * @instance
-  * @param {string} libraryId - Library ID
   * @param {} body - Library
   * @example
   * Body Example:
@@ -548,41 +456,133 @@ ResponseManagementApi.prototype.getLibrariesLibraryId = function getLibrariesLib
    "selfUri": ""
 }
   */
-ResponseManagementApi.prototype.putLibrariesLibraryId = function putLibrariesLibraryId(libraryId, body){
-    var requestPath = '/api/v2/responsemanagement/libraries/{libraryId}';
+ResponseManagementApi.prototype.postLibraries = function postLibraries(body){
+    var requestPath = '/api/v2/responsemanagement/libraries';
     var requestQuery = {};
     var requestBody;
 
-    if(libraryId === undefined || libraryId === null){
-      throw new Error('Missing required  parameter: libraryId');
-    }
-    requestPath = requestPath.replace('{libraryId}', libraryId);
     if(body === undefined || body === null){
       throw new Error('Missing required  parameter: body');
     }
     if(body !== undefined && body !== null){
       requestBody = body;
     }
-    return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
 };
 
 /**
-  * @summary Delete an existing response library.
-  * @description This will remove any responses associated with the library.
+  * @summary Gets a list of existing responses.
   * @memberOf ResponseManagementApi
   * @instance
   * @param {string} libraryId - Library ID
+  * @param {integer} pageNumber - Page number
+  * @param {integer} pageSize - Page size
+  * @example
+  * 200 Response Example:
+  * {
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "selfUri": "",
+   "firstUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
+}
   */
-ResponseManagementApi.prototype.deleteLibrariesLibraryId = function deleteLibrariesLibraryId(libraryId){
-    var requestPath = '/api/v2/responsemanagement/libraries/{libraryId}';
+ResponseManagementApi.prototype.getResponses = function getResponses(libraryId, pageNumber, pageSize){
+    var requestPath = '/api/v2/responsemanagement/responses';
     var requestQuery = {};
     var requestBody;
 
     if(libraryId === undefined || libraryId === null){
       throw new Error('Missing required  parameter: libraryId');
     }
-    requestPath = requestPath.replace('{libraryId}', libraryId);
-    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
+    requestQuery["libraryId"] = libraryId;
+    requestQuery["pageNumber"] = pageNumber;
+    requestQuery["pageSize"] = pageSize;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Create a response.
+  * @memberOf ResponseManagementApi
+  * @instance
+  * @param {} body - Response
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "version": 0,
+   "libraries": [],
+   "texts": [],
+   "createdBy": {
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "addresses": [],
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0
+   },
+   "dateCreated": "",
+   "interactionType": ""
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "version": 0,
+   "libraries": [],
+   "texts": [],
+   "createdBy": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "selfUri": ""
+   },
+   "dateCreated": "",
+   "interactionType": "",
+   "selfUri": ""
+}
+  */
+ResponseManagementApi.prototype.postResponses = function postResponses(body){
+    var requestPath = '/api/v2/responsemanagement/responses';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
 };
 
 

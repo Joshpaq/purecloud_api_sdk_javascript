@@ -15,252 +15,6 @@ function PresenceApi(session) {
 }
 
 /**
-  * @summary Get a Presence Definition
-  * @memberOf PresenceApi
-  * @instance
-  * @param {string} presenceId - Organization Presence ID
-  * @param {string} localeCode - The locale code to fetch for the presence definition. Use ALL to fetch everything.
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "languageLabels": {},
-   "systemPresence": "",
-   "deactivated": true,
-   "primary": true,
-   "createdBy": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "createdDate": "",
-   "modifiedBy": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "modifiedDate": "",
-   "selfUri": ""
-}
-  */
-PresenceApi.prototype.getPresenceId = function getPresenceId(presenceId, localeCode){
-    var requestPath = '/api/v2/presencedefinitions/{presenceId}';
-    var requestQuery = {};
-    var requestBody;
-
-    if(presenceId === undefined || presenceId === null){
-      throw new Error('Missing required  parameter: presenceId');
-    }
-    requestPath = requestPath.replace('{presenceId}', presenceId);
-    requestQuery["localeCode"] = localeCode;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Update a Presence Definition
-  * @memberOf PresenceApi
-  * @instance
-  * @param {string} presenceId - Organization Presence ID
-  * @param {} body - The OrganizationPresence to update
-  * @example
-  * Body Example:
-  * {
-   "name": "",
-   "languageLabels": {},
-   "systemPresence": "",
-   "deactivated": true,
-   "primary": true,
-   "createdBy": {
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "addresses": [],
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0
-   },
-   "createdDate": "",
-   "modifiedBy": {
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "addresses": [],
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0
-   },
-   "modifiedDate": ""
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "languageLabels": {},
-   "systemPresence": "",
-   "deactivated": true,
-   "primary": true,
-   "createdBy": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "createdDate": "",
-   "modifiedBy": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "modifiedDate": "",
-   "selfUri": ""
-}
-  */
-PresenceApi.prototype.putPresenceId = function putPresenceId(presenceId, body){
-    var requestPath = '/api/v2/presencedefinitions/{presenceId}';
-    var requestQuery = {};
-    var requestBody;
-
-    if(presenceId === undefined || presenceId === null){
-      throw new Error('Missing required  parameter: presenceId');
-    }
-    requestPath = requestPath.replace('{presenceId}', presenceId);
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Delete a Presence Definition
-  * @memberOf PresenceApi
-  * @instance
-  * @param {string} presenceId - Organization Presence ID
-  */
-PresenceApi.prototype.deletePresenceId = function deletePresenceId(presenceId){
-    var requestPath = '/api/v2/presencedefinitions/{presenceId}';
-    var requestQuery = {};
-    var requestBody;
-
-    if(presenceId === undefined || presenceId === null){
-      throw new Error('Missing required  parameter: presenceId');
-    }
-    requestPath = requestPath.replace('{presenceId}', presenceId);
-    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get the list of SystemPresences
-  * @memberOf PresenceApi
-  * @instance
-  * @example
-  * 200 Response Example:
-  * [
- {
-  "id": "",
-  "name": "",
-  "selfUri": ""
- }
-]
-  */
-PresenceApi.prototype.getSystempresences = function getSystempresences(){
-    var requestPath = '/api/v2/systempresences';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get an Organization's list of Presence Definitions
   * @memberOf PresenceApi
   * @instance
@@ -277,9 +31,9 @@ PresenceApi.prototype.getSystempresences = function getSystempresences(){
    "total": 0,
    "selfUri": "",
    "firstUri": "",
-   "lastUri": "",
    "previousUri": "",
    "nextUri": "",
+   "lastUri": "",
    "pageCount": 0
 }
   */
@@ -533,6 +287,252 @@ PresenceApi.prototype.patchUserIdPresencesSourceId = function patchUserIdPresenc
       requestBody = body;
     }
     return this.session.makeRequest('PATCH', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get the list of SystemPresences
+  * @memberOf PresenceApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * [
+ {
+  "id": "",
+  "name": "",
+  "selfUri": ""
+ }
+]
+  */
+PresenceApi.prototype.getSystempresences = function getSystempresences(){
+    var requestPath = '/api/v2/systempresences';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get a Presence Definition
+  * @memberOf PresenceApi
+  * @instance
+  * @param {string} presenceId - Organization Presence ID
+  * @param {string} localeCode - The locale code to fetch for the presence definition. Use ALL to fetch everything.
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "languageLabels": {},
+   "systemPresence": "",
+   "deactivated": true,
+   "primary": true,
+   "createdBy": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "selfUri": ""
+   },
+   "createdDate": "",
+   "modifiedBy": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "selfUri": ""
+   },
+   "modifiedDate": "",
+   "selfUri": ""
+}
+  */
+PresenceApi.prototype.getPresenceId = function getPresenceId(presenceId, localeCode){
+    var requestPath = '/api/v2/presencedefinitions/{presenceId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(presenceId === undefined || presenceId === null){
+      throw new Error('Missing required  parameter: presenceId');
+    }
+    requestPath = requestPath.replace('{presenceId}', presenceId);
+    requestQuery["localeCode"] = localeCode;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Update a Presence Definition
+  * @memberOf PresenceApi
+  * @instance
+  * @param {string} presenceId - Organization Presence ID
+  * @param {} body - The OrganizationPresence to update
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "languageLabels": {},
+   "systemPresence": "",
+   "deactivated": true,
+   "primary": true,
+   "createdBy": {
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "addresses": [],
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0
+   },
+   "createdDate": "",
+   "modifiedBy": {
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "addresses": [],
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0
+   },
+   "modifiedDate": ""
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "languageLabels": {},
+   "systemPresence": "",
+   "deactivated": true,
+   "primary": true,
+   "createdBy": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "selfUri": ""
+   },
+   "createdDate": "",
+   "modifiedBy": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "selfUri": ""
+   },
+   "modifiedDate": "",
+   "selfUri": ""
+}
+  */
+PresenceApi.prototype.putPresenceId = function putPresenceId(presenceId, body){
+    var requestPath = '/api/v2/presencedefinitions/{presenceId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(presenceId === undefined || presenceId === null){
+      throw new Error('Missing required  parameter: presenceId');
+    }
+    requestPath = requestPath.replace('{presenceId}', presenceId);
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Delete a Presence Definition
+  * @memberOf PresenceApi
+  * @instance
+  * @param {string} presenceId - Organization Presence ID
+  */
+PresenceApi.prototype.deletePresenceId = function deletePresenceId(presenceId){
+    var requestPath = '/api/v2/presencedefinitions/{presenceId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(presenceId === undefined || presenceId === null){
+      throw new Error('Missing required  parameter: presenceId');
+    }
+    requestPath = requestPath.replace('{presenceId}', presenceId);
+    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
 };
 
 

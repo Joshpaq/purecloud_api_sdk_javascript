@@ -15,6 +15,156 @@ function LanguagesApi(session) {
 }
 
 /**
+  * @summary Get effective translation for an organization by language
+  * @memberOf LanguagesApi
+  * @instance
+  * @param {string} language - The language of the translation to retrieve for the organization
+  */
+LanguagesApi.prototype.getTranslationsOrganization = function getTranslationsOrganization(language){
+    var requestPath = '/api/v2/languages/translations/organization';
+    var requestQuery = {};
+    var requestBody;
+
+    if(language === undefined || language === null){
+      throw new Error('Missing required  parameter: language');
+    }
+    requestQuery["language"] = language;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get effective language translation for a user
+  * @memberOf LanguagesApi
+  * @instance
+  * @param {string} userId - The user id
+  */
+LanguagesApi.prototype.getTranslationsUsersUserId = function getTranslationsUsersUserId(userId){
+    var requestPath = '/api/v2/languages/translations/users/{userId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(userId === undefined || userId === null){
+      throw new Error('Missing required  parameter: userId');
+    }
+    requestPath = requestPath.replace('{userId}', userId);
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get all available languages for translation
+  * @memberOf LanguagesApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * {
+   "orgSpecific": [],
+   "builtin": []
+}
+  */
+LanguagesApi.prototype.getTranslations = function getTranslations(){
+    var requestPath = '/api/v2/languages/translations';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get the builtin translation for a language
+  * @memberOf LanguagesApi
+  * @instance
+  * @param {string} language - The language of the builtin translation to retrieve
+  */
+LanguagesApi.prototype.getTranslationsBuiltin = function getTranslationsBuiltin(language){
+    var requestPath = '/api/v2/languages/translations/builtin';
+    var requestQuery = {};
+    var requestBody;
+
+    if(language === undefined || language === null){
+      throw new Error('Missing required  parameter: language');
+    }
+    requestQuery["language"] = language;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get the list of supported languages. (Deprecated)
+  * @description This endpoint is deprecated. It has been moved to /routing/languages
+  * @memberOf LanguagesApi
+  * @instance
+  * @param {integer} pageSize - Page size
+  * @param {integer} pageNumber - Page number
+  * @param {string} sortOrder - Ascending or descending sort order
+  ascending,
+  descending,
+  * @param {string} name - Name
+  * @example
+  * 200 Response Example:
+  * {
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "selfUri": "",
+   "firstUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
+}
+  */
+LanguagesApi.prototype.getLanguages = function getLanguages(pageSize, pageNumber, sortOrder, name){
+    var requestPath = '/api/v2/languages';
+    var requestQuery = {};
+    var requestBody;
+
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["pageNumber"] = pageNumber;
+    requestQuery["sortOrder"] = sortOrder;
+    requestQuery["name"] = name;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Create Language (Deprecated)
+  * @description This endpoint is deprecated. It has been moved to /routing/languages
+  * @memberOf LanguagesApi
+  * @instance
+  * @param {} body - Language
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "dateModified": "",
+   "state": "",
+   "version": ""
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "dateModified": "",
+   "state": "",
+   "version": "",
+   "selfUri": ""
+}
+  */
+LanguagesApi.prototype.postLanguages = function postLanguages(body){
+    var requestPath = '/api/v2/languages';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
   * @summary Get language
   * @memberOf LanguagesApi
   * @instance
@@ -106,156 +256,6 @@ LanguagesApi.prototype.deleteLanguageId = function deleteLanguageId(languageId){
     }
     requestPath = requestPath.replace('{languageId}', languageId);
     return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get all available languages for translation
-  * @memberOf LanguagesApi
-  * @instance
-  * @example
-  * 200 Response Example:
-  * {
-   "orgSpecific": [],
-   "builtin": []
-}
-  */
-LanguagesApi.prototype.getTranslations = function getTranslations(){
-    var requestPath = '/api/v2/languages/translations';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get effective language translation for a user
-  * @memberOf LanguagesApi
-  * @instance
-  * @param {string} userId - The user id
-  */
-LanguagesApi.prototype.getTranslationsUsersUserId = function getTranslationsUsersUserId(userId){
-    var requestPath = '/api/v2/languages/translations/users/{userId}';
-    var requestQuery = {};
-    var requestBody;
-
-    if(userId === undefined || userId === null){
-      throw new Error('Missing required  parameter: userId');
-    }
-    requestPath = requestPath.replace('{userId}', userId);
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get the builtin translation for a language
-  * @memberOf LanguagesApi
-  * @instance
-  * @param {string} language - The language of the builtin translation to retrieve
-  */
-LanguagesApi.prototype.getTranslationsBuiltin = function getTranslationsBuiltin(language){
-    var requestPath = '/api/v2/languages/translations/builtin';
-    var requestQuery = {};
-    var requestBody;
-
-    if(language === undefined || language === null){
-      throw new Error('Missing required  parameter: language');
-    }
-    requestQuery["language"] = language;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get effective translation for an organization by language
-  * @memberOf LanguagesApi
-  * @instance
-  * @param {string} language - The language of the translation to retrieve for the organization
-  */
-LanguagesApi.prototype.getTranslationsOrganization = function getTranslationsOrganization(language){
-    var requestPath = '/api/v2/languages/translations/organization';
-    var requestQuery = {};
-    var requestBody;
-
-    if(language === undefined || language === null){
-      throw new Error('Missing required  parameter: language');
-    }
-    requestQuery["language"] = language;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get the list of supported languages. (Deprecated)
-  * @description This endpoint is deprecated. It has been moved to /routing/languages
-  * @memberOf LanguagesApi
-  * @instance
-  * @param {integer} pageSize - Page size
-  * @param {integer} pageNumber - Page number
-  * @param {string} sortOrder - Ascending or descending sort order
-  ascending,
-  descending,
-  * @param {string} name - Name
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "lastUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "pageCount": 0
-}
-  */
-LanguagesApi.prototype.getLanguages = function getLanguages(pageSize, pageNumber, sortOrder, name){
-    var requestPath = '/api/v2/languages';
-    var requestQuery = {};
-    var requestBody;
-
-    requestQuery["pageSize"] = pageSize;
-    requestQuery["pageNumber"] = pageNumber;
-    requestQuery["sortOrder"] = sortOrder;
-    requestQuery["name"] = name;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Create Language (Deprecated)
-  * @description This endpoint is deprecated. It has been moved to /routing/languages
-  * @memberOf LanguagesApi
-  * @instance
-  * @param {} body - Language
-  * @example
-  * Body Example:
-  * {
-   "name": "",
-   "dateModified": "",
-   "state": "",
-   "version": ""
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "dateModified": "",
-   "state": "",
-   "version": "",
-   "selfUri": ""
-}
-  */
-LanguagesApi.prototype.postLanguages = function postLanguages(body){
-    var requestPath = '/api/v2/languages';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
 };
 
 

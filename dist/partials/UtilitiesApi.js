@@ -15,6 +15,37 @@ function UtilitiesApi(session) {
 }
 
 /**
+  * @summary Get time zones list
+  * @memberOf UtilitiesApi
+  * @instance
+  * @param {integer} pageSize - Page size
+  * @param {integer} pageNumber - Page number
+  * @example
+  * 200 Response Example:
+  * {
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "selfUri": "",
+   "firstUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
+}
+  */
+UtilitiesApi.prototype.getTimezones = function getTimezones(pageSize, pageNumber){
+    var requestPath = '/api/v2/timezones';
+    var requestQuery = {};
+    var requestBody;
+
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["pageNumber"] = pageNumber;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
   * @summary Get the current system date/time
   * @memberOf UtilitiesApi
   * @instance
@@ -60,37 +91,6 @@ UtilitiesApi.prototype.postDetails = function postDetails(body){
       requestBody = body;
     }
     return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get time zones list
-  * @memberOf UtilitiesApi
-  * @instance
-  * @param {integer} pageSize - Page size
-  * @param {integer} pageNumber - Page number
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "lastUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "pageCount": 0
-}
-  */
-UtilitiesApi.prototype.getTimezones = function getTimezones(pageSize, pageNumber){
-    var requestPath = '/api/v2/timezones';
-    var requestQuery = {};
-    var requestBody;
-
-    requestQuery["pageSize"] = pageSize;
-    requestQuery["pageNumber"] = pageNumber;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 

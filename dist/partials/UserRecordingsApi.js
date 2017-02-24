@@ -15,6 +15,26 @@ function UserRecordingsApi(session) {
 }
 
 /**
+  * @summary Get user recording summary
+  * @memberOf UserRecordingsApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * {
+   "readCount": 0,
+   "unreadCount": 0,
+   "totalCount": 0
+}
+  */
+UserRecordingsApi.prototype.getSummary = function getSummary(){
+    var requestPath = '/api/v2/userrecordings/summary';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
   * @summary Download a user recording.
   * @memberOf UserRecordingsApi
   * @instance
@@ -48,26 +68,6 @@ UserRecordingsApi.prototype.getRecordingIdMedia = function getRecordingIdMedia(r
 };
 
 /**
-  * @summary Get user recording summary
-  * @memberOf UserRecordingsApi
-  * @instance
-  * @example
-  * 200 Response Example:
-  * {
-   "readCount": 0,
-   "unreadCount": 0,
-   "totalCount": 0
-}
-  */
-UserRecordingsApi.prototype.getSummary = function getSummary(){
-    var requestPath = '/api/v2/userrecordings/summary';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get a list of user recordings.
   * @memberOf UserRecordingsApi
   * @instance
@@ -83,9 +83,9 @@ UserRecordingsApi.prototype.getSummary = function getSummary(){
    "total": 0,
    "selfUri": "",
    "firstUri": "",
-   "lastUri": "",
    "previousUri": "",
    "nextUri": "",
+   "lastUri": "",
    "pageCount": 0
 }
   */

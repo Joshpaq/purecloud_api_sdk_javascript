@@ -15,70 +15,76 @@ function GroupsApi(session) {
 }
 
 /**
-  * @summary Search groups using the q64 value returned from a previous search
+  * @summary Get a group list
   * @memberOf GroupsApi
   * @instance
-  * @param {string} q64 - q64
-  * @param {array} expand - expand
+  * @param {integer} pageSize - Page size
+  * @param {integer} pageNumber - Page number
+  * @param {string} sortOrder - Ascending or descending sort order
+  ascending,
+  descending,
   * @example
   * 200 Response Example:
   * {
-   "total": 0,
-   "pageCount": 0,
+   "entities": [],
    "pageSize": 0,
    "pageNumber": 0,
-   "previousPage": "",
-   "currentPage": "",
-   "nextPage": "",
-   "types": [],
-   "results": []
+   "total": 0,
+   "selfUri": "",
+   "firstUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
 }
   */
-GroupsApi.prototype.getSearch = function getSearch(q64, expand){
-    var requestPath = '/api/v2/groups/search';
+GroupsApi.prototype.getGroups = function getGroups(pageSize, pageNumber, sortOrder){
+    var requestPath = '/api/v2/groups';
     var requestQuery = {};
     var requestBody;
 
-    if(q64 === undefined || q64 === null){
-      throw new Error('Missing required  parameter: q64');
-    }
-    requestQuery["q64"] = q64;
-    requestQuery["expand"] = expand;
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["pageNumber"] = pageNumber;
+    requestQuery["sortOrder"] = sortOrder;
     return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
-  * @summary Search groups
+  * @summary Create a group
   * @memberOf GroupsApi
   * @instance
-  * @param {} body - Search request options
+  * @param {} body - Group
   * @example
   * Body Example:
   * {
-   "sortOrder": "",
-   "sortBy": "",
-   "pageSize": 0,
-   "pageNumber": 0,
-   "returnFields": [],
-   "expand": [],
-   "query": []
+   "name": "",
+   "description": "",
+   "type": "",
+   "images": [],
+   "addresses": [],
+   "rulesVisible": true,
+   "visibility": ""
 }
   * @example
   * 200 Response Example:
   * {
-   "total": 0,
-   "pageCount": 0,
-   "pageSize": 0,
-   "pageNumber": 0,
-   "previousPage": "",
-   "currentPage": "",
-   "nextPage": "",
-   "types": [],
-   "results": []
+   "id": "",
+   "name": "",
+   "description": "",
+   "dateModified": "",
+   "memberCount": 0,
+   "state": "",
+   "version": 0,
+   "type": "",
+   "images": [],
+   "addresses": [],
+   "rulesVisible": true,
+   "visibility": "",
+   "selfUri": ""
 }
   */
-GroupsApi.prototype.postSearch = function postSearch(body){
-    var requestPath = '/api/v2/groups/search';
+GroupsApi.prototype.postGroups = function postGroups(body){
+    var requestPath = '/api/v2/groups';
     var requestQuery = {};
     var requestBody;
 
@@ -145,9 +151,9 @@ GroupsApi.prototype.getFieldconfig = function getFieldconfig(type){
    "total": 0,
    "selfUri": "",
    "firstUri": "",
-   "lastUri": "",
    "previousUri": "",
    "nextUri": "",
+   "lastUri": "",
    "pageCount": 0
 }
   */
@@ -222,76 +228,68 @@ GroupsApi.prototype.deleteGroupIdMembers = function deleteGroupIdMembers(groupId
 };
 
 /**
-  * @summary Get a group list
+  * @summary Search groups using the q64 value returned from a previous search
   * @memberOf GroupsApi
   * @instance
-  * @param {integer} pageSize - Page size
-  * @param {integer} pageNumber - Page number
-  * @param {string} sortOrder - Ascending or descending sort order
-  ascending,
-  descending,
+  * @param {string} q64 - q64
+  * @param {array} expand - expand
   * @example
   * 200 Response Example:
   * {
-   "entities": [],
+   "total": 0,
+   "pageCount": 0,
    "pageSize": 0,
    "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "lastUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "pageCount": 0
+   "previousPage": "",
+   "currentPage": "",
+   "nextPage": "",
+   "types": [],
+   "results": []
 }
   */
-GroupsApi.prototype.getGroups = function getGroups(pageSize, pageNumber, sortOrder){
-    var requestPath = '/api/v2/groups';
+GroupsApi.prototype.getSearch = function getSearch(q64, expand){
+    var requestPath = '/api/v2/groups/search';
     var requestQuery = {};
     var requestBody;
 
-    requestQuery["pageSize"] = pageSize;
-    requestQuery["pageNumber"] = pageNumber;
-    requestQuery["sortOrder"] = sortOrder;
+    if(q64 === undefined || q64 === null){
+      throw new Error('Missing required  parameter: q64');
+    }
+    requestQuery["q64"] = q64;
+    requestQuery["expand"] = expand;
     return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
-  * @summary Create a group
+  * @summary Search groups
   * @memberOf GroupsApi
   * @instance
-  * @param {} body - Group
+  * @param {} body - Search request options
   * @example
   * Body Example:
   * {
-   "name": "",
-   "description": "",
-   "type": "",
-   "images": [],
-   "addresses": [],
-   "rulesVisible": true,
-   "visibility": ""
+   "sortOrder": "",
+   "sortBy": "",
+   "pageSize": 0,
+   "pageNumber": 0,
+   "query": []
 }
   * @example
   * 200 Response Example:
   * {
-   "id": "",
-   "name": "",
-   "description": "",
-   "dateModified": "",
-   "memberCount": 0,
-   "state": "",
-   "version": 0,
-   "type": "",
-   "images": [],
-   "addresses": [],
-   "rulesVisible": true,
-   "visibility": "",
-   "selfUri": ""
+   "total": 0,
+   "pageCount": 0,
+   "pageSize": 0,
+   "pageNumber": 0,
+   "previousPage": "",
+   "currentPage": "",
+   "nextPage": "",
+   "types": [],
+   "results": []
 }
   */
-GroupsApi.prototype.postGroups = function postGroups(body){
-    var requestPath = '/api/v2/groups';
+GroupsApi.prototype.postSearch = function postSearch(body){
+    var requestPath = '/api/v2/groups/search';
     var requestQuery = {};
     var requestBody;
 

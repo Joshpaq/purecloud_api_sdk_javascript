@@ -15,35 +15,6 @@ function OrganizationApi(session) {
 }
 
 /**
-  * @summary Get organization.
-  * @memberOf OrganizationApi
-  * @instance
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "thirdPartyOrgId": "",
-   "thirdPartyOrgName": "",
-   "thirdPartyURI": "",
-   "domain": "",
-   "version": 0,
-   "state": "",
-   "defaultSiteId": "",
-   "deletable": true,
-   "selfUri": "",
-   "features": {}
-}
-  */
-OrganizationApi.prototype.getMe = function getMe(){
-    var requestPath = '/api/v2/organizations/me';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Fetch field config for an entity type
   * @memberOf OrganizationApi
   * @instance
@@ -81,23 +52,89 @@ OrganizationApi.prototype.getFieldconfig = function getFieldconfig(type){
   * @summary Update organization
   * @memberOf OrganizationApi
   * @instance
-  * @param {} body - Feature to update.
+  * @param {string} featureName - Organization feature
+  realtimeCIC,
+  purecloud,
+  hipaa,
+  ucEnabled,
+  pci,
+  purecloudVoice,
+  xmppFederation,
+  chat,
+  informalPhotos,
+  directory,
+  contactCenter,
+  unifiedCommunications,
+  custserv,
+  * @param {} enabled - New state of feature
   * @example
   * Body Example:
   * {
-   "value": true,
-   "key": ""
+   "enabled": true
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "realtimeCIC": true,
+   "purecloud": true,
+   "hipaa": true,
+   "ucEnabled": true,
+   "pci": true,
+   "purecloudVoice": true,
+   "xmppFederation": true,
+   "chat": true,
+   "informalPhotos": true,
+   "directory": true,
+   "contactCenter": true,
+   "unifiedCommunications": true,
+   "custserv": true
 }
   */
-OrganizationApi.prototype.patchFeatures = function patchFeatures(body){
-    var requestPath = '/api/v2/organizations/features';
+OrganizationApi.prototype.patchFeaturesFeaturename = function patchFeaturesFeaturename(featureName, enabled){
+    var requestPath = '/api/v2/organizations/features/{featureName}';
     var requestQuery = {};
     var requestBody;
 
-    if(body !== undefined && body !== null){
-      requestBody = body;
+    if(featureName === undefined || featureName === null){
+      throw new Error('Missing required  parameter: featureName');
+    }
+    requestPath = requestPath.replace('{featureName}', featureName);
+    if(enabled === undefined || enabled === null){
+      throw new Error('Missing required  parameter: enabled');
+    }
+    if(enabled !== undefined && enabled !== null){
+      requestBody = enabled;
     }
     return this.session.makeRequest('PATCH', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get organization.
+  * @memberOf OrganizationApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "thirdPartyOrgId": "",
+   "thirdPartyOrgName": "",
+   "thirdPartyURI": "",
+   "domain": "",
+   "version": 0,
+   "state": "",
+   "defaultSiteId": "",
+   "deletable": true,
+   "selfUri": "",
+   "features": {}
+}
+  */
+OrganizationApi.prototype.getMe = function getMe(){
+    var requestPath = '/api/v2/organizations/me';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 
