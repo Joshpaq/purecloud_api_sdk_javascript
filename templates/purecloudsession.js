@@ -14,7 +14,7 @@ require('es6-promise').polyfill();
   * @param {string} options.redirectUrl - (Optional) Callback URL for "implicit" strategy
   * @param {string} options.token - (Optional) Existing token for "token" strategy
   * @param {string} options.storageKey - (Optional) Key to set in localStorage with the authentication token
-  * @param {number} options.timeout - (Optional) Request timeout in millisecondw
+  * @param {number} options.timeout - (Optional) Request timeout in milliseconds
   **/
 function PureCloudSession(options) {
     if(!(this instanceof PureCloudSession)) {
@@ -22,7 +22,7 @@ function PureCloudSession(options) {
     }
 
     if(!options.timeout){
-        options.timeout = 2000;
+        options.timeout = 5000;
     }
 
     this.options = options;
@@ -106,7 +106,7 @@ PureCloudSession.prototype._loginWithImplicitGrant = function(clientId, redirect
         redirect_uri: encodeURI(redirectUrl),
         state: state
     };
-    
+
     var url = this._buildAuthUrl('authorize', query);
     window.location.replace(url);
 };
@@ -117,11 +117,11 @@ PureCloudSession.prototype._buildAuthUrl = function(path, query) {
       if(!val) return url;
       return url + '&' + key + '=' + val;
   }
-  
+
   if (!query) {
     query = {};
   }
-  
+
   var baseUrl = this.authUrl + '/' + path + '?';
   return Object.keys(query).reduce(qs, baseUrl);
 };
@@ -189,12 +189,12 @@ PureCloudSession.prototype.logout = function logout() {
     if(PureCloudSession.hasLocalStorage) {
         this._setToken(null);
     }
-    
+
     var query = {
         client_id: encodeURIComponent(this.options.clientId),
         redirect_uri: encodeURI(this.options.redirectUrl)
     };
-    
+
     var url = this._buildAuthUrl('logout', query);
     window.location.replace(url);
 };
@@ -244,11 +244,39 @@ PureCloudSession.prototype._baseRequest = function _baseRequest(method, url) {
         .timeout(this.options.timeout);
 
     if (typeof window === 'undefined' ) {
-        var userAgent = 'PureCloud SDK/Javascript {{&info.version}}';
+        var userAgent = 'KEVIN GLINSKI';
         request = request.set('User-Agent', userAgent);
     }
 
     return request;
+};
+
+PureCloudSession.prototype._buildErrorResponse = function (error,res){
+    if(typeof res === "undefined"){
+        res = {
+            statusCode: 0
+        };
+    }
+
+    var returnError = {
+        statusCode: res.statusCode,
+        headers: res.headers
+    };
+
+    if(res.error){
+        returnError.body= res.error.text;
+        try{
+            returnError.body= JSON.parse(res.error.text);
+        }catch(e){}
+    }
+    else if(error){
+        returnError.body = res.body;
+    }
+    else{
+        return null;
+    }
+
+    return returnError;
 };
 
 PureCloudSession.prototype._sendRequest = function _sendRequest(request) {
@@ -263,18 +291,19 @@ PureCloudSession.prototype._sendRequest = function _sendRequest(request) {
                 self.debugLog(error || res.error || res.body);
             }
 
-
             if(res && res.unauthorized && self.unauthenticatedErrorHandler){
                 self.unauthenticatedErrorHandler(error);
             }
 
-            if(error){
-                return reject(error);
+            var returnError = self._buildErrorResponse(error, res);
+
+            if(returnError){
+                reject(returnError);
+            }else{
+                resolve(res.body);
             }
-            if(res.error) {
-                return reject(res);
-            }
-            resolve(res.body);
+
+
         });
     });
 };

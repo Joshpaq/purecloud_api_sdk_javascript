@@ -1,4 +1,3 @@
-
 const unitTestOnly = process.env.UNIT_ONLY;
 if(unitTestOnly) return;
 
@@ -9,10 +8,13 @@ const clientId = process.env.PURECLOUD_CLIENT_ID;
 const clientSecret = process.env.PURECLOUD_SECRET;
 const environment = process.env.PURECLOUD_ENV;
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
+
 describe('Environment variables', () => {
   it('should have PURECLOUD_CLIENT_ID and PURECLOUD_SECRET set', () => {
     assert(clientId);
     assert(clientSecret);
+    assert(environment);
   });
 });
 
@@ -39,6 +41,35 @@ function getSession() {
 
   return session;
 }
+
+describe('Error Details are returned', () => {
+  fit('should return error body and response code and headers', (done) => {
+    let session = getSession();
+    session.login().then(function(){
+        const analytics = purecloud.AnalyticsApi(session);
+        analytics.postQueuesObservationsQuery({
+               "filter": {
+                  "type": "",
+                  "clauses": [],
+                  "predicates": []
+               },
+               "metrics": []
+            })
+            .then(done.fail)
+            .catch((err)=>{
+              assert(err.statusCode === 400);
+              assert(err.headers);
+              assert(err.headers['inin-correlation-id']);
+              assert(err.body);
+              done();
+            });
+    }).catch((err)=>{
+         console.log(err);
+        done.fail();
+     });;
+
+ });
+});
 
 describe('AuthorizationApi', () => {
   it('should return authorization roles', (done) => {

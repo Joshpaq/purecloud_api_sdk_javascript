@@ -151,6 +151,34 @@ pureCloudSession.login()
 });
 ~~~
 
+### Error Responses
+
+Error responses will contain an object with the HTTP status code, response headers, and the body of the error response.  e.g.
+
+~~~ js
+{
+  "statusCode": 400,
+  "headers": {
+    "date": "Fri, 24 Feb 2017 16:36:21 GMT",
+    "content-type": "application/json",
+    "content-length": "135",
+    "connection": "close",
+    "inin-correlation-id": "391a2855-53ae-4f2b-bc9d-728ef989fd08",
+    "inin-ratelimit-count": "1",
+    "inin-ratelimit-allowed": "300",
+    "inin-ratelimit-reset": "60",
+    "cache-control": "no-cache, no-store, must-revalidate",
+    "pragma": "no-cache",
+    "expires": "0"
+  },
+  "body": {
+    "status": 400,
+    "code": "invalid.value",
+    "message": "Value [] is not valid for field type [QueryFilterType]. Allowable values are: and, or"
+  }
+}
+~~~
+
 ## Debug Logging
 
 There are hooks to trace requests and responses.  To enable tracing, override the .debugLog method on the session object.
