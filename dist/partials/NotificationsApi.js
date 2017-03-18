@@ -21,16 +21,7 @@ function NotificationsApi(session) {
   * @example
   * 200 Response Example:
   * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "lastUri": "",
-   "pageCount": 0
+   "entities": []
 }
   */
 NotificationsApi.prototype.getChannels = function getChannels(){
@@ -49,8 +40,8 @@ NotificationsApi.prototype.getChannels = function getChannels(){
   * @example
   * 200 Response Example:
   * {
-   "id": "",
-   "connectUri": ""
+   "connectUri": "",
+   "id": ""
 }
   */
 NotificationsApi.prototype.postChannels = function postChannels(){
@@ -89,7 +80,7 @@ NotificationsApi.prototype.getChannelsChannelIdSubscriptions = function getChann
   * @memberOf NotificationsApi
   * @instance
   * @param {string} channelId - Channel ID
-  * @param {} body - Topic
+  * @param {} body - Body
   * @example
   * Body Example:
   * [
@@ -126,7 +117,7 @@ NotificationsApi.prototype.postChannelsChannelIdSubscriptions = function postCha
   * @memberOf NotificationsApi
   * @instance
   * @param {string} channelId - Channel ID
-  * @param {} body - Topic
+  * @param {} body - Body
   * @example
   * Body Example:
   * [

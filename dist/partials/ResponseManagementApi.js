@@ -48,6 +48,7 @@ function ResponseManagementApi(session) {
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "dateCreated": "",
@@ -121,6 +122,7 @@ ResponseManagementApi.prototype.getLibrariesLibraryId = function getLibrariesLib
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "dateCreated": "",
@@ -184,8 +186,8 @@ ResponseManagementApi.prototype.deleteLibrariesLibraryId = function deleteLibrar
       "pageSize": 0,
       "pageNumber": 0,
       "total": 0,
-      "selfUri": "",
       "firstUri": "",
+      "selfUri": "",
       "previousUri": "",
       "nextUri": "",
       "lastUri": "",
@@ -243,10 +245,12 @@ ResponseManagementApi.prototype.postResponsesQuery = function postResponsesQuery
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "dateCreated": "",
    "interactionType": "",
+   "substitutions": [],
    "selfUri": ""
 }
   */
@@ -289,7 +293,8 @@ ResponseManagementApi.prototype.getResponsesResponseId = function getResponsesRe
       "version": 0
    },
    "dateCreated": "",
-   "interactionType": ""
+   "interactionType": "",
+   "substitutions": []
 }
   * @example
   * 200 Response Example:
@@ -322,10 +327,12 @@ ResponseManagementApi.prototype.getResponsesResponseId = function getResponsesRe
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "dateCreated": "",
    "interactionType": "",
+   "substitutions": [],
    "selfUri": ""
 }
   */
@@ -379,8 +386,8 @@ ResponseManagementApi.prototype.deleteResponsesResponseId = function deleteRespo
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "selfUri": "",
    "firstUri": "",
+   "selfUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
@@ -450,6 +457,7 @@ ResponseManagementApi.prototype.getLibraries = function getLibraries(pageNumber,
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "dateCreated": "",
@@ -484,8 +492,8 @@ ResponseManagementApi.prototype.postLibraries = function postLibraries(body){
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "selfUri": "",
    "firstUri": "",
+   "selfUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
@@ -531,7 +539,8 @@ ResponseManagementApi.prototype.getResponses = function getResponses(libraryId, 
       "version": 0
    },
    "dateCreated": "",
-   "interactionType": ""
+   "interactionType": "",
+   "substitutions": []
 }
   * @example
   * 200 Response Example:
@@ -564,10 +573,12 @@ ResponseManagementApi.prototype.getResponses = function getResponses(libraryId, 
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "dateCreated": "",
    "interactionType": "",
+   "substitutions": [],
    "selfUri": ""
 }
   */

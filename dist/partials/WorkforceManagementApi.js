@@ -15,67 +15,104 @@ function WorkforceManagementApi(session) {
 }
 
 /**
-  * @summary Get a schedule for the current user
+  * @summary Get management units
   * @memberOf WorkforceManagementApi
   * @instance
-  * @param {} body - body
-  * @example
-  * Body Example:
-  * {
-   "startDate": "",
-   "endDate": ""
-}
+  * @param {string} selector - Selector
+  * @param {integer} pageSize - 
+  * @param {integer} pageNumber - 
   * @example
   * 200 Response Example:
-  * {
-   "managementUnitTimeZone": "",
-   "userSchedules": {}
-}
+  * [
+ {
+  "id": "",
+  "name": "",
+  "startDayOfWeek": "",
+  "timezone": "",
+  "version": 0,
+  "selfUri": ""
+ }
+]
   */
-WorkforceManagementApi.prototype.postSchedules = function postSchedules(body){
-    var requestPath = '/api/v2/workforcemanagement/schedules';
+WorkforceManagementApi.prototype.getManagementunits = function getManagementunits(selector, pageSize, pageNumber){
+    var requestPath = '/api/v2/workforcemanagement/managementunits';
     var requestQuery = {};
     var requestBody;
 
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+    requestQuery["selector"] = selector;
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["pageNumber"] = pageNumber;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
-  * @summary Get user schedules within the given time range
+  * @summary Get a list of UserScheduleAdherence records for the requested users
   * @memberOf WorkforceManagementApi
   * @instance
-  * @param {string} muId - The muId of the management unit.
-  * @param {} body - body
-  * @example
-  * Body Example:
-  * {
-   "userIds": [],
-   "startDate": "",
-   "endDate": ""
-}
+  * @param {array} userId - User Id(s) for which to fetch current schedule adherence information.  Min 1, Max of 100 userIds per request
   * @example
   * 200 Response Example:
-  * {
-   "managementUnitTimeZone": "",
-   "userSchedules": {}
-}
+  * [
+ {
+  "id": "",
+  "name": "",
+  "user": {
+   "id": "",
+   "name": "",
+   "chat": {},
+   "department": "",
+   "email": "",
+   "primaryContactInfo": [],
+   "addresses": [],
+   "state": "",
+   "title": "",
+   "username": "",
+   "manager": {},
+   "images": [],
+   "version": 0,
+   "routingStatus": {},
+   "presence": {},
+   "conversationSummary": {},
+   "outOfOffice": {},
+   "geolocation": {},
+   "station": {},
+   "authorization": {},
+   "profileSkills": [],
+   "locations": [],
+   "groups": [],
+   "selfUri": ""
+  },
+  "managementUnit": {
+   "id": "",
+   "name": "",
+   "startDayOfWeek": "",
+   "timezone": "",
+   "version": 0,
+   "selfUri": ""
+  },
+  "scheduledActivityCategory": "",
+  "systemPresence": "",
+  "organizationSecondaryPresenceId": "",
+  "routingStatus": "",
+  "actualActivityCategory": "",
+  "isOutOfOffice": true,
+  "adherenceState": "",
+  "impact": "",
+  "timeOfAdherenceChange": "",
+  "selfUri": ""
+ }
+]
   */
-WorkforceManagementApi.prototype.postManagementunitsMuIdSchedulesSearch = function postManagementunitsMuIdSchedulesSearch(muId, body){
-    var requestPath = '/api/v2/workforcemanagement/managementunits/{muId}/schedules/search';
+WorkforceManagementApi.prototype.getAdherence = function getAdherence(userId){
+    var requestPath = '/api/v2/workforcemanagement/adherence';
     var requestQuery = {};
     var requestBody;
 
-    if(muId === undefined || muId === null){
-      throw new Error('Missing required  parameter: muId');
+    if(userId === undefined || userId === null){
+      throw new Error('Missing required  parameter: userId');
     }
-    requestPath = requestPath.replace('{muId}', muId);
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+    requestQuery["userId"] = userId;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
@@ -125,6 +162,41 @@ WorkforceManagementApi.prototype.getManagementunitsMuIdActivitycodes = function 
 };
 
 /**
+  * @summary Get user schedules within the given time range
+  * @memberOf WorkforceManagementApi
+  * @instance
+  * @param {string} muId - The muId of the management unit.
+  * @param {} body - body
+  * @example
+  * Body Example:
+  * {
+   "userIds": [],
+   "startDate": "",
+   "endDate": ""
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "managementUnitTimeZone": "",
+   "userSchedules": {}
+}
+  */
+WorkforceManagementApi.prototype.postManagementunitsMuIdSchedulesSearch = function postManagementunitsMuIdSchedulesSearch(muId, body){
+    var requestPath = '/api/v2/workforcemanagement/managementunits/{muId}/schedules/search';
+    var requestQuery = {};
+    var requestBody;
+
+    if(muId === undefined || muId === null){
+      throw new Error('Missing required  parameter: muId');
+    }
+    requestPath = requestPath.replace('{muId}', muId);
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
   * @summary Get a time off request by id
   * @memberOf WorkforceManagementApi
   * @instance
@@ -159,6 +231,7 @@ WorkforceManagementApi.prototype.getManagementunitsMuIdActivitycodes = function 
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "isFullDayRequest": true,
@@ -191,6 +264,7 @@ WorkforceManagementApi.prototype.getManagementunitsMuIdActivitycodes = function 
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "submittedDate": "",
@@ -217,6 +291,7 @@ WorkforceManagementApi.prototype.getManagementunitsMuIdActivitycodes = function 
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "reviewedDate": "",
@@ -243,6 +318,7 @@ WorkforceManagementApi.prototype.getManagementunitsMuIdActivitycodes = function 
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "modifiedDate": "",
@@ -304,6 +380,35 @@ WorkforceManagementApi.prototype.getManagementunitsMuIdUsersUserIdTimeoffrequest
 };
 
 /**
+  * @summary Get a schedule for the current user
+  * @memberOf WorkforceManagementApi
+  * @instance
+  * @param {} body - body
+  * @example
+  * Body Example:
+  * {
+   "startDate": "",
+   "endDate": ""
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "managementUnitTimeZone": "",
+   "userSchedules": {}
+}
+  */
+WorkforceManagementApi.prototype.postSchedules = function postSchedules(body){
+    var requestPath = '/api/v2/workforcemanagement/schedules';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
   * @summary Get a time off request for the current user by id
   * @memberOf WorkforceManagementApi
   * @instance
@@ -336,6 +441,7 @@ WorkforceManagementApi.prototype.getManagementunitsMuIdUsersUserIdTimeoffrequest
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "isFullDayRequest": true,
@@ -368,6 +474,7 @@ WorkforceManagementApi.prototype.getManagementunitsMuIdUsersUserIdTimeoffrequest
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "submittedDate": "",
@@ -394,6 +501,7 @@ WorkforceManagementApi.prototype.getManagementunitsMuIdUsersUserIdTimeoffrequest
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "reviewedDate": "",
@@ -420,6 +528,7 @@ WorkforceManagementApi.prototype.getManagementunitsMuIdUsersUserIdTimeoffrequest
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "modifiedDate": "",
@@ -487,182 +596,6 @@ WorkforceManagementApi.prototype.getTimeoffrequests = function getTimeoffrequest
 
     requestQuery["recentlyReviewed"] = recentlyReviewed;
     return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get decisions download link
-  * @memberOf WorkforceManagementApi
-  * @instance
-  * @param {string} downloadId - The decisions file download id
-  * @param {string} downloadfilename - The file name used to get the download url
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "url": ""
-}
-  */
-WorkforceManagementApi.prototype.getDecisionsDownloadsDownloadId = function getDecisionsDownloadsDownloadId(downloadId, downloadfilename){
-    var requestPath = '/api/v2/workforcemanagement/decisions/downloads/{downloadId}';
-    var requestQuery = {};
-    var requestBody;
-
-    if(downloadId === undefined || downloadId === null){
-      throw new Error('Missing required  parameter: downloadId');
-    }
-    requestPath = requestPath.replace('{downloadId}', downloadId);
-    requestQuery["downloadfilename"] = downloadfilename;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Download decisions files metadata
-  * @memberOf WorkforceManagementApi
-  * @instance
-  * @param {} body - 
-  * @example
-  * Body Example:
-  * {
-   "sortOrder": "",
-   "sortBy": "",
-   "pageSize": 0,
-   "pageNumber": 0,
-   "types": [],
-   "query": []
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "lastUri": "",
-   "pageCount": 0
-}
-  */
-WorkforceManagementApi.prototype.postDecisionsDownloadsSearch = function postDecisionsDownloadsSearch(body){
-    var requestPath = '/api/v2/workforcemanagement/decisions/downloads/search';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get a list of UserScheduleAdherence records for the requested users
-  * @memberOf WorkforceManagementApi
-  * @instance
-  * @param {array} userId - User Id(s) for which to fetch current schedule adherence information.  Min 1, Max of 100 userIds per request
-  * @example
-  * 200 Response Example:
-  * [
- {
-  "id": "",
-  "name": "",
-  "user": {
-   "id": "",
-   "name": "",
-   "chat": {},
-   "department": "",
-   "email": "",
-   "primaryContactInfo": [],
-   "addresses": [],
-   "state": "",
-   "title": "",
-   "username": "",
-   "manager": {},
-   "images": [],
-   "version": 0,
-   "routingStatus": {},
-   "presence": {},
-   "conversationSummary": {},
-   "outOfOffice": {},
-   "geolocation": {},
-   "station": {},
-   "authorization": {},
-   "profileSkills": [],
-   "locations": [],
-   "selfUri": ""
-  },
-  "managementUnit": {
-   "id": "",
-   "name": "",
-   "startDayOfWeek": "",
-   "timezone": "",
-   "version": 0,
-   "selfUri": ""
-  },
-  "scheduledActivityCategory": "",
-  "systemPresence": "",
-  "organizationSecondaryPresenceId": "",
-  "routingStatus": "",
-  "actualActivityCategory": "",
-  "isOutOfOffice": true,
-  "adherenceState": "",
-  "impact": "",
-  "timeOfAdherenceChange": "",
-  "selfUri": ""
- }
-]
-  */
-WorkforceManagementApi.prototype.getAdherence = function getAdherence(userId){
-    var requestPath = '/api/v2/workforcemanagement/adherence';
-    var requestQuery = {};
-    var requestBody;
-
-    if(userId === undefined || userId === null){
-      throw new Error('Missing required  parameter: userId');
-    }
-    requestQuery["userId"] = userId;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Create a forecast
-  * @memberOf WorkforceManagementApi
-  * @instance
-  * @param {} body - The request body
-  * @example
-  * Body Example:
-  * {
-   "numberOfPeriods": 0,
-   "periodFrequency": "",
-   "description": "",
-   "metrics": [],
-   "managementUnitId": "",
-   "copiedForecastId": ""
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "notificationId": "",
-   "id": "",
-   "status": ""
-}
-  */
-WorkforceManagementApi.prototype.postLongtermforecasts = function postLongtermforecasts(body){
-    var requestPath = '/api/v2/workforcemanagement/longtermforecasts';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
 };
 
 

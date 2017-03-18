@@ -1,10 +1,6 @@
 {
   "notifications": [
     {
-      "topic": "billing.tasks.{id}",
-      "class": "BillingTaskResultNotification"
-    },
-    {
       "topic": "v2.contentmanagement.documents.{id}",
       "class": "DocumentDataV2Notification"
     },
@@ -203,6 +199,14 @@
     {
       "topic": "v2.users.{id}.voicemail.messages",
       "class": "VoicemailMessageNotification"
+    },
+    {
+      "topic": "v2.users.{id}.workforcemanagement.adherence",
+      "class": "UserScheduleAdherenceUpdateNotification"
+    },
+    {
+      "topic": "v2.users.{id}.workforcemanagement.timeoffrequests",
+      "class": "TimeOffRequestUpdateNotification"
     }
   ]
 }

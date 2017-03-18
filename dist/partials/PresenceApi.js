@@ -29,8 +29,8 @@ function PresenceApi(session) {
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "selfUri": "",
    "firstUri": "",
+   "selfUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
@@ -121,6 +121,7 @@ PresenceApi.prototype.getPresencedefinitions = function getPresencedefinitions(p
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "createdDate": "",
@@ -147,6 +148,7 @@ PresenceApi.prototype.getPresencedefinitions = function getPresencedefinitions(p
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "modifiedDate": "",
@@ -165,6 +167,28 @@ PresenceApi.prototype.postPresencedefinitions = function postPresencedefinitions
       requestBody = body;
     }
     return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get the list of SystemPresences
+  * @memberOf PresenceApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * [
+ {
+  "id": "",
+  "name": "",
+  "selfUri": ""
+ }
+]
+  */
+PresenceApi.prototype.getSystempresences = function getSystempresences(){
+    var requestPath = '/api/v2/systempresences';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
@@ -290,28 +314,6 @@ PresenceApi.prototype.patchUserIdPresencesSourceId = function patchUserIdPresenc
 };
 
 /**
-  * @summary Get the list of SystemPresences
-  * @memberOf PresenceApi
-  * @instance
-  * @example
-  * 200 Response Example:
-  * [
- {
-  "id": "",
-  "name": "",
-  "selfUri": ""
- }
-]
-  */
-PresenceApi.prototype.getSystempresences = function getSystempresences(){
-    var requestPath = '/api/v2/systempresences';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get a Presence Definition
   * @memberOf PresenceApi
   * @instance
@@ -349,6 +351,7 @@ PresenceApi.prototype.getSystempresences = function getSystempresences(){
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "createdDate": "",
@@ -375,6 +378,7 @@ PresenceApi.prototype.getSystempresences = function getSystempresences(){
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "modifiedDate": "",
@@ -467,6 +471,7 @@ PresenceApi.prototype.getPresenceId = function getPresenceId(presenceId, localeC
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "createdDate": "",
@@ -493,6 +498,7 @@ PresenceApi.prototype.getPresenceId = function getPresenceId(presenceId, localeC
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "modifiedDate": "",

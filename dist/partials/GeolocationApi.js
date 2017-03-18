@@ -90,6 +90,7 @@ GeolocationApi.prototype.patchSettings = function patchSettings(body){
    "country": "",
    "region": "",
    "city": "",
+   "locations": [],
    "selfUri": ""
 }
   */
@@ -127,7 +128,8 @@ GeolocationApi.prototype.getUserIdGeolocationsClientId = function getUserIdGeolo
    "longitude": {},
    "country": "",
    "region": "",
-   "city": ""
+   "city": "",
+   "locations": []
 }
   * @example
   * 200 Response Example:
@@ -141,6 +143,7 @@ GeolocationApi.prototype.getUserIdGeolocationsClientId = function getUserIdGeolo
    "country": "",
    "region": "",
    "city": "",
+   "locations": [],
    "selfUri": ""
 }
   */

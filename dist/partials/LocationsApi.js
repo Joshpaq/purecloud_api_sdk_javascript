@@ -15,81 +15,6 @@ function LocationsApi(session) {
 }
 
 /**
-  * @summary Search locations using the q64 value returned from a previous search
-  * @memberOf LocationsApi
-  * @instance
-  * @param {string} q64 - q64
-  * @param {array} expand - expand
-  * @example
-  * 200 Response Example:
-  * {
-   "total": 0,
-   "pageCount": 0,
-   "pageSize": 0,
-   "pageNumber": 0,
-   "previousPage": "",
-   "currentPage": "",
-   "nextPage": "",
-   "types": [],
-   "results": []
-}
-  */
-LocationsApi.prototype.getSearch = function getSearch(q64, expand){
-    var requestPath = '/api/v2/locations/search';
-    var requestQuery = {};
-    var requestBody;
-
-    if(q64 === undefined || q64 === null){
-      throw new Error('Missing required  parameter: q64');
-    }
-    requestQuery["q64"] = q64;
-    requestQuery["expand"] = expand;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Search locations
-  * @memberOf LocationsApi
-  * @instance
-  * @param {} body - Search request options
-  * @example
-  * Body Example:
-  * {
-   "sortOrder": "",
-   "sortBy": "",
-   "pageSize": 0,
-   "pageNumber": 0,
-   "query": []
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "total": 0,
-   "pageCount": 0,
-   "pageSize": 0,
-   "pageNumber": 0,
-   "previousPage": "",
-   "currentPage": "",
-   "nextPage": "",
-   "types": [],
-   "results": []
-}
-  */
-LocationsApi.prototype.postSearch = function postSearch(body){
-    var requestPath = '/api/v2/locations/search';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get Location by ID.
   * @memberOf LocationsApi
   * @instance
@@ -178,6 +103,81 @@ LocationsApi.prototype.getLocations = function getLocations(pageSize, pageNumber
     requestQuery["pageNumber"] = pageNumber;
     requestQuery["sortOrder"] = sortOrder;
     return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Search locations using the q64 value returned from a previous search
+  * @memberOf LocationsApi
+  * @instance
+  * @param {string} q64 - q64
+  * @param {array} expand - expand
+  * @example
+  * 200 Response Example:
+  * {
+   "total": 0,
+   "pageCount": 0,
+   "pageSize": 0,
+   "pageNumber": 0,
+   "previousPage": "",
+   "currentPage": "",
+   "nextPage": "",
+   "types": [],
+   "results": []
+}
+  */
+LocationsApi.prototype.getSearch = function getSearch(q64, expand){
+    var requestPath = '/api/v2/locations/search';
+    var requestQuery = {};
+    var requestBody;
+
+    if(q64 === undefined || q64 === null){
+      throw new Error('Missing required  parameter: q64');
+    }
+    requestQuery["q64"] = q64;
+    requestQuery["expand"] = expand;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Search locations
+  * @memberOf LocationsApi
+  * @instance
+  * @param {} body - Search request options
+  * @example
+  * Body Example:
+  * {
+   "sortOrder": "",
+   "sortBy": "",
+   "pageSize": 0,
+   "pageNumber": 0,
+   "query": []
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "total": 0,
+   "pageCount": 0,
+   "pageSize": 0,
+   "pageNumber": 0,
+   "previousPage": "",
+   "currentPage": "",
+   "nextPage": "",
+   "types": [],
+   "results": []
+}
+  */
+LocationsApi.prototype.postSearch = function postSearch(body){
+    var requestPath = '/api/v2/locations/search';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
 };
 
 

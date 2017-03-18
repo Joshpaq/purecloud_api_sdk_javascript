@@ -98,111 +98,6 @@ GreetingsApi.prototype.putDefaults = function putDefaults(body){
 };
 
 /**
-  * @summary Get a list of the Group's Greetings
-  * @memberOf GreetingsApi
-  * @instance
-  * @param {string} groupId - Group ID
-  * @param {integer} pageSize - Page size
-  * @param {integer} pageNumber - Page number
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "lastUri": "",
-   "pageCount": 0
-}
-  */
-GreetingsApi.prototype.getGroupIdGreetings = function getGroupIdGreetings(groupId, pageSize, pageNumber){
-    var requestPath = '/api/v2/groups/{groupId}/greetings';
-    var requestQuery = {};
-    var requestBody;
-
-    if(groupId === undefined || groupId === null){
-      throw new Error('Missing required  parameter: groupId');
-    }
-    requestPath = requestPath.replace('{groupId}', groupId);
-    requestQuery["pageSize"] = pageSize;
-    requestQuery["pageNumber"] = pageNumber;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Creates a Greeting for a Group
-  * @memberOf GreetingsApi
-  * @instance
-  * @param {string} groupId - Group ID
-  * @param {} body - The Greeting to create
-  * @example
-  * Body Example:
-  * {
-   "name": "",
-   "type": "",
-   "ownerType": "",
-   "owner": {
-      "name": ""
-   },
-   "audioFile": {
-      "durationMilliseconds": 0,
-      "sizeBytes": 0,
-      "selfUri": ""
-   },
-   "audioTTS": "",
-   "createdDate": "",
-   "createdBy": "",
-   "modifiedDate": "",
-   "modifiedBy": ""
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "type": "",
-   "ownerType": "",
-   "owner": {
-      "id": "",
-      "name": "",
-      "selfUri": ""
-   },
-   "audioFile": {
-      "durationMilliseconds": 0,
-      "sizeBytes": 0,
-      "selfUri": ""
-   },
-   "audioTTS": "",
-   "createdDate": "",
-   "createdBy": "",
-   "modifiedDate": "",
-   "modifiedBy": "",
-   "selfUri": ""
-}
-  */
-GreetingsApi.prototype.postGroupIdGreetings = function postGroupIdGreetings(groupId, body){
-    var requestPath = '/api/v2/groups/{groupId}/greetings';
-    var requestQuery = {};
-    var requestBody;
-
-    if(groupId === undefined || groupId === null){
-      throw new Error('Missing required  parameter: groupId');
-    }
-    requestPath = requestPath.replace('{groupId}', groupId);
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get a Greeting with the given GreetingId
   * @memberOf GreetingsApi
   * @instance
@@ -345,8 +240,8 @@ GreetingsApi.prototype.deleteGreetingId = function deleteGreetingId(greetingId){
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "selfUri": "",
    "firstUri": "",
+   "selfUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
@@ -434,128 +329,6 @@ GreetingsApi.prototype.postUserIdGreetings = function postUserIdGreetings(userId
       requestBody = body;
     }
     return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Gets an Organization's Greetings
-  * @memberOf GreetingsApi
-  * @instance
-  * @param {integer} pageSize - Page size
-  * @param {integer} pageNumber - Page number
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "lastUri": "",
-   "pageCount": 0
-}
-  */
-GreetingsApi.prototype.getGreetings = function getGreetings(pageSize, pageNumber){
-    var requestPath = '/api/v2/greetings';
-    var requestQuery = {};
-    var requestBody;
-
-    requestQuery["pageSize"] = pageSize;
-    requestQuery["pageNumber"] = pageNumber;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Create a Greeting for an Organization
-  * @memberOf GreetingsApi
-  * @instance
-  * @param {} body - The Greeting to create
-  * @example
-  * Body Example:
-  * {
-   "name": "",
-   "type": "",
-   "ownerType": "",
-   "owner": {
-      "name": ""
-   },
-   "audioFile": {
-      "durationMilliseconds": 0,
-      "sizeBytes": 0,
-      "selfUri": ""
-   },
-   "audioTTS": "",
-   "createdDate": "",
-   "createdBy": "",
-   "modifiedDate": "",
-   "modifiedBy": ""
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "owner": {
-      "id": "",
-      "name": "",
-      "selfUri": ""
-   },
-   "ownerType": "",
-   "greetings": {},
-   "createdDate": "",
-   "createdBy": "",
-   "modifiedDate": "",
-   "modifiedBy": "",
-   "selfUri": ""
-}
-  */
-GreetingsApi.prototype.postGreetings = function postGreetings(body){
-    var requestPath = '/api/v2/greetings';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get media playback URI for this greeting
-  * @memberOf GreetingsApi
-  * @instance
-  * @param {string} greetingId - Greeting ID
-  * @param {string} formatId - The desired media format.
-  WAV,
-  WEBM,
-  WAV_ULAW,
-  OGG_VORBIS,
-  OGG_OPUS,
-  NONE,
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "mediaFileUri": "",
-   "mediaImageUri": ""
-}
-  */
-GreetingsApi.prototype.getGreetingIdMedia = function getGreetingIdMedia(greetingId, formatId){
-    var requestPath = '/api/v2/greetings/{greetingId}/media';
-    var requestQuery = {};
-    var requestBody;
-
-    if(greetingId === undefined || greetingId === null){
-      throw new Error('Missing required  parameter: greetingId');
-    }
-    requestPath = requestPath.replace('{greetingId}', greetingId);
-    requestQuery["formatId"] = formatId;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
@@ -742,6 +515,233 @@ GreetingsApi.prototype.putUserIdGreetingsDefaults = function putUserIdGreetingsD
       requestBody = body;
     }
     return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Gets an Organization's Greetings
+  * @memberOf GreetingsApi
+  * @instance
+  * @param {integer} pageSize - Page size
+  * @param {integer} pageNumber - Page number
+  * @example
+  * 200 Response Example:
+  * {
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "firstUri": "",
+   "selfUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
+}
+  */
+GreetingsApi.prototype.getGreetings = function getGreetings(pageSize, pageNumber){
+    var requestPath = '/api/v2/greetings';
+    var requestQuery = {};
+    var requestBody;
+
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["pageNumber"] = pageNumber;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Create a Greeting for an Organization
+  * @memberOf GreetingsApi
+  * @instance
+  * @param {} body - The Greeting to create
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "type": "",
+   "ownerType": "",
+   "owner": {
+      "name": ""
+   },
+   "audioFile": {
+      "durationMilliseconds": 0,
+      "sizeBytes": 0,
+      "selfUri": ""
+   },
+   "audioTTS": "",
+   "createdDate": "",
+   "createdBy": "",
+   "modifiedDate": "",
+   "modifiedBy": ""
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "owner": {
+      "id": "",
+      "name": "",
+      "selfUri": ""
+   },
+   "ownerType": "",
+   "greetings": {},
+   "createdDate": "",
+   "createdBy": "",
+   "modifiedDate": "",
+   "modifiedBy": "",
+   "selfUri": ""
+}
+  */
+GreetingsApi.prototype.postGreetings = function postGreetings(body){
+    var requestPath = '/api/v2/greetings';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get media playback URI for this greeting
+  * @memberOf GreetingsApi
+  * @instance
+  * @param {string} greetingId - Greeting ID
+  * @param {string} formatId - The desired media format.
+  WAV,
+  WEBM,
+  WAV_ULAW,
+  OGG_VORBIS,
+  OGG_OPUS,
+  NONE,
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "mediaFileUri": "",
+   "mediaImageUri": ""
+}
+  */
+GreetingsApi.prototype.getGreetingIdMedia = function getGreetingIdMedia(greetingId, formatId){
+    var requestPath = '/api/v2/greetings/{greetingId}/media';
+    var requestQuery = {};
+    var requestBody;
+
+    if(greetingId === undefined || greetingId === null){
+      throw new Error('Missing required  parameter: greetingId');
+    }
+    requestPath = requestPath.replace('{greetingId}', greetingId);
+    requestQuery["formatId"] = formatId;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get a list of the Group's Greetings
+  * @memberOf GreetingsApi
+  * @instance
+  * @param {string} groupId - Group ID
+  * @param {integer} pageSize - Page size
+  * @param {integer} pageNumber - Page number
+  * @example
+  * 200 Response Example:
+  * {
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "firstUri": "",
+   "selfUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
+}
+  */
+GreetingsApi.prototype.getGroupIdGreetings = function getGroupIdGreetings(groupId, pageSize, pageNumber){
+    var requestPath = '/api/v2/groups/{groupId}/greetings';
+    var requestQuery = {};
+    var requestBody;
+
+    if(groupId === undefined || groupId === null){
+      throw new Error('Missing required  parameter: groupId');
+    }
+    requestPath = requestPath.replace('{groupId}', groupId);
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["pageNumber"] = pageNumber;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Creates a Greeting for a Group
+  * @memberOf GreetingsApi
+  * @instance
+  * @param {string} groupId - Group ID
+  * @param {} body - The Greeting to create
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "type": "",
+   "ownerType": "",
+   "owner": {
+      "name": ""
+   },
+   "audioFile": {
+      "durationMilliseconds": 0,
+      "sizeBytes": 0,
+      "selfUri": ""
+   },
+   "audioTTS": "",
+   "createdDate": "",
+   "createdBy": "",
+   "modifiedDate": "",
+   "modifiedBy": ""
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "type": "",
+   "ownerType": "",
+   "owner": {
+      "id": "",
+      "name": "",
+      "selfUri": ""
+   },
+   "audioFile": {
+      "durationMilliseconds": 0,
+      "sizeBytes": 0,
+      "selfUri": ""
+   },
+   "audioTTS": "",
+   "createdDate": "",
+   "createdBy": "",
+   "modifiedDate": "",
+   "modifiedBy": "",
+   "selfUri": ""
+}
+  */
+GreetingsApi.prototype.postGroupIdGreetings = function postGroupIdGreetings(groupId, body){
+    var requestPath = '/api/v2/groups/{groupId}/greetings';
+    var requestQuery = {};
+    var requestBody;
+
+    if(groupId === undefined || groupId === null){
+      throw new Error('Missing required  parameter: groupId');
+    }
+    requestPath = requestPath.replace('{groupId}', groupId);
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
 };
 
 

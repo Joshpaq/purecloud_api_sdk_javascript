@@ -19,7 +19,7 @@ function SuggestApi(session) {
   * @memberOf SuggestApi
   * @instance
   * @param {string} q64 - q64
-  * @param {array} expand - Which fields, if any, to expand Valid Values: routingStatus, presence, conversationSummary, outOfOffice, geolocation, station, authorization, profileSkills, locations, callerUser.routingStatus, callerUser.primaryPresence, callerUser.conversationSummary, callerUser.outOfOffice, callerUser.geolocation
+  * @param {array} expand - Which fields, if any, to expand Valid Values: routingStatus, presence, conversationSummary, outOfOffice, geolocation, station, authorization, profileSkills, locations, groupMemberships, callerUser.routingStatus, callerUser.primaryPresence, callerUser.conversationSummary, callerUser.outOfOffice, callerUser.geolocation
   * @param {boolean} profile - profile
   * @example
   * 200 Response Example:
@@ -34,10 +34,10 @@ function SuggestApi(session) {
    "types": [],
    "results": {
       "nodeType": "",
+      "float": true,
       "object": true,
       "boolean": true,
       "number": true,
-      "float": true,
       "valueNode": true,
       "containerNode": true,
       "missingNode": true,
@@ -57,10 +57,10 @@ function SuggestApi(session) {
    },
    "aggregations": {
       "nodeType": "",
+      "float": true,
       "object": true,
       "boolean": true,
       "number": true,
-      "float": true,
       "valueNode": true,
       "containerNode": true,
       "missingNode": true,
@@ -120,10 +120,10 @@ SuggestApi.prototype.getSuggest = function getSuggest(q64, expand, profile){
    "types": [],
    "results": {
       "nodeType": "",
+      "float": true,
       "object": true,
       "boolean": true,
       "number": true,
-      "float": true,
       "valueNode": true,
       "containerNode": true,
       "missingNode": true,
@@ -143,10 +143,10 @@ SuggestApi.prototype.getSuggest = function getSuggest(q64, expand, profile){
    },
    "aggregations": {
       "nodeType": "",
+      "float": true,
       "object": true,
       "boolean": true,
       "number": true,
-      "float": true,
       "valueNode": true,
       "containerNode": true,
       "missingNode": true,
@@ -186,7 +186,7 @@ SuggestApi.prototype.postSuggest = function postSuggest(body, profile){
   * @memberOf SuggestApi
   * @instance
   * @param {string} q64 - q64
-  * @param {array} expand - Which fields, if any, to expand Valid Values: routingStatus, presence, conversationSummary, outOfOffice, geolocation, station, authorization, profileSkills, locations, callerUser.routingStatus, callerUser.primaryPresence, callerUser.conversationSummary, callerUser.outOfOffice, callerUser.geolocation
+  * @param {array} expand - Which fields, if any, to expand Valid Values: routingStatus, presence, conversationSummary, outOfOffice, geolocation, station, authorization, profileSkills, locations, groupMemberships, callerUser.routingStatus, callerUser.primaryPresence, callerUser.conversationSummary, callerUser.outOfOffice, callerUser.geolocation
   * @param {boolean} profile - profile
   * @example
   * 200 Response Example:
@@ -201,10 +201,10 @@ SuggestApi.prototype.postSuggest = function postSuggest(body, profile){
    "types": [],
    "results": {
       "nodeType": "",
+      "float": true,
       "object": true,
       "boolean": true,
       "number": true,
-      "float": true,
       "valueNode": true,
       "containerNode": true,
       "missingNode": true,
@@ -224,10 +224,10 @@ SuggestApi.prototype.postSuggest = function postSuggest(body, profile){
    },
    "aggregations": {
       "nodeType": "",
+      "float": true,
       "object": true,
       "boolean": true,
       "number": true,
-      "float": true,
       "valueNode": true,
       "containerNode": true,
       "missingNode": true,
@@ -293,10 +293,10 @@ SuggestApi.prototype.getSearch = function getSearch(q64, expand, profile){
    "types": [],
    "results": {
       "nodeType": "",
+      "float": true,
       "object": true,
       "boolean": true,
       "number": true,
-      "float": true,
       "valueNode": true,
       "containerNode": true,
       "missingNode": true,
@@ -316,10 +316,10 @@ SuggestApi.prototype.getSearch = function getSearch(q64, expand, profile){
    },
    "aggregations": {
       "nodeType": "",
+      "float": true,
       "object": true,
       "boolean": true,
       "number": true,
-      "float": true,
       "valueNode": true,
       "containerNode": true,
       "missingNode": true,

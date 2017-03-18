@@ -15,570 +15,6 @@ function QualityApi(session) {
 }
 
 /**
-  * @summary Get a calibration by id.
-  * @memberOf QualityApi
-  * @instance
-  * @param {string} calibrationId - Calibration ID
-  * @param {string} calibratorId - calibratorId
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "calibrator": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "agent": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "conversation": {
-      "id": "",
-      "name": "",
-      "startTime": "",
-      "endTime": "",
-      "address": "",
-      "participants": [],
-      "conversationIds": [],
-      "maxParticipants": 0,
-      "recordingState": "",
-      "state": "",
-      "selfUri": ""
-   },
-   "evaluationForm": {
-      "id": "",
-      "name": "",
-      "type": "",
-      "modifiedDate": "",
-      "published": true,
-      "contextId": "",
-      "questionGroups": [],
-      "publishedVersions": {},
-      "selfUri": ""
-   },
-   "contextId": "",
-   "averageScore": 0,
-   "highScore": 0,
-   "lowScore": 0,
-   "createdDate": "",
-   "evaluations": [],
-   "evaluators": [],
-   "scoringIndex": {
-      "id": "",
-      "name": "",
-      "conversation": {},
-      "evaluationForm": {},
-      "evaluator": {},
-      "agent": {},
-      "calibration": {},
-      "status": "",
-      "answers": {},
-      "agentHasRead": true,
-      "releaseDate": "",
-      "assignedDate": "",
-      "changedDate": "",
-      "queue": {},
-      "neverRelease": true,
-      "resourceId": "",
-      "resourceType": "",
-      "redacted": true,
-      "isScoringIndex": true,
-      "selfUri": ""
-   },
-   "expertEvaluator": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "selfUri": ""
-}
-  */
-QualityApi.prototype.getCalibrationsCalibrationId = function getCalibrationsCalibrationId(calibrationId, calibratorId){
-    var requestPath = '/api/v2/quality/calibrations/{calibrationId}';
-    var requestQuery = {};
-    var requestBody;
-
-    if(calibrationId === undefined || calibrationId === null){
-      throw new Error('Missing required  parameter: calibrationId');
-    }
-    requestPath = requestPath.replace('{calibrationId}', calibrationId);
-    if(calibratorId === undefined || calibratorId === null){
-      throw new Error('Missing required  parameter: calibratorId');
-    }
-    requestQuery["calibratorId"] = calibratorId;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Update a calibration to the specified calibration via PUT.  Editable fields include: evaluators, expertEvaluator, and scoringIndex
-  * @memberOf QualityApi
-  * @instance
-  * @param {string} calibrationId - Calibration ID
-  * @param {} body - Calibration
-  * @example
-  * Body Example:
-  * {
-   "name": "",
-   "calibrator": {
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "addresses": [],
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0
-   },
-   "agent": {
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "addresses": [],
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0
-   },
-   "conversation": {
-      "name": "",
-      "startTime": "",
-      "endTime": "",
-      "address": "",
-      "participants": [],
-      "conversationIds": [],
-      "maxParticipants": 0,
-      "recordingState": "",
-      "state": ""
-   },
-   "evaluationForm": {
-      "name": "",
-      "type": "",
-      "modifiedDate": "",
-      "published": true,
-      "contextId": "",
-      "questionGroups": [],
-      "publishedVersions": {}
-   },
-   "contextId": "",
-   "averageScore": 0,
-   "highScore": 0,
-   "lowScore": 0,
-   "createdDate": "",
-   "evaluations": [],
-   "evaluators": [],
-   "scoringIndex": {
-      "name": "",
-      "conversation": {},
-      "evaluationForm": {},
-      "evaluator": {},
-      "agent": {},
-      "calibration": {},
-      "status": "",
-      "answers": {},
-      "agentHasRead": true,
-      "releaseDate": "",
-      "assignedDate": "",
-      "changedDate": "",
-      "queue": {},
-      "neverRelease": true,
-      "resourceId": "",
-      "resourceType": "",
-      "redacted": true,
-      "isScoringIndex": true
-   },
-   "expertEvaluator": {
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "addresses": [],
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0
-   }
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "calibrator": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "agent": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "conversation": {
-      "id": "",
-      "name": "",
-      "startTime": "",
-      "endTime": "",
-      "address": "",
-      "participants": [],
-      "conversationIds": [],
-      "maxParticipants": 0,
-      "recordingState": "",
-      "state": "",
-      "selfUri": ""
-   },
-   "evaluationForm": {
-      "id": "",
-      "name": "",
-      "type": "",
-      "modifiedDate": "",
-      "published": true,
-      "contextId": "",
-      "questionGroups": [],
-      "publishedVersions": {},
-      "selfUri": ""
-   },
-   "contextId": "",
-   "averageScore": 0,
-   "highScore": 0,
-   "lowScore": 0,
-   "createdDate": "",
-   "evaluations": [],
-   "evaluators": [],
-   "scoringIndex": {
-      "id": "",
-      "name": "",
-      "conversation": {},
-      "evaluationForm": {},
-      "evaluator": {},
-      "agent": {},
-      "calibration": {},
-      "status": "",
-      "answers": {},
-      "agentHasRead": true,
-      "releaseDate": "",
-      "assignedDate": "",
-      "changedDate": "",
-      "queue": {},
-      "neverRelease": true,
-      "resourceId": "",
-      "resourceType": "",
-      "redacted": true,
-      "isScoringIndex": true,
-      "selfUri": ""
-   },
-   "expertEvaluator": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "selfUri": ""
-}
-  */
-QualityApi.prototype.putCalibrationsCalibrationId = function putCalibrationsCalibrationId(calibrationId, body){
-    var requestPath = '/api/v2/quality/calibrations/{calibrationId}';
-    var requestQuery = {};
-    var requestBody;
-
-    if(calibrationId === undefined || calibrationId === null){
-      throw new Error('Missing required  parameter: calibrationId');
-    }
-    requestPath = requestPath.replace('{calibrationId}', calibrationId);
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Delete a calibration by id.
-  * @memberOf QualityApi
-  * @instance
-  * @param {string} calibrationId - Calibration ID
-  * @param {string} calibratorId - calibratorId
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "calibrator": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "agent": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "conversation": {
-      "id": "",
-      "name": "",
-      "startTime": "",
-      "endTime": "",
-      "address": "",
-      "participants": [],
-      "conversationIds": [],
-      "maxParticipants": 0,
-      "recordingState": "",
-      "state": "",
-      "selfUri": ""
-   },
-   "evaluationForm": {
-      "id": "",
-      "name": "",
-      "type": "",
-      "modifiedDate": "",
-      "published": true,
-      "contextId": "",
-      "questionGroups": [],
-      "publishedVersions": {},
-      "selfUri": ""
-   },
-   "contextId": "",
-   "averageScore": 0,
-   "highScore": 0,
-   "lowScore": 0,
-   "createdDate": "",
-   "evaluations": [],
-   "evaluators": [],
-   "scoringIndex": {
-      "id": "",
-      "name": "",
-      "conversation": {},
-      "evaluationForm": {},
-      "evaluator": {},
-      "agent": {},
-      "calibration": {},
-      "status": "",
-      "answers": {},
-      "agentHasRead": true,
-      "releaseDate": "",
-      "assignedDate": "",
-      "changedDate": "",
-      "queue": {},
-      "neverRelease": true,
-      "resourceId": "",
-      "resourceType": "",
-      "redacted": true,
-      "isScoringIndex": true,
-      "selfUri": ""
-   },
-   "expertEvaluator": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "selfUri": ""
-}
-  */
-QualityApi.prototype.deleteCalibrationsCalibrationId = function deleteCalibrationsCalibrationId(calibrationId, calibratorId){
-    var requestPath = '/api/v2/quality/calibrations/{calibrationId}';
-    var requestQuery = {};
-    var requestBody;
-
-    if(calibrationId === undefined || calibrationId === null){
-      throw new Error('Missing required  parameter: calibrationId');
-    }
-    requestPath = requestPath.replace('{calibrationId}', calibrationId);
-    if(calibratorId === undefined || calibratorId === null){
-      throw new Error('Missing required  parameter: calibratorId');
-    }
-    requestQuery["calibratorId"] = calibratorId;
-    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get the published evaluation forms.
   * @memberOf QualityApi
   * @instance
@@ -598,8 +34,8 @@ QualityApi.prototype.deleteCalibrationsCalibrationId = function deleteCalibratio
       "pageSize": 0,
       "pageNumber": 0,
       "total": 0,
-      "selfUri": "",
       "firstUri": "",
+      "selfUri": "",
       "previousUri": "",
       "nextUri": "",
       "lastUri": "",
@@ -621,7 +57,7 @@ QualityApi.prototype.getPublishedformsFormId = function getPublishedformsFormId(
 };
 
 /**
-  * @summary Get the list of calibrations
+  * @summary Get an evaluator activity
   * @memberOf QualityApi
   * @instance
   * @param {integer} pageSize - The total page size requested
@@ -630,10 +66,11 @@ QualityApi.prototype.getPublishedformsFormId = function getPublishedformsFormId(
   * @param {array} expand - variable name requested by expand list
   * @param {string} nextPage - next page token
   * @param {string} previousPage - Previous page token
-  * @param {string} conversationId - conversation id
-  * @param {string} startTime - Beginning of the calibration query. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss.SSSZ
-  * @param {string} endTime - end of the calibration query. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss.SSSZ
-  * @param {string} calibratorId - user id of calibrator
+  * @param {string} startTime - The start time specified. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss.SSSZ
+  * @param {string} endTime - The end time specified. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss.SSSZ
+  * @param {string} name - Evaluator name
+  * @param {array} permission - permission strings
+  * @param {string} group - group id
   * @example
   * 200 Response Example:
   * {
@@ -641,16 +78,16 @@ QualityApi.prototype.getPublishedformsFormId = function getPublishedformsFormId(
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "selfUri": "",
    "firstUri": "",
+   "selfUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
    "pageCount": 0
 }
   */
-QualityApi.prototype.getCalibrations = function getCalibrations(pageSize, pageNumber, sortBy, expand, nextPage, previousPage, conversationId, startTime, endTime, calibratorId){
-    var requestPath = '/api/v2/quality/calibrations';
+QualityApi.prototype.getEvaluatorsActivity = function getEvaluatorsActivity(pageSize, pageNumber, sortBy, expand, nextPage, previousPage, startTime, endTime, name, permission, group){
+    var requestPath = '/api/v2/quality/evaluators/activity';
     var requestQuery = {};
     var requestBody;
 
@@ -660,248 +97,96 @@ QualityApi.prototype.getCalibrations = function getCalibrations(pageSize, pageNu
     requestQuery["expand"] = expand;
     requestQuery["nextPage"] = nextPage;
     requestQuery["previousPage"] = previousPage;
-    requestQuery["conversationId"] = conversationId;
     requestQuery["startTime"] = startTime;
     requestQuery["endTime"] = endTime;
-    if(calibratorId === undefined || calibratorId === null){
-      throw new Error('Missing required  parameter: calibratorId');
-    }
-    requestQuery["calibratorId"] = calibratorId;
+    requestQuery["name"] = name;
+    requestQuery["permission"] = permission;
+    requestQuery["group"] = group;
     return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
-  * @summary Create a calibration
+  * @summary Get the list of keyword sets
   * @memberOf QualityApi
   * @instance
-  * @param {} body - calibration
-  * @param {string} expand - calibratorId
+  * @param {integer} pageSize - The total page size requested
+  * @param {integer} pageNumber - The page number requested
+  * @param {string} sortBy - variable name requested to sort by
+  * @param {array} expand - variable name requested by expand list
+  * @param {string} nextPage - next page token
+  * @param {string} previousPage - Previous page token
+  * @param {string} name - the keyword set name - used for filtering results in searches.
+  * @param {string} queueId - the queue id - used for filtering results in searches.
+  * @param {string} agentId - the agent id - used for filtering results in searches.
+  * @param {string} operator - If agentID and queueId are both present, this determines whether the query is an AND or OR between those parameters.
+  AND,
+  OR,
+  * @example
+  * 200 Response Example:
+  * {
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "firstUri": "",
+   "selfUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
+}
+  */
+QualityApi.prototype.getKeywordsets = function getKeywordsets(pageSize, pageNumber, sortBy, expand, nextPage, previousPage, name, queueId, agentId, operator){
+    var requestPath = '/api/v2/quality/keywordsets';
+    var requestQuery = {};
+    var requestBody;
+
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["pageNumber"] = pageNumber;
+    requestQuery["sortBy"] = sortBy;
+    requestQuery["expand"] = expand;
+    requestQuery["nextPage"] = nextPage;
+    requestQuery["previousPage"] = previousPage;
+    requestQuery["name"] = name;
+    requestQuery["queueId"] = queueId;
+    requestQuery["agentId"] = agentId;
+    requestQuery["operator"] = operator;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Create a Keyword Set
+  * @memberOf QualityApi
+  * @instance
+  * @param {} body - keywordSet
+  * @param {string} expand - queueId
   * @example
   * Body Example:
   * {
    "name": "",
-   "calibrator": {
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "addresses": [],
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0
-   },
-   "agent": {
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "addresses": [],
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0
-   },
-   "conversation": {
-      "name": "",
-      "startTime": "",
-      "endTime": "",
-      "address": "",
-      "participants": [],
-      "conversationIds": [],
-      "maxParticipants": 0,
-      "recordingState": "",
-      "state": ""
-   },
-   "evaluationForm": {
-      "name": "",
-      "type": "",
-      "modifiedDate": "",
-      "published": true,
-      "contextId": "",
-      "questionGroups": [],
-      "publishedVersions": {}
-   },
-   "contextId": "",
-   "averageScore": 0,
-   "highScore": 0,
-   "lowScore": 0,
-   "createdDate": "",
-   "evaluations": [],
-   "evaluators": [],
-   "scoringIndex": {
-      "name": "",
-      "conversation": {},
-      "evaluationForm": {},
-      "evaluator": {},
-      "agent": {},
-      "calibration": {},
-      "status": "",
-      "answers": {},
-      "agentHasRead": true,
-      "releaseDate": "",
-      "assignedDate": "",
-      "changedDate": "",
-      "queue": {},
-      "neverRelease": true,
-      "resourceId": "",
-      "resourceType": "",
-      "redacted": true,
-      "isScoringIndex": true
-   },
-   "expertEvaluator": {
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "addresses": [],
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0
-   }
+   "description": "",
+   "queues": [],
+   "language": "",
+   "agents": [],
+   "keywords": [],
+   "participantPurposes": []
 }
   * @example
   * 200 Response Example:
   * {
    "id": "",
    "name": "",
-   "calibrator": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "agent": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
-   "conversation": {
-      "id": "",
-      "name": "",
-      "startTime": "",
-      "endTime": "",
-      "address": "",
-      "participants": [],
-      "conversationIds": [],
-      "maxParticipants": 0,
-      "recordingState": "",
-      "state": "",
-      "selfUri": ""
-   },
-   "evaluationForm": {
-      "id": "",
-      "name": "",
-      "type": "",
-      "modifiedDate": "",
-      "published": true,
-      "contextId": "",
-      "questionGroups": [],
-      "publishedVersions": {},
-      "selfUri": ""
-   },
-   "contextId": "",
-   "averageScore": 0,
-   "highScore": 0,
-   "lowScore": 0,
-   "createdDate": "",
-   "evaluations": [],
-   "evaluators": [],
-   "scoringIndex": {
-      "id": "",
-      "name": "",
-      "conversation": {},
-      "evaluationForm": {},
-      "evaluator": {},
-      "agent": {},
-      "calibration": {},
-      "status": "",
-      "answers": {},
-      "agentHasRead": true,
-      "releaseDate": "",
-      "assignedDate": "",
-      "changedDate": "",
-      "queue": {},
-      "neverRelease": true,
-      "resourceId": "",
-      "resourceType": "",
-      "redacted": true,
-      "isScoringIndex": true,
-      "selfUri": ""
-   },
-   "expertEvaluator": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "selfUri": ""
-   },
+   "description": "",
+   "queues": [],
+   "language": "",
+   "agents": [],
+   "keywords": [],
+   "participantPurposes": [],
    "selfUri": ""
 }
   */
-QualityApi.prototype.postCalibrations = function postCalibrations(body, expand){
-    var requestPath = '/api/v2/quality/calibrations';
+QualityApi.prototype.postKeywordsets = function postKeywordsets(body, expand){
+    var requestPath = '/api/v2/quality/keywordsets';
     var requestQuery = {};
     var requestBody;
 
@@ -916,55 +201,22 @@ QualityApi.prototype.postCalibrations = function postCalibrations(body, expand){
 };
 
 /**
-  * @summary Gets a list of Agent Activities
-  * @description Including the number of evaluations and average evaluation score
+  * @summary Delete keyword sets
+  * @description Bulk delete of keyword sets; this will only delete the keyword sets that match the ids specified in the query param.
   * @memberOf QualityApi
   * @instance
-  * @param {integer} pageSize - The total page size requested
-  * @param {integer} pageNumber - The page number requested
-  * @param {string} sortBy - variable name requested to sort by
-  * @param {array} expand - variable name requested by expand list
-  * @param {string} nextPage - next page token
-  * @param {string} previousPage - Previous page token
-  * @param {string} startTime - Start time of agent activity. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss.SSSZ
-  * @param {string} endTime - End time of agent activity. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss.SSSZ
-  * @param {array} agentUserId - user id of agent requested
-  * @param {string} evaluatorUserId - user id of the evaluator
-  * @param {string} name - name
-  * @param {string} group - group id
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "lastUri": "",
-   "pageCount": 0
-}
+  * @param {string} ids - A comma-delimited list of valid KeywordSet ids
   */
-QualityApi.prototype.getAgentsActivity = function getAgentsActivity(pageSize, pageNumber, sortBy, expand, nextPage, previousPage, startTime, endTime, agentUserId, evaluatorUserId, name, group){
-    var requestPath = '/api/v2/quality/agents/activity';
+QualityApi.prototype.deleteKeywordsets = function deleteKeywordsets(ids){
+    var requestPath = '/api/v2/quality/keywordsets';
     var requestQuery = {};
     var requestBody;
 
-    requestQuery["pageSize"] = pageSize;
-    requestQuery["pageNumber"] = pageNumber;
-    requestQuery["sortBy"] = sortBy;
-    requestQuery["expand"] = expand;
-    requestQuery["nextPage"] = nextPage;
-    requestQuery["previousPage"] = previousPage;
-    requestQuery["startTime"] = startTime;
-    requestQuery["endTime"] = endTime;
-    requestQuery["agentUserId"] = agentUserId;
-    requestQuery["evaluatorUserId"] = evaluatorUserId;
-    requestQuery["name"] = name;
-    requestQuery["group"] = group;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+    if(ids === undefined || ids === null){
+      throw new Error('Missing required  parameter: ids');
+    }
+    requestQuery["ids"] = ids;
+    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
 };
 
 /**
@@ -981,8 +233,8 @@ QualityApi.prototype.getAgentsActivity = function getAgentsActivity(pageSize, pa
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "selfUri": "",
    "firstUri": "",
+   "selfUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
@@ -1019,8 +271,8 @@ QualityApi.prototype.getPublishedforms = function getPublishedforms(pageSize, pa
       "pageSize": 0,
       "pageNumber": 0,
       "total": 0,
-      "selfUri": "",
       "firstUri": "",
+      "selfUri": "",
       "previousUri": "",
       "nextUri": "",
       "lastUri": "",
@@ -1042,8 +294,8 @@ QualityApi.prototype.getPublishedforms = function getPublishedforms(pageSize, pa
       "pageSize": 0,
       "pageNumber": 0,
       "total": 0,
-      "selfUri": "",
       "firstUri": "",
+      "selfUri": "",
       "previousUri": "",
       "nextUri": "",
       "lastUri": "",
@@ -1067,18 +319,22 @@ QualityApi.prototype.postPublishedforms = function postPublishedforms(body){
 };
 
 /**
-  * @summary Get audits for conversation or recording
+  * @summary Gets a list of Agent Activities
+  * @description Including the number of evaluations and average evaluation score
   * @memberOf QualityApi
   * @instance
-  * @param {string} conversationId - Conversation ID
   * @param {integer} pageSize - The total page size requested
   * @param {integer} pageNumber - The page number requested
   * @param {string} sortBy - variable name requested to sort by
   * @param {array} expand - variable name requested by expand list
   * @param {string} nextPage - next page token
   * @param {string} previousPage - Previous page token
-  * @param {string} recordingId - id of the recording
-  * @param {string} entityType - entity type options: Recording, Calibration, Evaluation, Annotation
+  * @param {string} startTime - Start time of agent activity. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss.SSSZ
+  * @param {string} endTime - End time of agent activity. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss.SSSZ
+  * @param {array} agentUserId - user id of agent requested
+  * @param {string} evaluatorUserId - user id of the evaluator
+  * @param {string} name - name
+  * @param {string} group - group id
   * @example
   * 200 Response Example:
   * {
@@ -1086,31 +342,31 @@ QualityApi.prototype.postPublishedforms = function postPublishedforms(body){
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "selfUri": "",
    "firstUri": "",
+   "selfUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
    "pageCount": 0
 }
   */
-QualityApi.prototype.getConversationsConversationIdAudits = function getConversationsConversationIdAudits(conversationId, pageSize, pageNumber, sortBy, expand, nextPage, previousPage, recordingId, entityType){
-    var requestPath = '/api/v2/quality/conversations/{conversationId}/audits';
+QualityApi.prototype.getAgentsActivity = function getAgentsActivity(pageSize, pageNumber, sortBy, expand, nextPage, previousPage, startTime, endTime, agentUserId, evaluatorUserId, name, group){
+    var requestPath = '/api/v2/quality/agents/activity';
     var requestQuery = {};
     var requestBody;
 
-    if(conversationId === undefined || conversationId === null){
-      throw new Error('Missing required  parameter: conversationId');
-    }
-    requestPath = requestPath.replace('{conversationId}', conversationId);
     requestQuery["pageSize"] = pageSize;
     requestQuery["pageNumber"] = pageNumber;
     requestQuery["sortBy"] = sortBy;
     requestQuery["expand"] = expand;
     requestQuery["nextPage"] = nextPage;
     requestQuery["previousPage"] = previousPage;
-    requestQuery["recordingId"] = recordingId;
-    requestQuery["entityType"] = entityType;
+    requestQuery["startTime"] = startTime;
+    requestQuery["endTime"] = endTime;
+    requestQuery["agentUserId"] = agentUserId;
+    requestQuery["evaluatorUserId"] = evaluatorUserId;
+    requestQuery["name"] = name;
+    requestQuery["group"] = group;
     return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
@@ -1210,299 +466,6 @@ QualityApi.prototype.deleteKeywordsetsKeywordsetId = function deleteKeywordsetsK
     }
     requestPath = requestPath.replace('{keywordSetId}', keywordSetId);
     return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Queries Evaluations and returns a paged list
-  * @description Query params must include one of conversationId, evaluatorUserId, or agentUserId
-  * @memberOf QualityApi
-  * @instance
-  * @param {integer} pageSize - The total page size requested
-  * @param {integer} pageNumber - The page number requested
-  * @param {string} sortBy - variable name requested to sort by
-  * @param {array} expand - variable name requested by expand list
-  * @param {string} nextPage - next page token
-  * @param {string} previousPage - Previous page token
-  * @param {string} conversationId - conversationId specified
-  * @param {string} agentUserId - user id of the agent
-  * @param {string} evaluatorUserId - evaluator user id
-  * @param {string} queueId - queue id
-  * @param {string} startTime - start time of the evaluation query
-  * @param {string} endTime - end time of the evaluation query
-  * @param {array} evaluationState - evaluation state options: Pending, InProgress, Finished
-  * @param {boolean} isReleased - the evaluation has been released
-  * @param {boolean} agentHasRead - agent has the evaluation
-  * @param {boolean} expandAnswerTotalScores - get the total scores for evaluations
-  * @param {integer} maximum - maximum
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "lastUri": "",
-   "pageCount": 0
-}
-  */
-QualityApi.prototype.getEvaluationsQuery = function getEvaluationsQuery(pageSize, pageNumber, sortBy, expand, nextPage, previousPage, conversationId, agentUserId, evaluatorUserId, queueId, startTime, endTime, evaluationState, isReleased, agentHasRead, expandAnswerTotalScores, maximum){
-    var requestPath = '/api/v2/quality/evaluations/query';
-    var requestQuery = {};
-    var requestBody;
-
-    requestQuery["pageSize"] = pageSize;
-    requestQuery["pageNumber"] = pageNumber;
-    requestQuery["sortBy"] = sortBy;
-    requestQuery["expand"] = expand;
-    requestQuery["nextPage"] = nextPage;
-    requestQuery["previousPage"] = previousPage;
-    requestQuery["conversationId"] = conversationId;
-    requestQuery["agentUserId"] = agentUserId;
-    requestQuery["evaluatorUserId"] = evaluatorUserId;
-    requestQuery["queueId"] = queueId;
-    requestQuery["startTime"] = startTime;
-    requestQuery["endTime"] = endTime;
-    requestQuery["evaluationState"] = evaluationState;
-    requestQuery["isReleased"] = isReleased;
-    requestQuery["agentHasRead"] = agentHasRead;
-    requestQuery["expandAnswerTotalScores"] = expandAnswerTotalScores;
-    requestQuery["maximum"] = maximum;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get an evaluation form
-  * @memberOf QualityApi
-  * @instance
-  * @param {string} formId - Form ID
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "type": "",
-   "modifiedDate": "",
-   "published": true,
-   "contextId": "",
-   "questionGroups": [],
-   "publishedVersions": {
-      "entities": [],
-      "pageSize": 0,
-      "pageNumber": 0,
-      "total": 0,
-      "selfUri": "",
-      "firstUri": "",
-      "previousUri": "",
-      "nextUri": "",
-      "lastUri": "",
-      "pageCount": 0
-   },
-   "selfUri": ""
-}
-  */
-QualityApi.prototype.getFormsFormId = function getFormsFormId(formId){
-    var requestPath = '/api/v2/quality/forms/{formId}';
-    var requestQuery = {};
-    var requestBody;
-
-    if(formId === undefined || formId === null){
-      throw new Error('Missing required  parameter: formId');
-    }
-    requestPath = requestPath.replace('{formId}', formId);
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Update an evaluation form.
-  * @memberOf QualityApi
-  * @instance
-  * @param {string} formId - Form ID
-  * @param {} body - Evaluation form
-  * @example
-  * Body Example:
-  * {
-   "name": "",
-   "type": "",
-   "modifiedDate": "",
-   "published": true,
-   "contextId": "",
-   "questionGroups": [],
-   "publishedVersions": {
-      "entities": [],
-      "pageSize": 0,
-      "pageNumber": 0,
-      "total": 0,
-      "selfUri": "",
-      "firstUri": "",
-      "previousUri": "",
-      "nextUri": "",
-      "lastUri": "",
-      "pageCount": 0
-   }
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "type": "",
-   "modifiedDate": "",
-   "published": true,
-   "contextId": "",
-   "questionGroups": [],
-   "publishedVersions": {
-      "entities": [],
-      "pageSize": 0,
-      "pageNumber": 0,
-      "total": 0,
-      "selfUri": "",
-      "firstUri": "",
-      "previousUri": "",
-      "nextUri": "",
-      "lastUri": "",
-      "pageCount": 0
-   },
-   "selfUri": ""
-}
-  */
-QualityApi.prototype.putFormsFormId = function putFormsFormId(formId, body){
-    var requestPath = '/api/v2/quality/forms/{formId}';
-    var requestQuery = {};
-    var requestBody;
-
-    if(formId === undefined || formId === null){
-      throw new Error('Missing required  parameter: formId');
-    }
-    requestPath = requestPath.replace('{formId}', formId);
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Delete an evaluation form.
-  * @memberOf QualityApi
-  * @instance
-  * @param {string} formId - Form ID
-  */
-QualityApi.prototype.deleteFormsFormId = function deleteFormsFormId(formId){
-    var requestPath = '/api/v2/quality/forms/{formId}';
-    var requestQuery = {};
-    var requestBody;
-
-    if(formId === undefined || formId === null){
-      throw new Error('Missing required  parameter: formId');
-    }
-    requestPath = requestPath.replace('{formId}', formId);
-    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get an evaluator activity
-  * @memberOf QualityApi
-  * @instance
-  * @param {integer} pageSize - The total page size requested
-  * @param {integer} pageNumber - The page number requested
-  * @param {string} sortBy - variable name requested to sort by
-  * @param {array} expand - variable name requested by expand list
-  * @param {string} nextPage - next page token
-  * @param {string} previousPage - Previous page token
-  * @param {string} startTime - The start time specified. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss.SSSZ
-  * @param {string} endTime - The end time specified. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss.SSSZ
-  * @param {string} name - Evaluator name
-  * @param {array} permission - permission strings
-  * @param {string} group - group id
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "lastUri": "",
-   "pageCount": 0
-}
-  */
-QualityApi.prototype.getEvaluatorsActivity = function getEvaluatorsActivity(pageSize, pageNumber, sortBy, expand, nextPage, previousPage, startTime, endTime, name, permission, group){
-    var requestPath = '/api/v2/quality/evaluators/activity';
-    var requestQuery = {};
-    var requestBody;
-
-    requestQuery["pageSize"] = pageSize;
-    requestQuery["pageNumber"] = pageNumber;
-    requestQuery["sortBy"] = sortBy;
-    requestQuery["expand"] = expand;
-    requestQuery["nextPage"] = nextPage;
-    requestQuery["previousPage"] = previousPage;
-    requestQuery["startTime"] = startTime;
-    requestQuery["endTime"] = endTime;
-    requestQuery["name"] = name;
-    requestQuery["permission"] = permission;
-    requestQuery["group"] = group;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Score evaluation
-  * @memberOf QualityApi
-  * @instance
-  * @param {} body - evaluationAndScoringSet
-  * @example
-  * Body Example:
-  * {
-   "evaluationForm": {
-      "name": "",
-      "type": "",
-      "modifiedDate": "",
-      "published": true,
-      "contextId": "",
-      "questionGroups": [],
-      "publishedVersions": {}
-   },
-   "answers": {
-      "totalScore": {},
-      "totalCriticalScore": {},
-      "questionGroupScores": [],
-      "anyFailedKillQuestions": true,
-      "comments": "",
-      "agentComments": ""
-   }
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "totalScore": {},
-   "totalCriticalScore": {},
-   "questionGroupScores": [],
-   "anyFailedKillQuestions": true,
-   "comments": "",
-   "agentComments": ""
-}
-  */
-QualityApi.prototype.postEvaluationsScoring = function postEvaluationsScoring(body){
-    var requestPath = '/api/v2/quality/evaluations/scoring';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
 };
 
 /**
@@ -1668,6 +631,7 @@ QualityApi.prototype.postEvaluationsScoring = function postEvaluationsScoring(bo
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "agent": {
@@ -1693,6 +657,7 @@ QualityApi.prototype.postEvaluationsScoring = function postEvaluationsScoring(bo
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "calibration": {
@@ -1777,60 +742,10 @@ QualityApi.prototype.postConversationsConversationIdEvaluations = function postC
 };
 
 /**
-  * @summary Get the list of keyword sets
+  * @summary Retrieve the spotability statistic
   * @memberOf QualityApi
   * @instance
-  * @param {integer} pageSize - The total page size requested
-  * @param {integer} pageNumber - The page number requested
-  * @param {string} sortBy - variable name requested to sort by
-  * @param {array} expand - variable name requested by expand list
-  * @param {string} nextPage - next page token
-  * @param {string} previousPage - Previous page token
-  * @param {string} name - the keyword set name - used for filtering results in searches.
-  * @param {string} queueId - the queue id - used for filtering results in searches.
-  * @param {string} agentId - the agent id - used for filtering results in searches.
-  * @param {string} operator - If agentID and queueId are both present, this determines whether the query is an AND or OR between those parameters.
-  AND,
-  OR,
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "lastUri": "",
-   "pageCount": 0
-}
-  */
-QualityApi.prototype.getKeywordsets = function getKeywordsets(pageSize, pageNumber, sortBy, expand, nextPage, previousPage, name, queueId, agentId, operator){
-    var requestPath = '/api/v2/quality/keywordsets';
-    var requestQuery = {};
-    var requestBody;
-
-    requestQuery["pageSize"] = pageSize;
-    requestQuery["pageNumber"] = pageNumber;
-    requestQuery["sortBy"] = sortBy;
-    requestQuery["expand"] = expand;
-    requestQuery["nextPage"] = nextPage;
-    requestQuery["previousPage"] = previousPage;
-    requestQuery["name"] = name;
-    requestQuery["queueId"] = queueId;
-    requestQuery["agentId"] = agentId;
-    requestQuery["operator"] = operator;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Create a Keyword Set
-  * @memberOf QualityApi
-  * @instance
-  * @param {} body - keywordSet
-  * @param {string} expand - queueId
+  * @param {} body - Keyword Set
   * @example
   * Body Example:
   * {
@@ -1856,8 +771,353 @@ QualityApi.prototype.getKeywordsets = function getKeywordsets(pageSize, pageNumb
    "selfUri": ""
 }
   */
-QualityApi.prototype.postKeywordsets = function postKeywordsets(body, expand){
-    var requestPath = '/api/v2/quality/keywordsets';
+QualityApi.prototype.postSpotability = function postSpotability(body){
+    var requestPath = '/api/v2/quality/spotability';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Score evaluation
+  * @memberOf QualityApi
+  * @instance
+  * @param {} body - evaluationAndScoringSet
+  * @example
+  * Body Example:
+  * {
+   "evaluationForm": {
+      "name": "",
+      "type": "",
+      "modifiedDate": "",
+      "published": true,
+      "contextId": "",
+      "questionGroups": [],
+      "publishedVersions": {}
+   },
+   "answers": {
+      "totalScore": {},
+      "totalCriticalScore": {},
+      "questionGroupScores": [],
+      "anyFailedKillQuestions": true,
+      "comments": "",
+      "agentComments": ""
+   }
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "totalScore": {},
+   "totalCriticalScore": {},
+   "questionGroupScores": [],
+   "anyFailedKillQuestions": true,
+   "comments": "",
+   "agentComments": ""
+}
+  */
+QualityApi.prototype.postEvaluationsScoring = function postEvaluationsScoring(body){
+    var requestPath = '/api/v2/quality/evaluations/scoring';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get the list of calibrations
+  * @memberOf QualityApi
+  * @instance
+  * @param {integer} pageSize - The total page size requested
+  * @param {integer} pageNumber - The page number requested
+  * @param {string} sortBy - variable name requested to sort by
+  * @param {array} expand - variable name requested by expand list
+  * @param {string} nextPage - next page token
+  * @param {string} previousPage - Previous page token
+  * @param {string} conversationId - conversation id
+  * @param {string} startTime - Beginning of the calibration query. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss.SSSZ
+  * @param {string} endTime - end of the calibration query. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss.SSSZ
+  * @param {string} calibratorId - user id of calibrator
+  * @example
+  * 200 Response Example:
+  * {
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "firstUri": "",
+   "selfUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
+}
+  */
+QualityApi.prototype.getCalibrations = function getCalibrations(pageSize, pageNumber, sortBy, expand, nextPage, previousPage, conversationId, startTime, endTime, calibratorId){
+    var requestPath = '/api/v2/quality/calibrations';
+    var requestQuery = {};
+    var requestBody;
+
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["pageNumber"] = pageNumber;
+    requestQuery["sortBy"] = sortBy;
+    requestQuery["expand"] = expand;
+    requestQuery["nextPage"] = nextPage;
+    requestQuery["previousPage"] = previousPage;
+    requestQuery["conversationId"] = conversationId;
+    requestQuery["startTime"] = startTime;
+    requestQuery["endTime"] = endTime;
+    if(calibratorId === undefined || calibratorId === null){
+      throw new Error('Missing required  parameter: calibratorId');
+    }
+    requestQuery["calibratorId"] = calibratorId;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Create a calibration
+  * @memberOf QualityApi
+  * @instance
+  * @param {} body - calibration
+  * @param {string} expand - calibratorId
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "calibrator": {
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "addresses": [],
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0
+   },
+   "agent": {
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "addresses": [],
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0
+   },
+   "conversation": {
+      "name": "",
+      "startTime": "",
+      "endTime": "",
+      "address": "",
+      "participants": [],
+      "conversationIds": [],
+      "maxParticipants": 0,
+      "recordingState": "",
+      "state": ""
+   },
+   "evaluationForm": {
+      "name": "",
+      "type": "",
+      "modifiedDate": "",
+      "published": true,
+      "contextId": "",
+      "questionGroups": [],
+      "publishedVersions": {}
+   },
+   "contextId": "",
+   "averageScore": 0,
+   "highScore": 0,
+   "lowScore": 0,
+   "createdDate": "",
+   "evaluations": [],
+   "evaluators": [],
+   "scoringIndex": {
+      "name": "",
+      "conversation": {},
+      "evaluationForm": {},
+      "evaluator": {},
+      "agent": {},
+      "calibration": {},
+      "status": "",
+      "answers": {},
+      "agentHasRead": true,
+      "releaseDate": "",
+      "assignedDate": "",
+      "changedDate": "",
+      "queue": {},
+      "neverRelease": true,
+      "resourceId": "",
+      "resourceType": "",
+      "redacted": true,
+      "isScoringIndex": true
+   },
+   "expertEvaluator": {
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "addresses": [],
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0
+   }
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "calibrator": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "groups": [],
+      "selfUri": ""
+   },
+   "agent": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "groups": [],
+      "selfUri": ""
+   },
+   "conversation": {
+      "id": "",
+      "name": "",
+      "startTime": "",
+      "endTime": "",
+      "address": "",
+      "participants": [],
+      "conversationIds": [],
+      "maxParticipants": 0,
+      "recordingState": "",
+      "state": "",
+      "selfUri": ""
+   },
+   "evaluationForm": {
+      "id": "",
+      "name": "",
+      "type": "",
+      "modifiedDate": "",
+      "published": true,
+      "contextId": "",
+      "questionGroups": [],
+      "publishedVersions": {},
+      "selfUri": ""
+   },
+   "contextId": "",
+   "averageScore": 0,
+   "highScore": 0,
+   "lowScore": 0,
+   "createdDate": "",
+   "evaluations": [],
+   "evaluators": [],
+   "scoringIndex": {
+      "id": "",
+      "name": "",
+      "conversation": {},
+      "evaluationForm": {},
+      "evaluator": {},
+      "agent": {},
+      "calibration": {},
+      "status": "",
+      "answers": {},
+      "agentHasRead": true,
+      "releaseDate": "",
+      "assignedDate": "",
+      "changedDate": "",
+      "queue": {},
+      "neverRelease": true,
+      "resourceId": "",
+      "resourceType": "",
+      "redacted": true,
+      "isScoringIndex": true,
+      "selfUri": ""
+   },
+   "expertEvaluator": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "groups": [],
+      "selfUri": ""
+   },
+   "selfUri": ""
+}
+  */
+QualityApi.prototype.postCalibrations = function postCalibrations(body, expand){
+    var requestPath = '/api/v2/quality/calibrations';
     var requestQuery = {};
     var requestBody;
 
@@ -1869,25 +1129,6 @@ QualityApi.prototype.postKeywordsets = function postKeywordsets(body, expand){
     }
     requestQuery["expand"] = expand;
     return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Delete keyword sets
-  * @description Bulk delete of keyword sets; this will only delete the keyword sets that match the ids specified in the query param.
-  * @memberOf QualityApi
-  * @instance
-  * @param {string} ids - A comma-delimited list of valid KeywordSet ids
-  */
-QualityApi.prototype.deleteKeywordsets = function deleteKeywordsets(ids){
-    var requestPath = '/api/v2/quality/keywordsets';
-    var requestQuery = {};
-    var requestBody;
-
-    if(ids === undefined || ids === null){
-      throw new Error('Missing required  parameter: ids');
-    }
-    requestQuery["ids"] = ids;
-    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
 };
 
 /**
@@ -1908,8 +1149,8 @@ QualityApi.prototype.deleteKeywordsets = function deleteKeywordsets(ids){
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "selfUri": "",
    "firstUri": "",
+   "selfUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
@@ -1950,8 +1191,8 @@ QualityApi.prototype.getForms = function getForms(pageSize, pageNumber, sortBy, 
       "pageSize": 0,
       "pageNumber": 0,
       "total": 0,
-      "selfUri": "",
       "firstUri": "",
+      "selfUri": "",
       "previousUri": "",
       "nextUri": "",
       "lastUri": "",
@@ -1973,8 +1214,8 @@ QualityApi.prototype.getForms = function getForms(pageSize, pageNumber, sortBy, 
       "pageSize": 0,
       "pageNumber": 0,
       "total": 0,
-      "selfUri": "",
       "firstUri": "",
+      "selfUri": "",
       "previousUri": "",
       "nextUri": "",
       "lastUri": "",
@@ -1998,12 +1239,18 @@ QualityApi.prototype.postForms = function postForms(body){
 };
 
 /**
-  * @summary Gets all the revisions for a specific evaluation.
+  * @summary Get audits for conversation or recording
   * @memberOf QualityApi
   * @instance
-  * @param {string} formId - Form ID
-  * @param {integer} pageSize - Page size
-  * @param {integer} pageNumber - Page number
+  * @param {string} conversationId - Conversation ID
+  * @param {integer} pageSize - The total page size requested
+  * @param {integer} pageNumber - The page number requested
+  * @param {string} sortBy - variable name requested to sort by
+  * @param {array} expand - variable name requested by expand list
+  * @param {string} nextPage - next page token
+  * @param {string} previousPage - Previous page token
+  * @param {string} recordingId - id of the recording
+  * @param {string} entityType - entity type options: Recording, Calibration, Evaluation, Annotation
   * @example
   * 200 Response Example:
   * {
@@ -2011,107 +1258,94 @@ QualityApi.prototype.postForms = function postForms(body){
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "selfUri": "",
    "firstUri": "",
+   "selfUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
    "pageCount": 0
 }
   */
-QualityApi.prototype.getFormsFormIdVersions = function getFormsFormIdVersions(formId, pageSize, pageNumber){
-    var requestPath = '/api/v2/quality/forms/{formId}/versions';
+QualityApi.prototype.getConversationsConversationIdAudits = function getConversationsConversationIdAudits(conversationId, pageSize, pageNumber, sortBy, expand, nextPage, previousPage, recordingId, entityType){
+    var requestPath = '/api/v2/quality/conversations/{conversationId}/audits';
     var requestQuery = {};
     var requestBody;
 
-    if(formId === undefined || formId === null){
-      throw new Error('Missing required  parameter: formId');
+    if(conversationId === undefined || conversationId === null){
+      throw new Error('Missing required  parameter: conversationId');
     }
-    requestPath = requestPath.replace('{formId}', formId);
+    requestPath = requestPath.replace('{conversationId}', conversationId);
     requestQuery["pageSize"] = pageSize;
     requestQuery["pageNumber"] = pageNumber;
+    requestQuery["sortBy"] = sortBy;
+    requestQuery["expand"] = expand;
+    requestQuery["nextPage"] = nextPage;
+    requestQuery["previousPage"] = previousPage;
+    requestQuery["recordingId"] = recordingId;
+    requestQuery["entityType"] = entityType;
     return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
-  * @summary Query for evaluation aggregates
+  * @summary Queries Evaluations and returns a paged list
+  * @description Query params must include one of conversationId, evaluatorUserId, or agentUserId
   * @memberOf QualityApi
   * @instance
-  * @param {} body - query
-  * @example
-  * Body Example:
-  * {
-   "interval": "",
-   "granularity": "",
-   "timeZone": "",
-   "groupBy": [],
-   "filter": {
-      "type": "",
-      "clauses": [],
-      "predicates": []
-   },
-   "metrics": [],
-   "flattenMultivaluedDimensions": true
-}
+  * @param {integer} pageSize - The total page size requested
+  * @param {integer} pageNumber - The page number requested
+  * @param {string} sortBy - variable name requested to sort by
+  * @param {array} expand - variable name requested by expand list
+  * @param {string} nextPage - next page token
+  * @param {string} previousPage - Previous page token
+  * @param {string} conversationId - conversationId specified
+  * @param {string} agentUserId - user id of the agent
+  * @param {string} evaluatorUserId - evaluator user id
+  * @param {string} queueId - queue id
+  * @param {string} startTime - start time of the evaluation query
+  * @param {string} endTime - end time of the evaluation query
+  * @param {array} evaluationState - evaluation state options: Pending, InProgress, Finished
+  * @param {boolean} isReleased - the evaluation has been released
+  * @param {boolean} agentHasRead - agent has the evaluation
+  * @param {boolean} expandAnswerTotalScores - get the total scores for evaluations
+  * @param {integer} maximum - maximum
   * @example
   * 200 Response Example:
   * {
-   "results": []
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "firstUri": "",
+   "selfUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
 }
   */
-QualityApi.prototype.postEvaluationsAggregatesQuery = function postEvaluationsAggregatesQuery(body){
-    var requestPath = '/api/v2/analytics/evaluations/aggregates/query';
+QualityApi.prototype.getEvaluationsQuery = function getEvaluationsQuery(pageSize, pageNumber, sortBy, expand, nextPage, previousPage, conversationId, agentUserId, evaluatorUserId, queueId, startTime, endTime, evaluationState, isReleased, agentHasRead, expandAnswerTotalScores, maximum){
+    var requestPath = '/api/v2/quality/evaluations/query';
     var requestQuery = {};
     var requestBody;
 
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Retrieve the spotability statistic
-  * @memberOf QualityApi
-  * @instance
-  * @param {} body - Keyword Set
-  * @example
-  * Body Example:
-  * {
-   "name": "",
-   "description": "",
-   "queues": [],
-   "language": "",
-   "agents": [],
-   "keywords": [],
-   "participantPurposes": []
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "description": "",
-   "queues": [],
-   "language": "",
-   "agents": [],
-   "keywords": [],
-   "participantPurposes": [],
-   "selfUri": ""
-}
-  */
-QualityApi.prototype.postSpotability = function postSpotability(body){
-    var requestPath = '/api/v2/quality/spotability';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["pageNumber"] = pageNumber;
+    requestQuery["sortBy"] = sortBy;
+    requestQuery["expand"] = expand;
+    requestQuery["nextPage"] = nextPage;
+    requestQuery["previousPage"] = previousPage;
+    requestQuery["conversationId"] = conversationId;
+    requestQuery["agentUserId"] = agentUserId;
+    requestQuery["evaluatorUserId"] = evaluatorUserId;
+    requestQuery["queueId"] = queueId;
+    requestQuery["startTime"] = startTime;
+    requestQuery["endTime"] = endTime;
+    requestQuery["evaluationState"] = evaluationState;
+    requestQuery["isReleased"] = isReleased;
+    requestQuery["agentHasRead"] = agentHasRead;
+    requestQuery["expandAnswerTotalScores"] = expandAnswerTotalScores;
+    requestQuery["maximum"] = maximum;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
@@ -2173,6 +1407,7 @@ QualityApi.prototype.postSpotability = function postSpotability(body){
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "agent": {
@@ -2198,6 +1433,7 @@ QualityApi.prototype.postSpotability = function postSpotability(body){
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "calibration": {
@@ -2443,6 +1679,7 @@ QualityApi.prototype.getConversationsConversationIdEvaluationsEvaluationId = fun
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "agent": {
@@ -2468,6 +1705,7 @@ QualityApi.prototype.getConversationsConversationIdEvaluationsEvaluationId = fun
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "calibration": {
@@ -2614,6 +1852,7 @@ QualityApi.prototype.putConversationsConversationIdEvaluationsEvaluationId = fun
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "agent": {
@@ -2639,6 +1878,7 @@ QualityApi.prototype.putConversationsConversationIdEvaluationsEvaluationId = fun
       "authorization": {},
       "profileSkills": [],
       "locations": [],
+      "groups": [],
       "selfUri": ""
    },
    "calibration": {
@@ -2718,6 +1958,787 @@ QualityApi.prototype.deleteConversationsConversationIdEvaluationsEvaluationId = 
     requestPath = requestPath.replace('{evaluationId}', evaluationId);
     requestQuery["expand"] = expand;
     return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get a calibration by id.
+  * @memberOf QualityApi
+  * @instance
+  * @param {string} calibrationId - Calibration ID
+  * @param {string} calibratorId - calibratorId
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "calibrator": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "groups": [],
+      "selfUri": ""
+   },
+   "agent": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "groups": [],
+      "selfUri": ""
+   },
+   "conversation": {
+      "id": "",
+      "name": "",
+      "startTime": "",
+      "endTime": "",
+      "address": "",
+      "participants": [],
+      "conversationIds": [],
+      "maxParticipants": 0,
+      "recordingState": "",
+      "state": "",
+      "selfUri": ""
+   },
+   "evaluationForm": {
+      "id": "",
+      "name": "",
+      "type": "",
+      "modifiedDate": "",
+      "published": true,
+      "contextId": "",
+      "questionGroups": [],
+      "publishedVersions": {},
+      "selfUri": ""
+   },
+   "contextId": "",
+   "averageScore": 0,
+   "highScore": 0,
+   "lowScore": 0,
+   "createdDate": "",
+   "evaluations": [],
+   "evaluators": [],
+   "scoringIndex": {
+      "id": "",
+      "name": "",
+      "conversation": {},
+      "evaluationForm": {},
+      "evaluator": {},
+      "agent": {},
+      "calibration": {},
+      "status": "",
+      "answers": {},
+      "agentHasRead": true,
+      "releaseDate": "",
+      "assignedDate": "",
+      "changedDate": "",
+      "queue": {},
+      "neverRelease": true,
+      "resourceId": "",
+      "resourceType": "",
+      "redacted": true,
+      "isScoringIndex": true,
+      "selfUri": ""
+   },
+   "expertEvaluator": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "groups": [],
+      "selfUri": ""
+   },
+   "selfUri": ""
+}
+  */
+QualityApi.prototype.getCalibrationsCalibrationId = function getCalibrationsCalibrationId(calibrationId, calibratorId){
+    var requestPath = '/api/v2/quality/calibrations/{calibrationId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(calibrationId === undefined || calibrationId === null){
+      throw new Error('Missing required  parameter: calibrationId');
+    }
+    requestPath = requestPath.replace('{calibrationId}', calibrationId);
+    if(calibratorId === undefined || calibratorId === null){
+      throw new Error('Missing required  parameter: calibratorId');
+    }
+    requestQuery["calibratorId"] = calibratorId;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Update a calibration to the specified calibration via PUT.  Editable fields include: evaluators, expertEvaluator, and scoringIndex
+  * @memberOf QualityApi
+  * @instance
+  * @param {string} calibrationId - Calibration ID
+  * @param {} body - Calibration
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "calibrator": {
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "addresses": [],
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0
+   },
+   "agent": {
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "addresses": [],
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0
+   },
+   "conversation": {
+      "name": "",
+      "startTime": "",
+      "endTime": "",
+      "address": "",
+      "participants": [],
+      "conversationIds": [],
+      "maxParticipants": 0,
+      "recordingState": "",
+      "state": ""
+   },
+   "evaluationForm": {
+      "name": "",
+      "type": "",
+      "modifiedDate": "",
+      "published": true,
+      "contextId": "",
+      "questionGroups": [],
+      "publishedVersions": {}
+   },
+   "contextId": "",
+   "averageScore": 0,
+   "highScore": 0,
+   "lowScore": 0,
+   "createdDate": "",
+   "evaluations": [],
+   "evaluators": [],
+   "scoringIndex": {
+      "name": "",
+      "conversation": {},
+      "evaluationForm": {},
+      "evaluator": {},
+      "agent": {},
+      "calibration": {},
+      "status": "",
+      "answers": {},
+      "agentHasRead": true,
+      "releaseDate": "",
+      "assignedDate": "",
+      "changedDate": "",
+      "queue": {},
+      "neverRelease": true,
+      "resourceId": "",
+      "resourceType": "",
+      "redacted": true,
+      "isScoringIndex": true
+   },
+   "expertEvaluator": {
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "addresses": [],
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0
+   }
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "calibrator": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "groups": [],
+      "selfUri": ""
+   },
+   "agent": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "groups": [],
+      "selfUri": ""
+   },
+   "conversation": {
+      "id": "",
+      "name": "",
+      "startTime": "",
+      "endTime": "",
+      "address": "",
+      "participants": [],
+      "conversationIds": [],
+      "maxParticipants": 0,
+      "recordingState": "",
+      "state": "",
+      "selfUri": ""
+   },
+   "evaluationForm": {
+      "id": "",
+      "name": "",
+      "type": "",
+      "modifiedDate": "",
+      "published": true,
+      "contextId": "",
+      "questionGroups": [],
+      "publishedVersions": {},
+      "selfUri": ""
+   },
+   "contextId": "",
+   "averageScore": 0,
+   "highScore": 0,
+   "lowScore": 0,
+   "createdDate": "",
+   "evaluations": [],
+   "evaluators": [],
+   "scoringIndex": {
+      "id": "",
+      "name": "",
+      "conversation": {},
+      "evaluationForm": {},
+      "evaluator": {},
+      "agent": {},
+      "calibration": {},
+      "status": "",
+      "answers": {},
+      "agentHasRead": true,
+      "releaseDate": "",
+      "assignedDate": "",
+      "changedDate": "",
+      "queue": {},
+      "neverRelease": true,
+      "resourceId": "",
+      "resourceType": "",
+      "redacted": true,
+      "isScoringIndex": true,
+      "selfUri": ""
+   },
+   "expertEvaluator": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "groups": [],
+      "selfUri": ""
+   },
+   "selfUri": ""
+}
+  */
+QualityApi.prototype.putCalibrationsCalibrationId = function putCalibrationsCalibrationId(calibrationId, body){
+    var requestPath = '/api/v2/quality/calibrations/{calibrationId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(calibrationId === undefined || calibrationId === null){
+      throw new Error('Missing required  parameter: calibrationId');
+    }
+    requestPath = requestPath.replace('{calibrationId}', calibrationId);
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Delete a calibration by id.
+  * @memberOf QualityApi
+  * @instance
+  * @param {string} calibrationId - Calibration ID
+  * @param {string} calibratorId - calibratorId
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "calibrator": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "groups": [],
+      "selfUri": ""
+   },
+   "agent": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "groups": [],
+      "selfUri": ""
+   },
+   "conversation": {
+      "id": "",
+      "name": "",
+      "startTime": "",
+      "endTime": "",
+      "address": "",
+      "participants": [],
+      "conversationIds": [],
+      "maxParticipants": 0,
+      "recordingState": "",
+      "state": "",
+      "selfUri": ""
+   },
+   "evaluationForm": {
+      "id": "",
+      "name": "",
+      "type": "",
+      "modifiedDate": "",
+      "published": true,
+      "contextId": "",
+      "questionGroups": [],
+      "publishedVersions": {},
+      "selfUri": ""
+   },
+   "contextId": "",
+   "averageScore": 0,
+   "highScore": 0,
+   "lowScore": 0,
+   "createdDate": "",
+   "evaluations": [],
+   "evaluators": [],
+   "scoringIndex": {
+      "id": "",
+      "name": "",
+      "conversation": {},
+      "evaluationForm": {},
+      "evaluator": {},
+      "agent": {},
+      "calibration": {},
+      "status": "",
+      "answers": {},
+      "agentHasRead": true,
+      "releaseDate": "",
+      "assignedDate": "",
+      "changedDate": "",
+      "queue": {},
+      "neverRelease": true,
+      "resourceId": "",
+      "resourceType": "",
+      "redacted": true,
+      "isScoringIndex": true,
+      "selfUri": ""
+   },
+   "expertEvaluator": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "groups": [],
+      "selfUri": ""
+   },
+   "selfUri": ""
+}
+  */
+QualityApi.prototype.deleteCalibrationsCalibrationId = function deleteCalibrationsCalibrationId(calibrationId, calibratorId){
+    var requestPath = '/api/v2/quality/calibrations/{calibrationId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(calibrationId === undefined || calibrationId === null){
+      throw new Error('Missing required  parameter: calibrationId');
+    }
+    requestPath = requestPath.replace('{calibrationId}', calibrationId);
+    if(calibratorId === undefined || calibratorId === null){
+      throw new Error('Missing required  parameter: calibratorId');
+    }
+    requestQuery["calibratorId"] = calibratorId;
+    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Query for evaluation aggregates
+  * @memberOf QualityApi
+  * @instance
+  * @param {} body - query
+  * @example
+  * Body Example:
+  * {
+   "interval": "",
+   "granularity": "",
+   "timeZone": "",
+   "groupBy": [],
+   "filter": {
+      "type": "",
+      "clauses": [],
+      "predicates": []
+   },
+   "metrics": [],
+   "flattenMultivaluedDimensions": true,
+   "views": []
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "results": []
+}
+  */
+QualityApi.prototype.postEvaluationsAggregatesQuery = function postEvaluationsAggregatesQuery(body){
+    var requestPath = '/api/v2/analytics/evaluations/aggregates/query';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get an evaluation form
+  * @memberOf QualityApi
+  * @instance
+  * @param {string} formId - Form ID
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "type": "",
+   "modifiedDate": "",
+   "published": true,
+   "contextId": "",
+   "questionGroups": [],
+   "publishedVersions": {
+      "entities": [],
+      "pageSize": 0,
+      "pageNumber": 0,
+      "total": 0,
+      "firstUri": "",
+      "selfUri": "",
+      "previousUri": "",
+      "nextUri": "",
+      "lastUri": "",
+      "pageCount": 0
+   },
+   "selfUri": ""
+}
+  */
+QualityApi.prototype.getFormsFormId = function getFormsFormId(formId){
+    var requestPath = '/api/v2/quality/forms/{formId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(formId === undefined || formId === null){
+      throw new Error('Missing required  parameter: formId');
+    }
+    requestPath = requestPath.replace('{formId}', formId);
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Update an evaluation form.
+  * @memberOf QualityApi
+  * @instance
+  * @param {string} formId - Form ID
+  * @param {} body - Evaluation form
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "type": "",
+   "modifiedDate": "",
+   "published": true,
+   "contextId": "",
+   "questionGroups": [],
+   "publishedVersions": {
+      "entities": [],
+      "pageSize": 0,
+      "pageNumber": 0,
+      "total": 0,
+      "firstUri": "",
+      "selfUri": "",
+      "previousUri": "",
+      "nextUri": "",
+      "lastUri": "",
+      "pageCount": 0
+   }
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "type": "",
+   "modifiedDate": "",
+   "published": true,
+   "contextId": "",
+   "questionGroups": [],
+   "publishedVersions": {
+      "entities": [],
+      "pageSize": 0,
+      "pageNumber": 0,
+      "total": 0,
+      "firstUri": "",
+      "selfUri": "",
+      "previousUri": "",
+      "nextUri": "",
+      "lastUri": "",
+      "pageCount": 0
+   },
+   "selfUri": ""
+}
+  */
+QualityApi.prototype.putFormsFormId = function putFormsFormId(formId, body){
+    var requestPath = '/api/v2/quality/forms/{formId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(formId === undefined || formId === null){
+      throw new Error('Missing required  parameter: formId');
+    }
+    requestPath = requestPath.replace('{formId}', formId);
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Delete an evaluation form.
+  * @memberOf QualityApi
+  * @instance
+  * @param {string} formId - Form ID
+  */
+QualityApi.prototype.deleteFormsFormId = function deleteFormsFormId(formId){
+    var requestPath = '/api/v2/quality/forms/{formId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(formId === undefined || formId === null){
+      throw new Error('Missing required  parameter: formId');
+    }
+    requestPath = requestPath.replace('{formId}', formId);
+    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Gets all the revisions for a specific evaluation.
+  * @memberOf QualityApi
+  * @instance
+  * @param {string} formId - Form ID
+  * @param {integer} pageSize - Page size
+  * @param {integer} pageNumber - Page number
+  * @example
+  * 200 Response Example:
+  * {
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "firstUri": "",
+   "selfUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
+}
+  */
+QualityApi.prototype.getFormsFormIdVersions = function getFormsFormIdVersions(formId, pageSize, pageNumber){
+    var requestPath = '/api/v2/quality/forms/{formId}/versions';
+    var requestQuery = {};
+    var requestBody;
+
+    if(formId === undefined || formId === null){
+      throw new Error('Missing required  parameter: formId');
+    }
+    requestPath = requestPath.replace('{formId}', formId);
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["pageNumber"] = pageNumber;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 
