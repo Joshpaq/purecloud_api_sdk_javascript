@@ -15,8 +15,7 @@ function LanguagesApi(session) {
 }
 
 /**
-  * @summary Get language (Deprecated)
-  * @description This endpoint is deprecated. It has been moved to /routing/languages/{languageId}
+  * @summary Get language
   * @memberOf LanguagesApi
   * @instance
   * @param {string} languageId - Language ID
@@ -31,8 +30,8 @@ function LanguagesApi(session) {
    "selfUri": ""
 }
   */
-LanguagesApi.prototype.getLanguageId = function getLanguageId(languageId){
-    var requestPath = '/api/v2/languages/{languageId}';
+LanguagesApi.prototype.getLanguagesLanguageId = function getLanguagesLanguageId(languageId){
+    var requestPath = '/api/v2/routing/languages/{languageId}';
     var requestQuery = {};
     var requestBody;
 
@@ -44,14 +43,13 @@ LanguagesApi.prototype.getLanguageId = function getLanguageId(languageId){
 };
 
 /**
-  * @summary Delete Language (Deprecated)
-  * @description This endpoint is deprecated. It has been moved to /routing/languages/{languageId}
+  * @summary Delete Language
   * @memberOf LanguagesApi
   * @instance
   * @param {string} languageId - Language ID
   */
-LanguagesApi.prototype.deleteLanguageId = function deleteLanguageId(languageId){
-    var requestPath = '/api/v2/languages/{languageId}';
+LanguagesApi.prototype.deleteLanguagesLanguageId = function deleteLanguagesLanguageId(languageId){
+    var requestPath = '/api/v2/routing/languages/{languageId}';
     var requestQuery = {};
     var requestBody;
 
@@ -80,8 +78,8 @@ LanguagesApi.prototype.deleteLanguageId = function deleteLanguageId(languageId){
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "firstUri": "",
    "selfUri": "",
+   "firstUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
@@ -140,7 +138,8 @@ LanguagesApi.prototype.postLanguages = function postLanguages(body){
 };
 
 /**
-  * @summary Get language
+  * @summary Get language (Deprecated)
+  * @description This endpoint is deprecated. It has been moved to /routing/languages/{languageId}
   * @memberOf LanguagesApi
   * @instance
   * @param {string} languageId - Language ID
@@ -155,8 +154,8 @@ LanguagesApi.prototype.postLanguages = function postLanguages(body){
    "selfUri": ""
 }
   */
-LanguagesApi.prototype.getLanguagesLanguageId = function getLanguagesLanguageId(languageId){
-    var requestPath = '/api/v2/routing/languages/{languageId}';
+LanguagesApi.prototype.getLanguageId = function getLanguageId(languageId){
+    var requestPath = '/api/v2/languages/{languageId}';
     var requestQuery = {};
     var requestBody;
 
@@ -168,13 +167,14 @@ LanguagesApi.prototype.getLanguagesLanguageId = function getLanguagesLanguageId(
 };
 
 /**
-  * @summary Delete Language
+  * @summary Delete Language (Deprecated)
+  * @description This endpoint is deprecated. It has been moved to /routing/languages/{languageId}
   * @memberOf LanguagesApi
   * @instance
   * @param {string} languageId - Language ID
   */
-LanguagesApi.prototype.deleteLanguagesLanguageId = function deleteLanguagesLanguageId(languageId){
-    var requestPath = '/api/v2/routing/languages/{languageId}';
+LanguagesApi.prototype.deleteLanguageId = function deleteLanguageId(languageId){
+    var requestPath = '/api/v2/languages/{languageId}';
     var requestQuery = {};
     var requestBody;
 
@@ -183,6 +183,25 @@ LanguagesApi.prototype.deleteLanguagesLanguageId = function deleteLanguagesLangu
     }
     requestPath = requestPath.replace('{languageId}', languageId);
     return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get all available languages for translation
+  * @memberOf LanguagesApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * {
+   "orgSpecific": [],
+   "builtin": []
+}
+  */
+LanguagesApi.prototype.getTranslations = function getTranslations(){
+    var requestPath = '/api/v2/languages/translations';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
@@ -236,25 +255,6 @@ LanguagesApi.prototype.getTranslationsUsersUserId = function getTranslationsUser
       throw new Error('Missing required  parameter: userId');
     }
     requestPath = requestPath.replace('{userId}', userId);
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get all available languages for translation
-  * @memberOf LanguagesApi
-  * @instance
-  * @example
-  * 200 Response Example:
-  * {
-   "orgSpecific": [],
-   "builtin": []
-}
-  */
-LanguagesApi.prototype.getTranslations = function getTranslations(){
-    var requestPath = '/api/v2/languages/translations';
-    var requestQuery = {};
-    var requestBody;
-
     return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 

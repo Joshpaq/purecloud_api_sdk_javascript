@@ -15,26 +15,6 @@ function UserRecordingsApi(session) {
 }
 
 /**
-  * @summary Get user recording summary
-  * @memberOf UserRecordingsApi
-  * @instance
-  * @example
-  * 200 Response Example:
-  * {
-   "readCount": 0,
-   "unreadCount": 0,
-   "totalCount": 0
-}
-  */
-UserRecordingsApi.prototype.getSummary = function getSummary(){
-    var requestPath = '/api/v2/userrecordings/summary';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get a list of user recordings.
   * @memberOf UserRecordingsApi
   * @instance
@@ -48,8 +28,8 @@ UserRecordingsApi.prototype.getSummary = function getSummary(){
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "firstUri": "",
    "selfUri": "",
+   "firstUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
@@ -270,6 +250,26 @@ UserRecordingsApi.prototype.deleteRecordingId = function deleteRecordingId(recor
     }
     requestPath = requestPath.replace('{recordingId}', recordingId);
     return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get user recording summary
+  * @memberOf UserRecordingsApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * {
+   "readCount": 0,
+   "unreadCount": 0,
+   "totalCount": 0
+}
+  */
+UserRecordingsApi.prototype.getSummary = function getSummary(){
+    var requestPath = '/api/v2/userrecordings/summary';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 

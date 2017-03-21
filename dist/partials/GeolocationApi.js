@@ -15,64 +15,6 @@ function GeolocationApi(session) {
 }
 
 /**
-  * @summary Get a organization's GeolocationSettings
-  * @memberOf GeolocationApi
-  * @instance
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "enabled": true,
-   "mapboxKey": "",
-   "selfUri": ""
-}
-  */
-GeolocationApi.prototype.getSettings = function getSettings(){
-    var requestPath = '/api/v2/geolocations/settings';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Patch a organization's GeolocationSettings
-  * @memberOf GeolocationApi
-  * @instance
-  * @param {} body - Geolocation settings
-  * @example
-  * Body Example:
-  * {
-   "name": "",
-   "enabled": true,
-   "mapboxKey": ""
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "enabled": true,
-   "mapboxKey": "",
-   "selfUri": ""
-}
-  */
-GeolocationApi.prototype.patchSettings = function patchSettings(body){
-    var requestPath = '/api/v2/geolocations/settings';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('PATCH', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get a user's Geolocation
   * @memberOf GeolocationApi
   * @instance
@@ -160,6 +102,64 @@ GeolocationApi.prototype.patchUserIdGeolocationsClientId = function patchUserIdG
       throw new Error('Missing required  parameter: clientId');
     }
     requestPath = requestPath.replace('{clientId}', clientId);
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('PATCH', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get a organization's GeolocationSettings
+  * @memberOf GeolocationApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "enabled": true,
+   "mapboxKey": "",
+   "selfUri": ""
+}
+  */
+GeolocationApi.prototype.getSettings = function getSettings(){
+    var requestPath = '/api/v2/geolocations/settings';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Patch a organization's GeolocationSettings
+  * @memberOf GeolocationApi
+  * @instance
+  * @param {} body - Geolocation settings
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "enabled": true,
+   "mapboxKey": ""
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "enabled": true,
+   "mapboxKey": "",
+   "selfUri": ""
+}
+  */
+GeolocationApi.prototype.patchSettings = function patchSettings(body){
+    var requestPath = '/api/v2/geolocations/settings';
+    var requestQuery = {};
+    var requestBody;
+
     if(body === undefined || body === null){
       throw new Error('Missing required  parameter: body');
     }

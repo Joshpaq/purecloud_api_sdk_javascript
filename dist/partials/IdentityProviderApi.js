@@ -92,7 +92,169 @@ IdentityProviderApi.prototype.deleteCic = function deleteCic(){
 };
 
 /**
-  * @summary Get OneLogin Identity Provider
+  * @summary Get Ping Identity Provider
+  * @memberOf IdentityProviderApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "relyingPartyIdentifier": "",
+   "certificate": "",
+   "issuerURI": "",
+   "ssoTargetURI": "",
+   "disabled": true,
+   "selfUri": ""
+}
+  */
+IdentityProviderApi.prototype.getPing = function getPing(){
+    var requestPath = '/api/v2/identityproviders/ping';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Update/Create Ping Identity Provider
+  * @memberOf IdentityProviderApi
+  * @instance
+  * @param {} body - Provider
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "relyingPartyIdentifier": "",
+   "certificate": "",
+   "issuerURI": "",
+   "ssoTargetURI": "",
+   "disabled": true
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "disabled": true,
+   "selfUri": ""
+}
+  */
+IdentityProviderApi.prototype.putPing = function putPing(body){
+    var requestPath = '/api/v2/identityproviders/ping';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Delete Ping Identity Provider
+  * @memberOf IdentityProviderApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * {}
+  */
+IdentityProviderApi.prototype.deletePing = function deletePing(){
+    var requestPath = '/api/v2/identityproviders/ping';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get IdentityNow Provider
+  * @memberOf IdentityProviderApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "relyingPartyIdentifier": "",
+   "certificate": "",
+   "issuerURI": "",
+   "ssoTargetURI": "",
+   "disabled": true,
+   "selfUri": ""
+}
+  */
+IdentityProviderApi.prototype.getIdentitynow = function getIdentitynow(){
+    var requestPath = '/api/v2/identityproviders/identitynow';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Update/Create IdentityNow Provider
+  * @memberOf IdentityProviderApi
+  * @instance
+  * @param {} body - Provider
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "relyingPartyIdentifier": "",
+   "certificate": "",
+   "issuerURI": "",
+   "ssoTargetURI": "",
+   "disabled": true
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "relyingPartyIdentifier": "",
+   "certificate": "",
+   "issuerURI": "",
+   "ssoTargetURI": "",
+   "disabled": true,
+   "selfUri": ""
+}
+  */
+IdentityProviderApi.prototype.putIdentitynow = function putIdentitynow(body){
+    var requestPath = '/api/v2/identityproviders/identitynow';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Delete IdentityNow Provider
+  * @memberOf IdentityProviderApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * {}
+  */
+IdentityProviderApi.prototype.deleteIdentitynow = function deleteIdentitynow(){
+    var requestPath = '/api/v2/identityproviders/identitynow';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get Okta Identity Provider
   * @memberOf IdentityProviderApi
   * @instance
   * @example
@@ -107,8 +269,8 @@ IdentityProviderApi.prototype.deleteCic = function deleteCic(){
    "selfUri": ""
 }
   */
-IdentityProviderApi.prototype.getOnelogin = function getOnelogin(){
-    var requestPath = '/api/v2/identityproviders/onelogin';
+IdentityProviderApi.prototype.getOkta = function getOkta(){
+    var requestPath = '/api/v2/identityproviders/okta';
     var requestQuery = {};
     var requestBody;
 
@@ -116,7 +278,7 @@ IdentityProviderApi.prototype.getOnelogin = function getOnelogin(){
 };
 
 /**
-  * @summary Update/Create OneLogin Identity Provider
+  * @summary Update/Create Okta Identity Provider
   * @memberOf IdentityProviderApi
   * @instance
   * @param {} body - Provider
@@ -138,8 +300,8 @@ IdentityProviderApi.prototype.getOnelogin = function getOnelogin(){
    "selfUri": ""
 }
   */
-IdentityProviderApi.prototype.putOnelogin = function putOnelogin(body){
-    var requestPath = '/api/v2/identityproviders/onelogin';
+IdentityProviderApi.prototype.putOkta = function putOkta(body){
+    var requestPath = '/api/v2/identityproviders/okta';
     var requestQuery = {};
     var requestBody;
 
@@ -153,46 +315,19 @@ IdentityProviderApi.prototype.putOnelogin = function putOnelogin(body){
 };
 
 /**
-  * @summary Delete OneLogin Identity Provider
+  * @summary Delete Okta Identity Provider
   * @memberOf IdentityProviderApi
   * @instance
   * @example
   * 200 Response Example:
   * {}
   */
-IdentityProviderApi.prototype.deleteOnelogin = function deleteOnelogin(){
-    var requestPath = '/api/v2/identityproviders/onelogin';
+IdentityProviderApi.prototype.deleteOkta = function deleteOkta(){
+    var requestPath = '/api/v2/identityproviders/okta';
     var requestQuery = {};
     var requestBody;
 
     return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary The list of identity providers
-  * @memberOf IdentityProviderApi
-  * @instance
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "firstUri": "",
-   "selfUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "lastUri": "",
-   "pageCount": 0
-}
-  */
-IdentityProviderApi.prototype.getIdentityproviders = function getIdentityproviders(){
-    var requestPath = '/api/v2/identityproviders';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 /**
@@ -275,157 +410,7 @@ IdentityProviderApi.prototype.deleteAdfs = function deleteAdfs(){
 };
 
 /**
-  * @summary Get PureCloud Identity Provider
-  * @memberOf IdentityProviderApi
-  * @instance
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "disabled": true,
-   "selfUri": ""
-}
-  */
-IdentityProviderApi.prototype.getPurecloud = function getPurecloud(){
-    var requestPath = '/api/v2/identityproviders/purecloud';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Update/Create PureCloud Identity Provider
-  * @memberOf IdentityProviderApi
-  * @instance
-  * @param {} body - Provider
-  * @example
-  * Body Example:
-  * {
-   "name": "",
-   "disabled": true
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "disabled": true,
-   "selfUri": ""
-}
-  */
-IdentityProviderApi.prototype.putPurecloud = function putPurecloud(body){
-    var requestPath = '/api/v2/identityproviders/purecloud';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Delete PureCloud Identity Provider
-  * @memberOf IdentityProviderApi
-  * @instance
-  * @example
-  * 200 Response Example:
-  * {}
-  */
-IdentityProviderApi.prototype.deletePurecloud = function deletePurecloud(){
-    var requestPath = '/api/v2/identityproviders/purecloud';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get Ping Identity Provider
-  * @memberOf IdentityProviderApi
-  * @instance
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "relyingPartyIdentifier": "",
-   "certificate": "",
-   "issuerURI": "",
-   "ssoTargetURI": "",
-   "disabled": true,
-   "selfUri": ""
-}
-  */
-IdentityProviderApi.prototype.getPing = function getPing(){
-    var requestPath = '/api/v2/identityproviders/ping';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Update/Create Ping Identity Provider
-  * @memberOf IdentityProviderApi
-  * @instance
-  * @param {} body - Provider
-  * @example
-  * Body Example:
-  * {
-   "name": "",
-   "relyingPartyIdentifier": "",
-   "certificate": "",
-   "issuerURI": "",
-   "ssoTargetURI": "",
-   "disabled": true
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "disabled": true,
-   "selfUri": ""
-}
-  */
-IdentityProviderApi.prototype.putPing = function putPing(body){
-    var requestPath = '/api/v2/identityproviders/ping';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Delete Ping Identity Provider
-  * @memberOf IdentityProviderApi
-  * @instance
-  * @example
-  * 200 Response Example:
-  * {}
-  */
-IdentityProviderApi.prototype.deletePing = function deletePing(){
-    var requestPath = '/api/v2/identityproviders/ping';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get Okta Identity Provider
+  * @summary Get Salesforce Identity Provider
   * @memberOf IdentityProviderApi
   * @instance
   * @example
@@ -440,8 +425,8 @@ IdentityProviderApi.prototype.deletePing = function deletePing(){
    "selfUri": ""
 }
   */
-IdentityProviderApi.prototype.getOkta = function getOkta(){
-    var requestPath = '/api/v2/identityproviders/okta';
+IdentityProviderApi.prototype.getSalesforce = function getSalesforce(){
+    var requestPath = '/api/v2/identityproviders/salesforce';
     var requestQuery = {};
     var requestBody;
 
@@ -449,7 +434,7 @@ IdentityProviderApi.prototype.getOkta = function getOkta(){
 };
 
 /**
-  * @summary Update/Create Okta Identity Provider
+  * @summary Update/Create Salesforce Identity Provider
   * @memberOf IdentityProviderApi
   * @instance
   * @param {} body - Provider
@@ -471,8 +456,8 @@ IdentityProviderApi.prototype.getOkta = function getOkta(){
    "selfUri": ""
 }
   */
-IdentityProviderApi.prototype.putOkta = function putOkta(body){
-    var requestPath = '/api/v2/identityproviders/okta';
+IdentityProviderApi.prototype.putSalesforce = function putSalesforce(body){
+    var requestPath = '/api/v2/identityproviders/salesforce';
     var requestQuery = {};
     var requestBody;
 
@@ -486,15 +471,15 @@ IdentityProviderApi.prototype.putOkta = function putOkta(body){
 };
 
 /**
-  * @summary Delete Okta Identity Provider
+  * @summary Delete Salesforce Identity Provider
   * @memberOf IdentityProviderApi
   * @instance
   * @example
   * 200 Response Example:
   * {}
   */
-IdentityProviderApi.prototype.deleteOkta = function deleteOkta(){
-    var requestPath = '/api/v2/identityproviders/okta';
+IdentityProviderApi.prototype.deleteSalesforce = function deleteSalesforce(){
+    var requestPath = '/api/v2/identityproviders/salesforce';
     var requestQuery = {};
     var requestBody;
 
@@ -581,7 +566,34 @@ IdentityProviderApi.prototype.deleteGsuite = function deleteGsuite(){
 };
 
 /**
-  * @summary Get Salesforce Identity Provider
+  * @summary The list of identity providers
+  * @memberOf IdentityProviderApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * {
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "selfUri": "",
+   "firstUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
+}
+  */
+IdentityProviderApi.prototype.getIdentityproviders = function getIdentityproviders(){
+    var requestPath = '/api/v2/identityproviders';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get OneLogin Identity Provider
   * @memberOf IdentityProviderApi
   * @instance
   * @example
@@ -596,8 +608,8 @@ IdentityProviderApi.prototype.deleteGsuite = function deleteGsuite(){
    "selfUri": ""
 }
   */
-IdentityProviderApi.prototype.getSalesforce = function getSalesforce(){
-    var requestPath = '/api/v2/identityproviders/salesforce';
+IdentityProviderApi.prototype.getOnelogin = function getOnelogin(){
+    var requestPath = '/api/v2/identityproviders/onelogin';
     var requestQuery = {};
     var requestBody;
 
@@ -605,7 +617,7 @@ IdentityProviderApi.prototype.getSalesforce = function getSalesforce(){
 };
 
 /**
-  * @summary Update/Create Salesforce Identity Provider
+  * @summary Update/Create OneLogin Identity Provider
   * @memberOf IdentityProviderApi
   * @instance
   * @param {} body - Provider
@@ -627,8 +639,8 @@ IdentityProviderApi.prototype.getSalesforce = function getSalesforce(){
    "selfUri": ""
 }
   */
-IdentityProviderApi.prototype.putSalesforce = function putSalesforce(body){
-    var requestPath = '/api/v2/identityproviders/salesforce';
+IdentityProviderApi.prototype.putOnelogin = function putOnelogin(body){
+    var requestPath = '/api/v2/identityproviders/onelogin';
     var requestQuery = {};
     var requestBody;
 
@@ -642,15 +654,86 @@ IdentityProviderApi.prototype.putSalesforce = function putSalesforce(body){
 };
 
 /**
-  * @summary Delete Salesforce Identity Provider
+  * @summary Delete OneLogin Identity Provider
   * @memberOf IdentityProviderApi
   * @instance
   * @example
   * 200 Response Example:
   * {}
   */
-IdentityProviderApi.prototype.deleteSalesforce = function deleteSalesforce(){
-    var requestPath = '/api/v2/identityproviders/salesforce';
+IdentityProviderApi.prototype.deleteOnelogin = function deleteOnelogin(){
+    var requestPath = '/api/v2/identityproviders/onelogin';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get PureCloud Identity Provider
+  * @memberOf IdentityProviderApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "disabled": true,
+   "selfUri": ""
+}
+  */
+IdentityProviderApi.prototype.getPurecloud = function getPurecloud(){
+    var requestPath = '/api/v2/identityproviders/purecloud';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Update/Create PureCloud Identity Provider
+  * @memberOf IdentityProviderApi
+  * @instance
+  * @param {} body - Provider
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "disabled": true
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "disabled": true,
+   "selfUri": ""
+}
+  */
+IdentityProviderApi.prototype.putPurecloud = function putPurecloud(body){
+    var requestPath = '/api/v2/identityproviders/purecloud';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('PUT', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Delete PureCloud Identity Provider
+  * @memberOf IdentityProviderApi
+  * @instance
+  * @example
+  * 200 Response Example:
+  * {}
+  */
+IdentityProviderApi.prototype.deletePurecloud = function deletePurecloud(){
+    var requestPath = '/api/v2/identityproviders/purecloud';
     var requestQuery = {};
     var requestBody;
 

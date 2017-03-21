@@ -58,54 +58,6 @@ LocationsApi.prototype.getLocationId = function getLocationId(locationId){
 };
 
 /**
-  * @summary Get a list of all locations.
-  * @memberOf LocationsApi
-  * @instance
-  * @param {integer} pageSize - Page size
-  * @param {integer} pageNumber - Page number
-  * @param {string} sortOrder - Sort order
-  asc,
-  desc,
-  * @example
-  * 200 Response Example:
-  * [
- {
-  "id": "",
-  "name": "",
-  "address": {
-   "city": "",
-   "country": "",
-   "countryName": "",
-   "state": "",
-   "street1": "",
-   "street2": "",
-   "zipcode": ""
-  },
-  "addressVerified": true,
-  "emergencyNumber": {
-   "e164": "",
-   "number": "",
-   "type": ""
-  },
-  "state": "",
-  "version": 0,
-  "path": [],
-  "selfUri": ""
- }
-]
-  */
-LocationsApi.prototype.getLocations = function getLocations(pageSize, pageNumber, sortOrder){
-    var requestPath = '/api/v2/locations';
-    var requestQuery = {};
-    var requestBody;
-
-    requestQuery["pageSize"] = pageSize;
-    requestQuery["pageNumber"] = pageNumber;
-    requestQuery["sortOrder"] = sortOrder;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Search locations using the q64 value returned from a previous search
   * @memberOf LocationsApi
   * @instance
@@ -178,6 +130,54 @@ LocationsApi.prototype.postSearch = function postSearch(body){
       requestBody = body;
     }
     return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get a list of all locations.
+  * @memberOf LocationsApi
+  * @instance
+  * @param {integer} pageSize - Page size
+  * @param {integer} pageNumber - Page number
+  * @param {string} sortOrder - Sort order
+  asc,
+  desc,
+  * @example
+  * 200 Response Example:
+  * [
+ {
+  "id": "",
+  "name": "",
+  "address": {
+   "city": "",
+   "country": "",
+   "countryName": "",
+   "state": "",
+   "street1": "",
+   "street2": "",
+   "zipcode": ""
+  },
+  "addressVerified": true,
+  "emergencyNumber": {
+   "e164": "",
+   "number": "",
+   "type": ""
+  },
+  "state": "",
+  "version": 0,
+  "path": [],
+  "selfUri": ""
+ }
+]
+  */
+LocationsApi.prototype.getLocations = function getLocations(pageSize, pageNumber, sortOrder){
+    var requestPath = '/api/v2/locations';
+    var requestQuery = {};
+    var requestBody;
+
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["pageNumber"] = pageNumber;
+    requestQuery["sortOrder"] = sortOrder;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 
