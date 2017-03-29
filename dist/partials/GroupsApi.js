@@ -15,211 +15,6 @@ function GroupsApi(session) {
 }
 
 /**
-  * @summary Get group members
-  * @memberOf GroupsApi
-  * @instance
-  * @param {string} groupId - Group ID
-  * @param {integer} pageSize - Page size
-  * @param {integer} pageNumber - Page number
-  * @param {string} sortOrder - Ascending or descending sort order
-  ascending,
-  descending,
-  * @param {array} expand - Which fields, if any, to expand Valid Values: routingStatus, presence, conversationSummary, outOfOffice, geolocation, station, authorization, profileSkills, locations, groupMemberships
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "lastUri": "",
-   "pageCount": 0
-}
-  */
-GroupsApi.prototype.getGroupIdMembers = function getGroupIdMembers(groupId, pageSize, pageNumber, sortOrder, expand){
-    var requestPath = '/api/v2/groups/{groupId}/members';
-    var requestQuery = {};
-    var requestBody;
-
-    if(groupId === undefined || groupId === null){
-      throw new Error('Missing required  parameter: groupId');
-    }
-    requestPath = requestPath.replace('{groupId}', groupId);
-    requestQuery["pageSize"] = pageSize;
-    requestQuery["pageNumber"] = pageNumber;
-    requestQuery["sortOrder"] = sortOrder;
-    requestQuery["expand"] = expand;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Add members
-  * @memberOf GroupsApi
-  * @instance
-  * @param {string} groupId - Group ID
-  * @param {} body - Add members
-  * @example
-  * Body Example:
-  * {
-   "memberIds": [],
-   "version": 0
-}
-  */
-GroupsApi.prototype.postGroupIdMembers = function postGroupIdMembers(groupId, body){
-    var requestPath = '/api/v2/groups/{groupId}/members';
-    var requestQuery = {};
-    var requestBody;
-
-    if(groupId === undefined || groupId === null){
-      throw new Error('Missing required  parameter: groupId');
-    }
-    requestPath = requestPath.replace('{groupId}', groupId);
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Remove members
-  * @memberOf GroupsApi
-  * @instance
-  * @param {string} groupId - Group ID
-  * @param {string} ids - Comma separated list of userIds to remove
-  */
-GroupsApi.prototype.deleteGroupIdMembers = function deleteGroupIdMembers(groupId, ids){
-    var requestPath = '/api/v2/groups/{groupId}/members';
-    var requestQuery = {};
-    var requestBody;
-
-    if(groupId === undefined || groupId === null){
-      throw new Error('Missing required  parameter: groupId');
-    }
-    requestPath = requestPath.replace('{groupId}', groupId);
-    if(ids === undefined || ids === null){
-      throw new Error('Missing required  parameter: ids');
-    }
-    requestQuery["ids"] = ids;
-    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Search groups using the q64 value returned from a previous search
-  * @memberOf GroupsApi
-  * @instance
-  * @param {string} q64 - q64
-  * @param {array} expand - expand
-  * @example
-  * 200 Response Example:
-  * {
-   "total": 0,
-   "pageCount": 0,
-   "pageSize": 0,
-   "pageNumber": 0,
-   "previousPage": "",
-   "currentPage": "",
-   "nextPage": "",
-   "types": [],
-   "results": []
-}
-  */
-GroupsApi.prototype.getSearch = function getSearch(q64, expand){
-    var requestPath = '/api/v2/groups/search';
-    var requestQuery = {};
-    var requestBody;
-
-    if(q64 === undefined || q64 === null){
-      throw new Error('Missing required  parameter: q64');
-    }
-    requestQuery["q64"] = q64;
-    requestQuery["expand"] = expand;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Search groups
-  * @memberOf GroupsApi
-  * @instance
-  * @param {} body - Search request options
-  * @example
-  * Body Example:
-  * {
-   "sortOrder": "",
-   "sortBy": "",
-   "pageSize": 0,
-   "pageNumber": 0,
-   "query": []
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "total": 0,
-   "pageCount": 0,
-   "pageSize": 0,
-   "pageNumber": 0,
-   "previousPage": "",
-   "currentPage": "",
-   "nextPage": "",
-   "types": [],
-   "results": []
-}
-  */
-GroupsApi.prototype.postSearch = function postSearch(body){
-    var requestPath = '/api/v2/groups/search';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Fetch field config for an entity type
-  * @memberOf GroupsApi
-  * @instance
-  * @param {string} type - Field type
-  person,
-  group,
-  org,
-  externalContact,
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "entityType": "",
-   "state": "",
-   "sections": [],
-   "version": "",
-   "schemaVersion": "",
-   "selfUri": ""
-}
-  */
-GroupsApi.prototype.getFieldconfig = function getFieldconfig(type){
-    var requestPath = '/api/v2/fieldconfig';
-    var requestQuery = {};
-    var requestBody;
-
-    if(type === undefined || type === null){
-      throw new Error('Missing required  parameter: type');
-    }
-    requestQuery["type"] = type;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get group
   * @memberOf GroupsApi
   * @instance
@@ -324,6 +119,40 @@ GroupsApi.prototype.deleteGroupId = function deleteGroupId(groupId){
 };
 
 /**
+  * @summary Fetch field config for an entity type
+  * @memberOf GroupsApi
+  * @instance
+  * @param {string} type - Field type
+  person,
+  group,
+  org,
+  externalContact,
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "entityType": "",
+   "state": "",
+   "sections": [],
+   "version": "",
+   "schemaVersion": "",
+   "selfUri": ""
+}
+  */
+GroupsApi.prototype.getFieldconfig = function getFieldconfig(type){
+    var requestPath = '/api/v2/fieldconfig';
+    var requestQuery = {};
+    var requestBody;
+
+    if(type === undefined || type === null){
+      throw new Error('Missing required  parameter: type');
+    }
+    requestQuery["type"] = type;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
   * @summary Get a group list
   * @memberOf GroupsApi
   * @instance
@@ -339,8 +168,8 @@ GroupsApi.prototype.deleteGroupId = function deleteGroupId(groupId){
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "selfUri": "",
    "firstUri": "",
+   "selfUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
@@ -404,6 +233,177 @@ GroupsApi.prototype.postGroups = function postGroups(body){
       requestBody = body;
     }
     return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Search groups using the q64 value returned from a previous search
+  * @memberOf GroupsApi
+  * @instance
+  * @param {string} q64 - q64
+  * @param {array} expand - expand
+  * @example
+  * 200 Response Example:
+  * {
+   "total": 0,
+   "pageCount": 0,
+   "pageSize": 0,
+   "pageNumber": 0,
+   "previousPage": "",
+   "currentPage": "",
+   "nextPage": "",
+   "types": [],
+   "results": []
+}
+  */
+GroupsApi.prototype.getSearch = function getSearch(q64, expand){
+    var requestPath = '/api/v2/groups/search';
+    var requestQuery = {};
+    var requestBody;
+
+    if(q64 === undefined || q64 === null){
+      throw new Error('Missing required  parameter: q64');
+    }
+    requestQuery["q64"] = q64;
+    requestQuery["expand"] = expand;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Search groups
+  * @memberOf GroupsApi
+  * @instance
+  * @param {} body - Search request options
+  * @example
+  * Body Example:
+  * {
+   "sortOrder": "",
+   "sortBy": "",
+   "pageSize": 0,
+   "pageNumber": 0,
+   "query": []
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "total": 0,
+   "pageCount": 0,
+   "pageSize": 0,
+   "pageNumber": 0,
+   "previousPage": "",
+   "currentPage": "",
+   "nextPage": "",
+   "types": [],
+   "results": []
+}
+  */
+GroupsApi.prototype.postSearch = function postSearch(body){
+    var requestPath = '/api/v2/groups/search';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get group members
+  * @memberOf GroupsApi
+  * @instance
+  * @param {string} groupId - Group ID
+  * @param {integer} pageSize - Page size
+  * @param {integer} pageNumber - Page number
+  * @param {string} sortOrder - Ascending or descending sort order
+  ascending,
+  descending,
+  * @param {array} expand - Which fields, if any, to expand Valid Values: routingStatus, presence, conversationSummary, outOfOffice, geolocation, station, authorization, profileSkills, locations, groupMemberships
+  * @example
+  * 200 Response Example:
+  * {
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "firstUri": "",
+   "selfUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
+}
+  */
+GroupsApi.prototype.getGroupIdMembers = function getGroupIdMembers(groupId, pageSize, pageNumber, sortOrder, expand){
+    var requestPath = '/api/v2/groups/{groupId}/members';
+    var requestQuery = {};
+    var requestBody;
+
+    if(groupId === undefined || groupId === null){
+      throw new Error('Missing required  parameter: groupId');
+    }
+    requestPath = requestPath.replace('{groupId}', groupId);
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["pageNumber"] = pageNumber;
+    requestQuery["sortOrder"] = sortOrder;
+    requestQuery["expand"] = expand;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Add members
+  * @memberOf GroupsApi
+  * @instance
+  * @param {string} groupId - Group ID
+  * @param {} body - Add members
+  * @example
+  * Body Example:
+  * {
+   "memberIds": [],
+   "version": 0
+}
+  */
+GroupsApi.prototype.postGroupIdMembers = function postGroupIdMembers(groupId, body){
+    var requestPath = '/api/v2/groups/{groupId}/members';
+    var requestQuery = {};
+    var requestBody;
+
+    if(groupId === undefined || groupId === null){
+      throw new Error('Missing required  parameter: groupId');
+    }
+    requestPath = requestPath.replace('{groupId}', groupId);
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Remove members
+  * @memberOf GroupsApi
+  * @instance
+  * @param {string} groupId - Group ID
+  * @param {string} ids - Comma separated list of userIds to remove
+  */
+GroupsApi.prototype.deleteGroupIdMembers = function deleteGroupIdMembers(groupId, ids){
+    var requestPath = '/api/v2/groups/{groupId}/members';
+    var requestQuery = {};
+    var requestBody;
+
+    if(groupId === undefined || groupId === null){
+      throw new Error('Missing required  parameter: groupId');
+    }
+    requestPath = requestPath.replace('{groupId}', groupId);
+    if(ids === undefined || ids === null){
+      throw new Error('Missing required  parameter: ids');
+    }
+    requestQuery["ids"] = ids;
+    return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
 };
 
 

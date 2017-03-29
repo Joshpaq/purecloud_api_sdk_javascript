@@ -15,6 +15,33 @@ function AnalyticsApi(session) {
 }
 
 /**
+  * @summary Get a conversation by id
+  * @memberOf AnalyticsApi
+  * @instance
+  * @param {string} conversationId - conversationId
+  * @example
+  * 200 Response Example:
+  * {
+   "conversationId": "",
+   "conversationStart": "",
+   "conversationEnd": "",
+   "participants": [],
+   "evaluations": []
+}
+  */
+AnalyticsApi.prototype.getConversationsConversationIdDetails = function getConversationsConversationIdDetails(conversationId){
+    var requestPath = '/api/v2/analytics/conversations/{conversationId}/details';
+    var requestQuery = {};
+    var requestBody;
+
+    if(conversationId === undefined || conversationId === null){
+      throw new Error('Missing required  parameter: conversationId');
+    }
+    requestPath = requestPath.replace('{conversationId}', conversationId);
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
   * @summary Index conversation properties
   * @memberOf AnalyticsApi
   * @instance
@@ -37,6 +64,47 @@ AnalyticsApi.prototype.postConversationsConversationIdDetailsProperties = functi
       throw new Error('Missing required  parameter: conversationId');
     }
     requestPath = requestPath.replace('{conversationId}', conversationId);
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Query for conversation aggregates
+  * @memberOf AnalyticsApi
+  * @instance
+  * @param {} body - query
+  * @example
+  * Body Example:
+  * {
+   "interval": "",
+   "granularity": "",
+   "timeZone": "",
+   "groupBy": [],
+   "filter": {
+      "type": "",
+      "clauses": [],
+      "predicates": []
+   },
+   "metrics": [],
+   "flattenMultivaluedDimensions": true,
+   "views": []
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "results": []
+}
+  */
+AnalyticsApi.prototype.postConversationsAggregatesQuery = function postConversationsAggregatesQuery(body){
+    var requestPath = '/api/v2/analytics/conversations/aggregates/query';
+    var requestQuery = {};
+    var requestBody;
+
     if(body === undefined || body === null){
       throw new Error('Missing required  parameter: body');
     }
@@ -88,74 +156,6 @@ AnalyticsApi.prototype.postConversationsDetailsQuery = function postConversation
 };
 
 /**
-  * @summary Get a conversation by id
-  * @memberOf AnalyticsApi
-  * @instance
-  * @param {string} conversationId - conversationId
-  * @example
-  * 200 Response Example:
-  * {
-   "conversationId": "",
-   "conversationStart": "",
-   "conversationEnd": "",
-   "participants": [],
-   "evaluations": []
-}
-  */
-AnalyticsApi.prototype.getConversationsConversationIdDetails = function getConversationsConversationIdDetails(conversationId){
-    var requestPath = '/api/v2/analytics/conversations/{conversationId}/details';
-    var requestQuery = {};
-    var requestBody;
-
-    if(conversationId === undefined || conversationId === null){
-      throw new Error('Missing required  parameter: conversationId');
-    }
-    requestPath = requestPath.replace('{conversationId}', conversationId);
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Query for conversation aggregates
-  * @memberOf AnalyticsApi
-  * @instance
-  * @param {} body - query
-  * @example
-  * Body Example:
-  * {
-   "interval": "",
-   "granularity": "",
-   "timeZone": "",
-   "groupBy": [],
-   "filter": {
-      "type": "",
-      "clauses": [],
-      "predicates": []
-   },
-   "metrics": [],
-   "flattenMultivaluedDimensions": true,
-   "views": []
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "results": []
-}
-  */
-AnalyticsApi.prototype.postConversationsAggregatesQuery = function postConversationsAggregatesQuery(body){
-    var requestPath = '/api/v2/analytics/conversations/aggregates/query';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get list of completed scheduled report jobs.
   * @memberOf AnalyticsApi
   * @instance
@@ -169,8 +169,8 @@ AnalyticsApi.prototype.postConversationsAggregatesQuery = function postConversat
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "selfUri": "",
    "firstUri": "",
+   "selfUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
@@ -225,6 +225,96 @@ AnalyticsApi.prototype.getReportingSchedulesScheduleIdHistoryLatest = function g
 };
 
 /**
+  * @summary A completed scheduled report job
+  * @description A completed scheduled report job.
+  * @memberOf AnalyticsApi
+  * @instance
+  * @param {string} runId - Run ID
+  * @param {string} scheduleId - Schedule ID
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "reportId": "",
+   "runTime": "",
+   "runStatus": "",
+   "errorMessage": "",
+   "runDurationMsec": 0,
+   "reportUrl": "",
+   "reportFormat": "",
+   "scheduleUri": "",
+   "selfUri": ""
+}
+  */
+AnalyticsApi.prototype.getReportingSchedulesScheduleIdHistoryRunId = function getReportingSchedulesScheduleIdHistoryRunId(runId, scheduleId){
+    var requestPath = '/api/v2/analytics/reporting/schedules/{scheduleId}/history/{runId}';
+    var requestQuery = {};
+    var requestBody;
+
+    if(runId === undefined || runId === null){
+      throw new Error('Missing required  parameter: runId');
+    }
+    requestPath = requestPath.replace('{runId}', runId);
+    if(scheduleId === undefined || scheduleId === null){
+      throw new Error('Missing required  parameter: scheduleId');
+    }
+    requestPath = requestPath.replace('{scheduleId}', scheduleId);
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Place a scheduled report immediately into the reporting queue
+  * @memberOf AnalyticsApi
+  * @instance
+  * @param {string} scheduleId - Schedule ID
+  */
+AnalyticsApi.prototype.postReportingSchedulesScheduleIdRunreport = function postReportingSchedulesScheduleIdRunreport(scheduleId){
+    var requestPath = '/api/v2/analytics/reporting/schedules/{scheduleId}/runreport';
+    var requestQuery = {};
+    var requestBody;
+
+    if(scheduleId === undefined || scheduleId === null){
+      throw new Error('Missing required  parameter: scheduleId');
+    }
+    requestPath = requestPath.replace('{scheduleId}', scheduleId);
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get a reporting metadata.
+  * @memberOf AnalyticsApi
+  * @instance
+  * @param {string} reportId - Report ID
+  * @param {string} locale - Locale
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "title": "",
+   "description": "",
+   "keywords": [],
+   "availableLocales": [],
+   "parameters": [],
+   "exampleUrl": "",
+   "selfUri": ""
+}
+  */
+AnalyticsApi.prototype.getReportingReportIdMetadata = function getReportingReportIdMetadata(reportId, locale){
+    var requestPath = '/api/v2/analytics/reporting/{reportId}/metadata';
+    var requestQuery = {};
+    var requestBody;
+
+    if(reportId === undefined || reportId === null){
+      throw new Error('Missing required  parameter: reportId');
+    }
+    requestPath = requestPath.replace('{reportId}', reportId);
+    requestQuery["locale"] = locale;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
   * @summary Query for queue observations
   * @memberOf AnalyticsApi
   * @instance
@@ -248,47 +338,6 @@ AnalyticsApi.prototype.getReportingSchedulesScheduleIdHistoryLatest = function g
   */
 AnalyticsApi.prototype.postQueuesObservationsQuery = function postQueuesObservationsQuery(body){
     var requestPath = '/api/v2/analytics/queues/observations/query';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Query for evaluation aggregates
-  * @memberOf AnalyticsApi
-  * @instance
-  * @param {} body - query
-  * @example
-  * Body Example:
-  * {
-   "interval": "",
-   "granularity": "",
-   "timeZone": "",
-   "groupBy": [],
-   "filter": {
-      "type": "",
-      "clauses": [],
-      "predicates": []
-   },
-   "metrics": [],
-   "flattenMultivaluedDimensions": true,
-   "views": []
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "results": []
-}
-  */
-AnalyticsApi.prototype.postEvaluationsAggregatesQuery = function postEvaluationsAggregatesQuery(body){
-    var requestPath = '/api/v2/analytics/evaluations/aggregates/query';
     var requestQuery = {};
     var requestBody;
 
@@ -458,6 +507,107 @@ AnalyticsApi.prototype.deleteReportingSchedulesScheduleId = function deleteRepor
 };
 
 /**
+  * @summary Query for evaluation aggregates
+  * @memberOf AnalyticsApi
+  * @instance
+  * @param {} body - query
+  * @example
+  * Body Example:
+  * {
+   "interval": "",
+   "granularity": "",
+   "timeZone": "",
+   "groupBy": [],
+   "filter": {
+      "type": "",
+      "clauses": [],
+      "predicates": []
+   },
+   "metrics": [],
+   "flattenMultivaluedDimensions": true,
+   "views": []
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "results": []
+}
+  */
+AnalyticsApi.prototype.postEvaluationsAggregatesQuery = function postEvaluationsAggregatesQuery(body){
+    var requestPath = '/api/v2/analytics/evaluations/aggregates/query';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get list of reporting metadata.
+  * @memberOf AnalyticsApi
+  * @instance
+  * @param {integer} pageNumber - Page number
+  * @param {integer} pageSize - Page size
+  * @param {string} locale - Locale
+  * @example
+  * 200 Response Example:
+  * {
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "firstUri": "",
+   "selfUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
+}
+  */
+AnalyticsApi.prototype.getReportingMetadata = function getReportingMetadata(pageNumber, pageSize, locale){
+    var requestPath = '/api/v2/analytics/reporting/metadata';
+    var requestQuery = {};
+    var requestBody;
+
+    requestQuery["pageNumber"] = pageNumber;
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["locale"] = locale;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get a list of report formats
+  * @description Get a list of report formats.
+  * @memberOf AnalyticsApi
+  * @instance
+  */
+AnalyticsApi.prototype.getReportingReportformats = function getReportingReportformats(){
+    var requestPath = '/api/v2/analytics/reporting/reportformats';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get a list of report time periods.
+  * @memberOf AnalyticsApi
+  * @instance
+  */
+AnalyticsApi.prototype.getReportingTimeperiods = function getReportingTimeperiods(){
+    var requestPath = '/api/v2/analytics/reporting/timeperiods';
+    var requestQuery = {};
+    var requestBody;
+
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
   * @summary Query for user details
   * @memberOf AnalyticsApi
   * @instance
@@ -576,156 +726,6 @@ AnalyticsApi.prototype.postUsersObservationsQuery = function postUsersObservatio
 };
 
 /**
-  * @summary Get list of reporting metadata.
-  * @memberOf AnalyticsApi
-  * @instance
-  * @param {integer} pageNumber - Page number
-  * @param {integer} pageSize - Page size
-  * @param {string} locale - Locale
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "lastUri": "",
-   "pageCount": 0
-}
-  */
-AnalyticsApi.prototype.getReportingMetadata = function getReportingMetadata(pageNumber, pageSize, locale){
-    var requestPath = '/api/v2/analytics/reporting/metadata';
-    var requestQuery = {};
-    var requestBody;
-
-    requestQuery["pageNumber"] = pageNumber;
-    requestQuery["pageSize"] = pageSize;
-    requestQuery["locale"] = locale;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary A completed scheduled report job
-  * @description A completed scheduled report job.
-  * @memberOf AnalyticsApi
-  * @instance
-  * @param {string} runId - Run ID
-  * @param {string} scheduleId - Schedule ID
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "reportId": "",
-   "runTime": "",
-   "runStatus": "",
-   "errorMessage": "",
-   "runDurationMsec": 0,
-   "reportUrl": "",
-   "reportFormat": "",
-   "scheduleUri": "",
-   "selfUri": ""
-}
-  */
-AnalyticsApi.prototype.getReportingSchedulesScheduleIdHistoryRunId = function getReportingSchedulesScheduleIdHistoryRunId(runId, scheduleId){
-    var requestPath = '/api/v2/analytics/reporting/schedules/{scheduleId}/history/{runId}';
-    var requestQuery = {};
-    var requestBody;
-
-    if(runId === undefined || runId === null){
-      throw new Error('Missing required  parameter: runId');
-    }
-    requestPath = requestPath.replace('{runId}', runId);
-    if(scheduleId === undefined || scheduleId === null){
-      throw new Error('Missing required  parameter: scheduleId');
-    }
-    requestPath = requestPath.replace('{scheduleId}', scheduleId);
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Place a scheduled report immediately into the reporting queue
-  * @memberOf AnalyticsApi
-  * @instance
-  * @param {string} scheduleId - Schedule ID
-  */
-AnalyticsApi.prototype.postReportingSchedulesScheduleIdRunreport = function postReportingSchedulesScheduleIdRunreport(scheduleId){
-    var requestPath = '/api/v2/analytics/reporting/schedules/{scheduleId}/runreport';
-    var requestQuery = {};
-    var requestBody;
-
-    if(scheduleId === undefined || scheduleId === null){
-      throw new Error('Missing required  parameter: scheduleId');
-    }
-    requestPath = requestPath.replace('{scheduleId}', scheduleId);
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get a list of report formats
-  * @description Get a list of report formats.
-  * @memberOf AnalyticsApi
-  * @instance
-  */
-AnalyticsApi.prototype.getReportingReportformats = function getReportingReportformats(){
-    var requestPath = '/api/v2/analytics/reporting/reportformats';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get a reporting metadata.
-  * @memberOf AnalyticsApi
-  * @instance
-  * @param {string} reportId - Report ID
-  * @param {string} locale - Locale
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "title": "",
-   "description": "",
-   "keywords": [],
-   "availableLocales": [],
-   "parameters": [],
-   "exampleUrl": "",
-   "selfUri": ""
-}
-  */
-AnalyticsApi.prototype.getReportingReportIdMetadata = function getReportingReportIdMetadata(reportId, locale){
-    var requestPath = '/api/v2/analytics/reporting/{reportId}/metadata';
-    var requestQuery = {};
-    var requestBody;
-
-    if(reportId === undefined || reportId === null){
-      throw new Error('Missing required  parameter: reportId');
-    }
-    requestPath = requestPath.replace('{reportId}', reportId);
-    requestQuery["locale"] = locale;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Get a list of report time periods.
-  * @memberOf AnalyticsApi
-  * @instance
-  */
-AnalyticsApi.prototype.getReportingTimeperiods = function getReportingTimeperiods(){
-    var requestPath = '/api/v2/analytics/reporting/timeperiods';
-    var requestQuery = {};
-    var requestBody;
-
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get a list of scheduled report jobs
   * @description Get a list of scheduled report jobs.
   * @memberOf AnalyticsApi
@@ -739,8 +739,8 @@ AnalyticsApi.prototype.getReportingTimeperiods = function getReportingTimeperiod
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "selfUri": "",
    "firstUri": "",
+   "selfUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",

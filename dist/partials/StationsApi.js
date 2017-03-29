@@ -15,45 +15,6 @@ function StationsApi(session) {
 }
 
 /**
-  * @summary Get the list of available stations.
-  * @memberOf StationsApi
-  * @instance
-  * @param {integer} pageSize - Page size
-  * @param {integer} pageNumber - Page number
-  * @param {string} sortBy - Sort by
-  * @param {string} name - Name
-  * @param {string} id - Comma separated list of stationIds
-  * @param {string} lineAppearanceId - lineAppearanceId
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "lastUri": "",
-   "pageCount": 0
-}
-  */
-StationsApi.prototype.getStations = function getStations(pageSize, pageNumber, sortBy, name, id, lineAppearanceId){
-    var requestPath = '/api/v2/stations';
-    var requestQuery = {};
-    var requestBody;
-
-    requestQuery["pageSize"] = pageSize;
-    requestQuery["pageNumber"] = pageNumber;
-    requestQuery["sortBy"] = sortBy;
-    requestQuery["name"] = name;
-    requestQuery["id"] = id;
-    requestQuery["lineAppearanceId"] = lineAppearanceId;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get station.
   * @memberOf StationsApi
   * @instance
@@ -109,6 +70,45 @@ StationsApi.prototype.deleteStationIdAssociateduser = function deleteStationIdAs
     }
     requestPath = requestPath.replace('{stationId}', stationId);
     return this.session.makeRequest('DELETE', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Get the list of available stations.
+  * @memberOf StationsApi
+  * @instance
+  * @param {integer} pageSize - Page size
+  * @param {integer} pageNumber - Page number
+  * @param {string} sortBy - Sort by
+  * @param {string} name - Name
+  * @param {string} id - Comma separated list of stationIds
+  * @param {string} lineAppearanceId - lineAppearanceId
+  * @example
+  * 200 Response Example:
+  * {
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "firstUri": "",
+   "selfUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
+}
+  */
+StationsApi.prototype.getStations = function getStations(pageSize, pageNumber, sortBy, name, id, lineAppearanceId){
+    var requestPath = '/api/v2/stations';
+    var requestQuery = {};
+    var requestBody;
+
+    requestQuery["pageSize"] = pageSize;
+    requestQuery["pageNumber"] = pageNumber;
+    requestQuery["sortBy"] = sortBy;
+    requestQuery["name"] = name;
+    requestQuery["id"] = id;
+    requestQuery["lineAppearanceId"] = lineAppearanceId;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
 };
 
 

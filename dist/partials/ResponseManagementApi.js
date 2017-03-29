@@ -15,167 +15,6 @@ function ResponseManagementApi(session) {
 }
 
 /**
-  * @summary Gets a list of existing responses.
-  * @memberOf ResponseManagementApi
-  * @instance
-  * @param {string} libraryId - Library ID
-  * @param {integer} pageNumber - Page number
-  * @param {integer} pageSize - Page size
-  * @example
-  * 200 Response Example:
-  * {
-   "entities": [],
-   "pageSize": 0,
-   "pageNumber": 0,
-   "total": 0,
-   "selfUri": "",
-   "firstUri": "",
-   "previousUri": "",
-   "nextUri": "",
-   "lastUri": "",
-   "pageCount": 0
-}
-  */
-ResponseManagementApi.prototype.getResponses = function getResponses(libraryId, pageNumber, pageSize){
-    var requestPath = '/api/v2/responsemanagement/responses';
-    var requestQuery = {};
-    var requestBody;
-
-    if(libraryId === undefined || libraryId === null){
-      throw new Error('Missing required  parameter: libraryId');
-    }
-    requestQuery["libraryId"] = libraryId;
-    requestQuery["pageNumber"] = pageNumber;
-    requestQuery["pageSize"] = pageSize;
-    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Create a response.
-  * @memberOf ResponseManagementApi
-  * @instance
-  * @param {} body - Response
-  * @example
-  * Body Example:
-  * {
-   "name": "",
-   "version": 0,
-   "libraries": [],
-   "texts": [],
-   "createdBy": {
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "addresses": [],
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0
-   },
-   "dateCreated": "",
-   "interactionType": "",
-   "substitutions": []
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "id": "",
-   "name": "",
-   "version": 0,
-   "libraries": [],
-   "texts": [],
-   "createdBy": {
-      "id": "",
-      "name": "",
-      "chat": {},
-      "department": "",
-      "email": "",
-      "primaryContactInfo": [],
-      "addresses": [],
-      "state": "",
-      "title": "",
-      "username": "",
-      "manager": {},
-      "images": [],
-      "version": 0,
-      "routingStatus": {},
-      "presence": {},
-      "conversationSummary": {},
-      "outOfOffice": {},
-      "geolocation": {},
-      "station": {},
-      "authorization": {},
-      "profileSkills": [],
-      "locations": [],
-      "groups": [],
-      "selfUri": ""
-   },
-   "dateCreated": "",
-   "interactionType": "",
-   "substitutions": [],
-   "selfUri": ""
-}
-  */
-ResponseManagementApi.prototype.postResponses = function postResponses(body){
-    var requestPath = '/api/v2/responsemanagement/responses';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
-  * @summary Query responses
-  * @memberOf ResponseManagementApi
-  * @instance
-  * @param {} body - Response
-  * @example
-  * Body Example:
-  * {
-   "queryPhrase": "",
-   "pageSize": 0,
-   "filters": []
-}
-  * @example
-  * 200 Response Example:
-  * {
-   "results": {
-      "entities": [],
-      "pageSize": 0,
-      "pageNumber": 0,
-      "total": 0,
-      "selfUri": "",
-      "firstUri": "",
-      "previousUri": "",
-      "nextUri": "",
-      "lastUri": "",
-      "pageCount": 0
-   }
-}
-  */
-ResponseManagementApi.prototype.postResponsesQuery = function postResponsesQuery(body){
-    var requestPath = '/api/v2/responsemanagement/responses/query';
-    var requestQuery = {};
-    var requestBody;
-
-    if(body === undefined || body === null){
-      throw new Error('Missing required  parameter: body');
-    }
-    if(body !== undefined && body !== null){
-      requestBody = body;
-    }
-    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
-};
-
-/**
   * @summary Get details about an existing response library.
   * @memberOf ResponseManagementApi
   * @instance
@@ -340,8 +179,8 @@ ResponseManagementApi.prototype.deleteLibrariesLibraryId = function deleteLibrar
    "pageSize": 0,
    "pageNumber": 0,
    "total": 0,
-   "selfUri": "",
    "firstUri": "",
+   "selfUri": "",
    "previousUri": "",
    "nextUri": "",
    "lastUri": "",
@@ -420,6 +259,167 @@ ResponseManagementApi.prototype.getLibraries = function getLibraries(pageNumber,
   */
 ResponseManagementApi.prototype.postLibraries = function postLibraries(body){
     var requestPath = '/api/v2/responsemanagement/libraries';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Gets a list of existing responses.
+  * @memberOf ResponseManagementApi
+  * @instance
+  * @param {string} libraryId - Library ID
+  * @param {integer} pageNumber - Page number
+  * @param {integer} pageSize - Page size
+  * @example
+  * 200 Response Example:
+  * {
+   "entities": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "total": 0,
+   "firstUri": "",
+   "selfUri": "",
+   "previousUri": "",
+   "nextUri": "",
+   "lastUri": "",
+   "pageCount": 0
+}
+  */
+ResponseManagementApi.prototype.getResponses = function getResponses(libraryId, pageNumber, pageSize){
+    var requestPath = '/api/v2/responsemanagement/responses';
+    var requestQuery = {};
+    var requestBody;
+
+    if(libraryId === undefined || libraryId === null){
+      throw new Error('Missing required  parameter: libraryId');
+    }
+    requestQuery["libraryId"] = libraryId;
+    requestQuery["pageNumber"] = pageNumber;
+    requestQuery["pageSize"] = pageSize;
+    return this.session.makeRequest('GET', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Create a response.
+  * @memberOf ResponseManagementApi
+  * @instance
+  * @param {} body - Response
+  * @example
+  * Body Example:
+  * {
+   "name": "",
+   "version": 0,
+   "libraries": [],
+   "texts": [],
+   "createdBy": {
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "addresses": [],
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0
+   },
+   "dateCreated": "",
+   "interactionType": "",
+   "substitutions": []
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "id": "",
+   "name": "",
+   "version": 0,
+   "libraries": [],
+   "texts": [],
+   "createdBy": {
+      "id": "",
+      "name": "",
+      "chat": {},
+      "department": "",
+      "email": "",
+      "primaryContactInfo": [],
+      "addresses": [],
+      "state": "",
+      "title": "",
+      "username": "",
+      "manager": {},
+      "images": [],
+      "version": 0,
+      "routingStatus": {},
+      "presence": {},
+      "conversationSummary": {},
+      "outOfOffice": {},
+      "geolocation": {},
+      "station": {},
+      "authorization": {},
+      "profileSkills": [],
+      "locations": [],
+      "groups": [],
+      "selfUri": ""
+   },
+   "dateCreated": "",
+   "interactionType": "",
+   "substitutions": [],
+   "selfUri": ""
+}
+  */
+ResponseManagementApi.prototype.postResponses = function postResponses(body){
+    var requestPath = '/api/v2/responsemanagement/responses';
+    var requestQuery = {};
+    var requestBody;
+
+    if(body === undefined || body === null){
+      throw new Error('Missing required  parameter: body');
+    }
+    if(body !== undefined && body !== null){
+      requestBody = body;
+    }
+    return this.session.makeRequest('POST', requestPath, requestQuery, requestBody);
+};
+
+/**
+  * @summary Query responses
+  * @memberOf ResponseManagementApi
+  * @instance
+  * @param {} body - Response
+  * @example
+  * Body Example:
+  * {
+   "queryPhrase": "",
+   "pageSize": 0,
+   "filters": []
+}
+  * @example
+  * 200 Response Example:
+  * {
+   "results": {
+      "entities": [],
+      "pageSize": 0,
+      "pageNumber": 0,
+      "total": 0,
+      "firstUri": "",
+      "selfUri": "",
+      "previousUri": "",
+      "nextUri": "",
+      "lastUri": "",
+      "pageCount": 0
+   }
+}
+  */
+ResponseManagementApi.prototype.postResponsesQuery = function postResponsesQuery(body){
+    var requestPath = '/api/v2/responsemanagement/responses/query';
     var requestQuery = {};
     var requestBody;
 
