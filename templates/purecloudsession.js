@@ -244,7 +244,7 @@ PureCloudSession.prototype._baseRequest = function _baseRequest(method, url) {
         .timeout(this.options.timeout);
 
     if (typeof window === 'undefined' ) {
-        var userAgent = ''PureCloud SDK/Javascript';
+        var userAgent = "PureCloud SDK/Javascript";
         request = request.set('User-Agent', userAgent);
     }
 
